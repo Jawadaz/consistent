@@ -1,0 +1,11 @@
+.Cell {
+    border-style: solid;
+    border-color: #800040;
+    border-width: 2px;
+    margin-bottom: 2px;
+}
+
+.cell_inner {
+    display: flex;
+    margin: 4px;
+}
