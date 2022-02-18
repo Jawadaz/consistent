@@ -2,11 +2,16 @@ import ProjectTitle from "../components/projects/ProjectTitle.js";
 import CellsList from "../components/cells/CellsList.js";
 import AddCellButton from "../components/ui/AddCellButton.js";
 
-function ProjectPage(){
+function ProjectPage({data}){
+    var cells = [];
+    if (data){
+        cells = data.cells;
+    }
+    console.log(cells)
     return (
         <div>
             <ProjectTitle />
-            <CellsList />
+            <CellsList cells={cells}/>
             <AddCellButton />
         </div>
     );
