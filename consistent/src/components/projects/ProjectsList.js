@@ -1,8 +1,10 @@
+import PropTypes from 'prop-types';
 import classes from './ProjectsList.module.css';
 import ProjectItem from './ProjectItem.js';
 import { Link } from 'react-router-dom';
 
 function ProjectsList({ projects }){
+
     if (!projects || projects.length===0){
         return (
             <>
@@ -15,12 +17,24 @@ function ProjectsList({ projects }){
         <ul className={classes.list}    >
             {projects.map(project => <ProjectItem 
                 key={project.id} 
-                id={project.id} 
+                id={project.id}
                 title={project.title} 
-                content={project.content}/>
+                description={project.description}
+                filename={project.filename}/>
             )}
         </ul>
     );
+}
+
+ProjectsList.propTypes = {
+    projects: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            title: PropTypes.string.isRequired,
+            description: PropTypes.string,
+            filename: PropTypes.string
+        })
+    ),
 }
 
 export default ProjectsList;    

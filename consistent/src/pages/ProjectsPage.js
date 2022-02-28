@@ -1,17 +1,17 @@
-import ProjectsList from "../components/projects/ProjcetsList";
-import projectsData from "../fixtures/dummy_projects.json"
+import ProjectsList from "../components/projects/ProjectsList";
 
-projectsData = [];
+function ProjectPage({projects}) {
 
-function ProjectPage() {
     return (
         <section>
             <h1>
                 Your Projects
             </h1>
-            <ProjectsList projects={projectsData}/>
+            <ProjectsList projects={projects}/>
         </section>
     );
 }
+
+
 
 export default ProjectPage;

@@ -1,4 +1,5 @@
 import { Route, Switch } from 'react-router-dom';
+import {useState}from 'react';
 
 import ProjectsPage from './pages/ProjectsPage';
 import ProjectPage from './pages/ProjectPage';
@@ -9,7 +10,13 @@ import NewProjectForm from './components/forms/NewProjectForm';
 import NewTagForm from './components/forms/NewTagForm';
 import Layout from './components/layout/Layout';
 
+import projectsData from "./fixtures/dummy_projects.json";
+
+
 function App() {
+
+  const [ projects, setProjects ] = useState(projectsData);
+
   return (
      <>
       <Layout>
@@ -18,7 +25,10 @@ function App() {
             <HomePage />
           </Route>
           <Route path="/projects" exact>
-            <ProjectsPage />
+            <ProjectsPage projects={projects}/>
+          </Route>
+          <Route path="/projects/:project_id" exact>
+            <ProjectPage />
           </Route>
           <Route path="/projects/new">
             <ProjectPage />

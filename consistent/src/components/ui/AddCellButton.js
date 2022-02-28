@@ -1,15 +1,18 @@
+import {useState} from "react"
+
+import { FaPlus } from "react-icons/fa";
+
 function AddCellButton(props){
 
     function btnAddCellHandler () {
         console.log("AddCellButton.btnAddCellHandler() clicked");
-        // addCell();
-        console.log(props);
+        props.addCell();
     }
 
     return (
         <div>
             <button className="btn" onClick={btnAddCellHandler}>
-                +
+                <FaPlus color='while' />
             </button>
         </div>
     );

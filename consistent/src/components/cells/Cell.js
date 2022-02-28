@@ -1,42 +1,57 @@
 import { useState } from 'react';
+import classes from './Cell.module.css'
 
 import DeleteCellButton from './DeleteCellButton';
 import ConfirmModal from '../ui/ConfirmModal';
 import Backdrop from '../ui/Backdrop';
-import CellContent from './CellContent';
 import CellTags from './CellTags';
 
-import classes from './Cell.module.css'
 
-function Cell(props){
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+function Cell( {cell, deleteCell, updateCellContent} ){
 
-    function btnDeleteCellHandler(){
-        console.log('btnDeleteCellHandler()');
+    const [ modalIsOpen, setModalIsOpen ] = useState(false);
+    const [ cellContent, setCellContent ] = useState("");
+
+    const handelDeleteCellButtonClick = () => {
+        console.log('handelDelete()');
         setModalIsOpen(true);
     };
 
-    function closeModalHandler(){
-        console.log('closeModalHandler()');
+    const handelCloseModal = () => {
+        console.log('handelCloseModal()');
         setModalIsOpen(false);
     }
 
-    function deleteCell(){
-        console.log('deleteCell()');
-        closeModalHandler();
+    const handelConfirm = () => {
+        console.log('handelDeleteCell()');
+        handelCloseModal();
+        deleteCell(cell.id); 
     };
+
+    const handelUpdateCellContent=(event) => {
+        setCellContent(event.target.value);
+    }
 
     return (
         <div className={classes.Cell}>
-            <div className={classes.cell_inner}>
-                <CellContent />
-                <CellTags />
-                <div className="actions">
-                    <DeleteCellButton onClick={btnDeleteCellHandler}/>
-                </div>
+            <div className={classes.CellInner}>
+                <form>
+                    <div className={classes.CellContent}>
+                        <input 
+                            onChange={handelUpdateCellContent} 
+                            type="text" 
+                            placeholdre=""
+                            value={cellContent}
+                        />
+                    </div>
+                    <CellTags props={cell.tags}/>
+                    <div className="actions">
+                        <DeleteCellButton onClick={()=>{deleteCell(cell.id)}}/>
+                    </div>
+                </form>
             </div>
-            {modalIsOpen && <ConfirmModal onCancel={closeModalHandler} onConfirm={deleteCell}/>}
-            {modalIsOpen && <Backdrop onClick={closeModalHandler}/>}
+            {modalIsOpen && <ConfirmModal onCancel={handelCloseModal} onConfirm={handelConfirm}/>}
+            {modalIsOpen && <Backdrop onClick={handelCloseModal}/>}
         </div>
     );
 }

@@ -1,6 +1,7 @@
-function CellTags() {
+function CellTags(props) {
     return (
-        <div>     
+        <div>
+            <p></p>
         </div>
     )
 }

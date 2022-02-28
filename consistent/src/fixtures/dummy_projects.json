@@ -1,25 +1,15 @@
-[{
-    "id": 1,
-    "title": "first projcect",
-    "content": {
-        "description": "first projcect"
-    },
-    "cells":{
-
-    },
-    "tags":{
-
-    }
-}, {
-    "id": 2,
-    "title": "second projcect",
-    "content": {
-        "description": "second projcect"
-    },
-    "cells":{
-
-    },
-    "tags":{
-        
-    }    
-}]
+    [{
+        "id": 1,
+        "title": "First projcet",
+        "description": "First project descriptions",
+        "tags":{
+        },
+        "filename": "dummy_project_1.json"
+    }, {
+        "id": 2,
+        "title": "Second projcet",
+        "description": "Second project descriptions"
+        ,
+        "tags":{
+        }    
+    }]

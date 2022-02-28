@@ -5,7 +5,15 @@
     margin-bottom: 2px;
 }
 
-.cell_inner {
+.CellInner {
     display: flex;
     margin: 4px;
+}
+
+.CellContent {
+    width: 100%;
+}
+
+.input {
+    width: 100%;
 }

@@ -6,7 +6,9 @@ function Navigation() {
     return (
         <header className={classes.header}>
             <div className={classes.logo}> 
-                <Link to='/'></Link>
+                <Link to='/'>
+                    <p>Consistent</p>
+                </Link>
             </div>
             <nav>
                 <ul>

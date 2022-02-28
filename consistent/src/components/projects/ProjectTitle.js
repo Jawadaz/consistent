@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types';
 
-function ProjectTitle( {text} ){
+function ProjectTitle( {title} ){
     return (
-        <h1>{text}</h1>
+        <h1>{title}</h1>
     );
 }
 
 ProjectTitle.defaultProps = {
-    text: 'New Project',
+    title: 'New Project',
 }
 
 ProjectTitle.propTypes = {
-    text: PropTypes.string
+    title: PropTypes.string
 }
 
 export default ProjectTitle
