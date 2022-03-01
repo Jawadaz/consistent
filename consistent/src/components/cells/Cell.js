@@ -37,6 +37,7 @@ function Cell( {cell, deleteCell, updateCellContent} ){
             <div className={classes.CellInner}>
                 <form>
                     <div className={classes.CellContent}>
+                        {/* https://www.npmjs.com/package/react-textarea-autosize */}
                         <input 
                             onChange={handelUpdateCellContent} 
                             type="text" 

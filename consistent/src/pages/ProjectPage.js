@@ -44,8 +44,8 @@ function ProjectPage( props ){
         if(cells.length===0){
             cells =  [ emptyCell ];
         }
-        let tags = projectData.tags;
-        const updatedProjcetData = structuredClone(projectData, { cells: cells, tags: tags });
+        const updatedProjcetData = structuredClone(projectData);
+        updatedProjcetData.cells = cells;
         setProjectData(updatedProjcetData);
         return;
     }
@@ -106,7 +106,6 @@ function ProjectPage( props ){
 
     if(projectId === "new"){
         console.log(projectData);
-        setProjectData(defaultProjectData);
 
     }else{
         if (projectId>0){
