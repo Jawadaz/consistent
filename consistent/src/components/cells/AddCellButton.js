@@ -1,5 +1,4 @@
 import {useState} from "react"
-
 import { FaPlus } from "react-icons/fa";
 
 function AddCellButton(props){
@@ -11,7 +10,7 @@ function AddCellButton(props){
 
     return (
         <div>
-            <button className="btn" onClick={btnAddCellHandler}>
+            <button className={'btn btn-primary'} onClick={btnAddCellHandler}>
                 <FaPlus color='while' />
             </button>
         </div>

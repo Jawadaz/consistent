@@ -10,7 +10,7 @@ import CellTags from './CellTags';
 function Cell( {cell, deleteCell, updateCellContent} ){
 
     const [ modalIsOpen, setModalIsOpen ] = useState(false);
-    const [ cellContent, setCellContent ] = useState("");
+    const [ cellContent, setCellContent ] = useState(cell.id);
 
     const handelDeleteCellButtonClick = () => {
         console.log('handelDelete()');
@@ -29,13 +29,15 @@ function Cell( {cell, deleteCell, updateCellContent} ){
     };
 
     const handelUpdateCellContent=(event) => {
-        setCellContent(event.target.value);
+        const content = event.target.value; 
+        setCellContent(content);
+        updateCellContent(cell.id, content);
     }
 
     return (
-        <div className={classes.Cell}>
+        <div className={"Cell"}>
             <div className={classes.CellInner}>
-                <form>
+
                     <div className={classes.CellContent}>
                         {/* https://www.npmjs.com/package/react-textarea-autosize */}
                         <input 
@@ -49,7 +51,7 @@ function Cell( {cell, deleteCell, updateCellContent} ){
                     <div className="actions">
                         <DeleteCellButton onClick={()=>{deleteCell(cell.id)}}/>
                     </div>
-                </form>
+
             </div>
             {modalIsOpen && <ConfirmModal onCancel={handelCloseModal} onConfirm={handelConfirm}/>}
             {modalIsOpen && <Backdrop onClick={handelCloseModal}/>}

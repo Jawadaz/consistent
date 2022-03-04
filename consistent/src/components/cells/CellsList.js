@@ -1,28 +1,34 @@
 import PropTypes from 'prop-types';
-import classes from './CellsList.module.css';
 import Cell from './Cell';
+import {motion, AnimatePresence} from "framer-motion"
 
 function CellsList( {cells, deleteCell, updateCellContent} ){
-    if (!cells || cells.length===0){
-        // show an empty cell
-        // this should not happen because a default value is defined 
-        return (
-            <div className='CellsList'>
-                <Cell />
-            </div>
-        );
-    }
-    return (
-        <div className='CellsList'>
-            <ul className={classes.list}>
-                {cells.map(item => <Cell 
+    const variants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 },
+      }
+    return (            
+        <div className={'CellsList'}>            
+            <ul className={'list'}>
+            <AnimatePresence>               
+                {cells.map(item => 
+                <motion.div
                     key={item.id}
-                    cell={item}
-                    deleteCell={deleteCell}
-                    updateCellContent={updateCellContent}
-                    />
+                    initial="hidden"
+                    animate="visible"
+                    variants={variants}
+                    exit="hidden"
+                > 
+                    <Cell 
+                        key={item.id}
+                        cell={item}
+                        deleteCell={deleteCell}
+                        updateCellContent={updateCellContent}
+                        />
+                </motion.div>
                 )}
-            </ul>
+            </AnimatePresence>                                                                  
+            </ul>            
         </div>
     );
 }
@@ -30,7 +36,7 @@ function CellsList( {cells, deleteCell, updateCellContent} ){
 CellsList.propTypes = {
     cells: PropTypes.arrayOf(
         PropTypes.shape({
-            id: PropTypes.number.isRequired,
+            id: PropTypes.string.isRequired,
             content: PropTypes.string.isRequired,
             tags: PropTypes.arrayOf(
                 PropTypes.string)

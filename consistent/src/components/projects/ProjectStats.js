@@ -1,5 +1,3 @@
-import classes from './ProjectStats.module.css';
-
 function ProjectStats( {cells} ){
 
     //calculate average number of tags/cell

@@ -1,16 +1,14 @@
 import { Link } from 'react-router-dom'
 
-import classes from "./Navigation.module.css"
-
 function Navigation() {
     return (
-        <header className={classes.header}>
-            <div className={classes.logo}> 
+        <header className={'header'}>
+            <div className={'logo'}> 
                 <Link to='/'>
-                    <p>Consistent</p>
+                    CONSISTENT
                 </Link>
             </div>
-            <nav>
+            {/* <nav>
                 <ul>
                     <li>
                         <Link to='/'><h1></h1>Home</Link>
@@ -22,7 +20,7 @@ function Navigation() {
                         <Link to='/projects/new'>New Project</Link>
                     </li>
                 </ul>
-            </nav>  
+            </nav>   */}
         </header>
     );
 }

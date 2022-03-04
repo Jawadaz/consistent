@@ -10,8 +10,8 @@ function ConfirmModal (props){
     return (
         <div className="Modal">
             <p>Are you sure?</p>
-            <button className="btn" onClick={btnCancelHandler}>Cancel</button>
-            <button className="btn" onClick={btnConfirmHandler}>Confirm</button>
+            <button className={'btn btn-primary'} onClick={btnCancelHandler}>Cancel</button>
+            <button className={'btn btn-primary'} onClick={btnConfirmHandler}>Confirm</button>
         </div>
     );
 };

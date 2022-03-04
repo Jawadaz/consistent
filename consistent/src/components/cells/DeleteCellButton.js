@@ -4,7 +4,7 @@ function DeleteCellButton(props){
     return (
         // Don't stop on tabindex
         // https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex
-        <button tabIndex={-1} className="btn" onClick={props.onClick}>
+        <button className={'btn btn-primary'}tabIndex={-1} onClick={props.onClick}>
             <FaTimes color="white" />
         </button>
     );
