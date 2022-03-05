@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { FaSave } from "react-icons/fa";
 
-function ProjectControls(){
+function ProjectControls( {children} ){
 
     return (
         <div>
-            <button className={'btn btn-primary'}>Save</button>
+            {children}
+            <button className={'btn btn-primary'}><FaSave color={'white'} /></button>
             <button className={'btn btn-primary'}>Save As...</button>
         </div>
     );

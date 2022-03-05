@@ -5,12 +5,14 @@ import ProjectControls from "../projects/ProjectControls.js";
 
 import CellsList from "../cells/CellsList.js";
 import AddCellButton from "../cells/AddCellButton.js";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 
 import dummyProject from "../../fixtures/dummy_project_1.json"
 
 import { v4 as uuidv4 } from 'uuid'
+import MoveCellUpButton from "../cells/MoveCellUpButton";
+import MoveCellDownButton from "../cells/MoveCellDownButton";
 
 function ProjectPage( props ){
     
@@ -113,7 +115,7 @@ function ProjectPage( props ){
     if(projectCells.length===0){
         addEmptyCell();
     }
-    
+
     if(projectId === "new"){
         console.log(projectData);
         console.log(projectCells);
@@ -127,16 +129,19 @@ function ProjectPage( props ){
         <div>
             <ProjectHeader>
                 <ProjectTitle title={projectData.title}/>
-                <ProjectControls />
             </ProjectHeader>
-            <ProjectStats cells={projectCells}/>
+            <ProjectControls>
+                <AddCellButton addCell={addEmptyCell} />
+                <MoveCellUpButton />
+                <MoveCellDownButton />
+            </ProjectControls>
             {/* <ProjectTags tags={projectData.tags} deleteTag={deleteCellTag}/> */}
             <CellsList 
                 cells={projectCells} 
                 deleteCell={deleteCell}
                 updateCellContent={updateCellContent}
             />
-            <AddCellButton addCell={addEmptyCell} />
+            <ProjectStats cells={projectCells}/>            
         </div>
     );
 }

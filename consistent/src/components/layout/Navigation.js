@@ -8,19 +8,19 @@ function Navigation() {
                     CONSISTENT
                 </Link>
             </div>
-            {/* <nav>
+            <nav>
                 <ul>
                     <li>
-                        <Link to='/'><h1></h1>Home</Link>
-                    </li>
-                    <li>
-                        <Link to='/projects'>Projects</Link>
-                    </li>
+                        <Link to='/projects/load'>Load Project</Link>
+                    </li>                    
                     <li>
                         <Link to='/projects/new'>New Project</Link>
+                    </li>                    
+                    <li>
+                        <Link to='/about'>About</Link>
                     </li>
                 </ul>
-            </nav>   */}
+            </nav>
         </header>
     );
 }
