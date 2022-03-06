@@ -10,9 +10,9 @@ function Navigation() {
             </div>
             <nav>
                 <ul>
-                    <li>
+                    {/* <li>
                         <Link to='/projects/load'>Load Project</Link>
-                    </li>                    
+                    </li> */}
                     <li>
                         <Link to='/projects/new'>New Project</Link>
                     </li>                    

@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { Redirect } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid'
 
 const ProjectContext = createContext();
@@ -11,20 +12,28 @@ export const ProjectContextProvider=( {children} )=>{
             content: "",
             tags: []
         };
-    }
+    };
 
-    const defaultProjectData = {
-        title: "New Project",
-        description: "",
-        tags: {
-        },
-        // cells: [emptyCell]
+    const defaultProjectData = () => {
+        return {
+            id: uuidv4(),
+            title: "New Project",
+            description: "",
+            tags: []
+        };
     };
 
 
     const [ projectCells, setProjectCells ] = useState( [ emptyCell() ] );
-    const [ projectData, setProjectData ] = useState(defaultProjectData)
+    const [ projectData, setProjectData ] = useState(defaultProjectData())
     const [ projectFilename, setProjectFilename ] = useState(null);
+
+    const newProject = () => {
+        setProjectCells([emptyCell()]);
+        let newProjectData = defaultProjectData()
+        setProjectData(newProjectData)
+        return newProjectData;
+    }
 
     //Project Stuff
     const saveProject=()=>{
@@ -40,8 +49,7 @@ export const ProjectContextProvider=( {children} )=>{
         // saveAs(blob, projectFilename);
         console.log('haha');
     }
-
-
+    
     //Cells stuff
     const addEmptyCell = () => {
         // // https://stackoverflow.com/a/10916838/3362720
@@ -55,17 +63,18 @@ export const ProjectContextProvider=( {children} )=>{
         // let r = (Math.random() + 1).toString(36).substring(7);
         // cell.tags.push(r);
         console.log('addEmptyCell()');
-        setProjectCells([...projectCells, emptyCell()]);
+        let cell = emptyCell();
+        setProjectCells([...projectCells, cell]);
+        console.log(projectCells, cell);
     }
-
-    if(projectCells.length===0){
-        console.log('Empty list');
-        addEmptyCell();
-    };
 
     const deleteCell=(id)=>{
         console.log('deleteCell()');
-        setProjectCells(projectCells.filter((cell) => cell.id !== id ))
+        if(projectCells.length===1){
+            setProjectCells([emptyCell()]);
+        } else {
+            setProjectCells(projectCells.filter((cell) => cell.id !== id ));
+        }
     }
 
     const updateCell=(id, updatedCell)=>{
@@ -100,6 +109,7 @@ export const ProjectContextProvider=( {children} )=>{
             projectData,
             projectFilename,
 
+            newProject,
             addEmptyCell,
             deleteCell,
             updateCellContent,
