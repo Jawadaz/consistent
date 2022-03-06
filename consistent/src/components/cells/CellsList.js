@@ -1,17 +1,23 @@
 import PropTypes from 'prop-types';
 import Cell from './Cell';
-import {motion, AnimatePresence} from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
+import { useContext } from 'react'
+import ProjectContext from '../context/ProjectContext';
 
-function CellsList( {cells, deleteCell, updateCellContent} ){
+
+function CellsList( props ){
+
+    const { projectCells } = useContext(ProjectContext);
     const variants = {
         hidden: { opacity: 0 },
         visible: { opacity: 1 },
-      }
+    };
+
     return (            
         <div className={'CellsList'}>            
             <ul className={'list'}>
             <AnimatePresence>               
-                {cells.map(item => 
+                {projectCells.map(item => 
                 <motion.div
                     key={item.id}
                     initial="hidden"
@@ -22,8 +28,6 @@ function CellsList( {cells, deleteCell, updateCellContent} ){
                     <Cell 
                         key={item.id}
                         cell={item}
-                        deleteCell={deleteCell}
-                        updateCellContent={updateCellContent}
                         />
                 </motion.div>
                 )}
@@ -32,17 +36,5 @@ function CellsList( {cells, deleteCell, updateCellContent} ){
         </div>
     );
 }
-
-CellsList.propTypes = {
-    cells: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            content: PropTypes.string.isRequired,
-            tags: PropTypes.arrayOf(
-                PropTypes.string)
-        })
-    ),
-}
-
 
 export default CellsList;

@@ -1,13 +1,20 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+
+// TODO: consider moving to index.css
 import classes from './Cell.module.css'
 
+
+import ProjectContext from '../context/ProjectContext';
+import CellTags from './CellTags';
 import DeleteCellButton from './DeleteCellButton';
+
+// TODO: implement cool modal yes/no at some point
 import ConfirmModal from '../ui/ConfirmModal';
 import Backdrop from '../ui/Backdrop';
-import CellTags from './CellTags';
 
 
-function Cell( {cell, deleteCell, updateCellContent} ){
+function Cell( {cell} ){
+    const { deleteCell, updateCellContent } = useContext(ProjectContext);
 
     const [ modalIsOpen, setModalIsOpen ] = useState(false);
     const [ cellContent, setCellContent ] = useState(cell.id);
