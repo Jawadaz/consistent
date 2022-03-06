@@ -1,13 +1,25 @@
 import { useState } from 'react';
 import { FaSave } from "react-icons/fa";
+import AddCellButton from '../cells/AddCellButton';
+import MoveCellDownButton from '../cells/MoveCellDownButton';
+import MoveCellUpButton from '../cells/MoveCellUpButton';
 
-function ProjectControls( {children} ){
+function ProjectControls( {children, btnAddCellClickHandler, 
+    btnSaveClickHandler, btnSaveAsClickHandler} )
+{
 
     return (
         <div>
             {children}
-            <button className={'btn btn-primary'}><FaSave color={'white'} /></button>
-            <button className={'btn btn-primary'}>Save As...</button>
+            <AddCellButton btnAddCellClickHandler={btnAddCellClickHandler}/>
+            <MoveCellUpButton />
+            <MoveCellDownButton />
+            <button className={'btn btn-primary'} onClick={btnSaveClickHandler}>
+                    <FaSave color={'white'} />
+            </button>
+            <button className={'btn btn-primary'} onClick={btnSaveAsClickHandler}>
+                Save As...
+            </button>
         </div>
     );
 }

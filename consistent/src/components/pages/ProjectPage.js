@@ -14,6 +14,8 @@ import { v4 as uuidv4 } from 'uuid'
 import MoveCellUpButton from "../cells/MoveCellUpButton";
 import MoveCellDownButton from "../cells/MoveCellDownButton";
 
+import { saveAs } from 'file-saver';
+
 function ProjectPage( props ){
     
     const { projectId } = useParams();
@@ -38,8 +40,8 @@ function ProjectPage( props ){
 
     const [ projectCells, setProjectCells ] = useState([emptyCell()]);
     const [ projectData, setProjectData ] = useState(defaultProjectData)
-
-
+    const [ projectFilename, setProjectFilename ] = useState(null);
+    
     const deleteCell=(id)=>{
         console.log('deleteCell()');
         // let cells = projectData.cells.filter((cell) => cell.id !== id );
@@ -98,19 +100,51 @@ function ProjectPage( props ){
     }
 
 
-    const updateCellContent=(id, content)=>{
-        // console.log('updateCellContent()');
-        // const updatedProjcetData = structuredClone(projectData);
-        // const updatedCellIndex = updatedProjcetData.cells.findIndex((cell) => cell.id === id);
-        // updatedProjcetData.cells[updatedCellIndex].content = content;
-        // setProjectData(updatedProjcetData);
-        console.log('updateCellContent()');
-        // const updatedProjcetCells = [...projectCells]
-        const updatedCellIndex = projectCells.findIndex((cell) => cell.id === id);
-        projectCells[updatedCellIndex].content = content;
-        // setProjectCells(updatedProjcetCells);
-        // ????
+//////
+    const btnSaveClickHandler=(e)=>{
+        console.log("btnSaveClickHandler")
+        if(projectFilename===null){
+            return btnSaveAsClickHandler(e);
+        }
+        // the user has already set the filename
+        saveProject();
     }
+
+    const btnSaveAsClickHandler=()=>{
+        console.log("btnSaveAsClickHandler");
+        // setProjectFilename("helloworld.txt");
+        saveProject();
+    }    
+
+    const saveProject=()=>{
+        console.log('Save Project');
+        if(projectFilename===null){
+            console.log('Cannot the project if the projectFilename is not set');
+            return;
+        }
+        var blob = new Blob(["Hello, world!"], {
+            type: "text/plain;charset=utf-8"
+        });
+        console.log(blob);
+        saveAs(blob, projectFilename);
+        console.log('haha');
+    }
+//////
+
+    const updateCellContent=(id, content)=>{
+        console.log('updateCellContent()');
+        setProjectCells(
+            projectCells.map(
+                (cell) => (cell.id === id ? {...cell, content: content}: cell))
+        );
+    }
+
+    const updateCell=(id, updatedCell)=>{
+        console.log('updateCell()');
+        setProjectCells(projectCells.map(
+                (cell) => (cell.id === id ? {...cell, ...updatedCell}: cell))
+        );
+    }    
 
     if(projectCells.length===0){
         addEmptyCell();
@@ -130,10 +164,11 @@ function ProjectPage( props ){
             <ProjectHeader>
                 <ProjectTitle title={projectData.title}/>
             </ProjectHeader>
-            <ProjectControls>
-                <AddCellButton addCell={addEmptyCell} />
-                <MoveCellUpButton />
-                <MoveCellDownButton />
+            <ProjectControls 
+                btnAddCellClickHandler={addEmptyCell}
+                btnSaveAsClickHandler={btnSaveAsClickHandler}
+                btnSaveClickHandler={btnSaveClickHandler}
+                >
             </ProjectControls>
             {/* <ProjectTags tags={projectData.tags} deleteTag={deleteCellTag}/> */}
             <CellsList 
