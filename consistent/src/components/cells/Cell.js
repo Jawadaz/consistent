@@ -9,31 +9,31 @@ import CellTags from './CellTags';
 import DeleteCellButton from './DeleteCellButton';
 
 // TODO: implement cool modal yes/no at some point
-import ConfirmModal from '../ui/ConfirmModal';
-import Backdrop from '../ui/Backdrop';
+// import ConfirmModal from '../ui/ConfirmModal';
+// import Backdrop from '../ui/Backdrop';
 
 
 function Cell( {cell} ){
     const { deleteCell, updateCellContent } = useContext(ProjectContext);
 
-    const [ modalIsOpen, setModalIsOpen ] = useState(false);
+    // const [ modalIsOpen, setModalIsOpen ] = useState(false);
     const [ cellContent, setCellContent ] = useState(cell.id);
 
-    const handelDeleteCellButtonClick = () => {
-        console.log('handelDelete()');
-        setModalIsOpen(true);
-    };
+    // const handelDeleteCellButtonClick = () => {
+    //     console.log('handelDelete()');
+    //     setModalIsOpen(true);
+    // };
 
-    const handelCloseModal = () => {
-        console.log('handelCloseModal()');
-        setModalIsOpen(false);
-    }
+    // const handelCloseModal = () => {
+    //     console.log('handelCloseModal()');
+    //     setModalIsOpen(false);
+    // }
 
-    const handelConfirm = () => {
-        console.log('handelDeleteCell()');
-        handelCloseModal();
-        deleteCell(cell.id); 
-    };
+    // const handelConfirm = () => {
+    //     console.log('handelDeleteCell()');
+    //     handelCloseModal();
+    //     deleteCell(cell.id); 
+    // };
 
     const handelUpdateCellContent=(event) => {
         const content = event.target.value; 
@@ -60,11 +60,11 @@ function Cell( {cell} ){
                     </div>
 
             </div>
-            
             <CellTags props={cell.tags}/>
-            
-            {modalIsOpen && <ConfirmModal onCancel={handelCloseModal} onConfirm={handelConfirm}/>}
-            {modalIsOpen && <Backdrop onClick={handelCloseModal}/>}
+
+            {/* {modalIsOpen && <ConfirmModal onCancel={handelCloseModal} onConfirm={handelConfirm}/>}
+            {modalIsOpen && <Backdrop onClick={handelCloseModal}/>} */}
+
         </div>
     );
 }

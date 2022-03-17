@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import { Redirect } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid'
 
 const ProjectContext = createContext();
@@ -26,7 +25,7 @@ export const ProjectContextProvider=( {children} )=>{
 
     const [ projectCells, setProjectCells ] = useState( [ emptyCell() ] );
     const [ projectData, setProjectData ] = useState(defaultProjectData())
-    const [ projectFilename, setProjectFilename ] = useState(null);
+    // const [ projectFilename, setProjectFilename ] = useState(null);
 
     const newProject = () => {
         setProjectCells([emptyCell()]);
@@ -36,19 +35,19 @@ export const ProjectContextProvider=( {children} )=>{
     }
 
     //Project Stuff
-    const saveProject=()=>{
-        console.log('Save Project');
-        if(projectFilename===null){
-            console.log('Cannot the project if the projectFilename is not set');
-            return;
-        }
-        var blob = new Blob(["Hello, world!"], {
-            type: "text/plain;charset=utf-8"
-        });
-        console.log(blob);
-        // saveAs(blob, projectFilename);
-        console.log('haha');
-    }
+    // const saveProject=()=>{
+    //     console.log('Save Project');
+    //     if(projectFilename===null){
+    //         console.log('Cannot the project if the projectFilename is not set');
+    //         return;
+    //     }
+    //     var blob = new Blob(["Hello, world!"], {
+    //         type: "text/plain;charset=utf-8"
+    //     });
+    //     console.log(blob);
+    //     // saveAs(blob, projectFilename);
+    //     console.log('haha');
+    // }
     
     //Cells stuff
     const addEmptyCell = () => {
@@ -96,18 +95,18 @@ export const ProjectContextProvider=( {children} )=>{
     }
 
     // Cell Tags
-    const deleteCellTag=(id, tag)=>{
-        let cell = projectCells.filter((cell) => cell.id === id );
-        let tags = cell.tags.filter((tag) => tag !== tag);
-        cell.tags = tags
-        return updateCell(id, cell);
-    }
+    // const deleteCellTag=(id, tag)=>{
+    //     let cell = projectCells.filter((cell) => cell.id === id );
+    //     let tags = cell.tags.filter((cellTag) => cellTag !== tag);
+    //     cell.tags = tags;
+    //     return updateCell(id, cell);
+    // }
 
     return (
         <ProjectContext.Provider value={{
             projectCells,
             projectData,
-            projectFilename,
+            // projectFilename,
 
             newProject,
             addEmptyCell,

@@ -1,4 +1,4 @@
-import { FaArrowUp, FaArrowDown } from "react-icons/fa";
+import { FaArrowDown } from "react-icons/fa";
 
 function MoveCellDownButton( ){
     return (

@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Cell from './Cell';
 import { motion, AnimatePresence } from "framer-motion"
 import { useContext } from 'react'
