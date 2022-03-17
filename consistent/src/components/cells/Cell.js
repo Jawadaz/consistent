@@ -54,14 +54,17 @@ function Cell( {cell} ){
                             value={cellContent}
                         />
                     </div>
-                    <CellTags props={cell.tags}/>
+                   
                     <div className="actions">
                         <DeleteCellButton onClick={()=>{deleteCell(cell.id)}}/>
                     </div>
 
             </div>
+            <CellTags props={cell.tags}/>
+
             {/* {modalIsOpen && <ConfirmModal onCancel={handelCloseModal} onConfirm={handelConfirm}/>}
             {modalIsOpen && <Backdrop onClick={handelCloseModal}/>} */}
+
         </div>
     );
 }
