@@ -19,21 +19,21 @@ function Cell( {cell} ){
     const [ modalIsOpen, setModalIsOpen ] = useState(false);
     const [ cellContent, setCellContent ] = useState(cell.id);
 
-    const handelDeleteCellButtonClick = () => {
-        console.log('handelDelete()');
-        setModalIsOpen(true);
-    };
+    // const handelDeleteCellButtonClick = () => {
+    //     console.log('handelDelete()');
+    //     setModalIsOpen(true);
+    // };
 
-    const handelCloseModal = () => {
-        console.log('handelCloseModal()');
-        setModalIsOpen(false);
-    }
+    // const handelCloseModal = () => {
+    //     console.log('handelCloseModal()');
+    //     setModalIsOpen(false);
+    // }
 
-    const handelConfirm = () => {
-        console.log('handelDeleteCell()');
-        handelCloseModal();
-        deleteCell(cell.id); 
-    };
+    // const handelConfirm = () => {
+    //     console.log('handelDeleteCell()');
+    //     handelCloseModal();
+    //     deleteCell(cell.id); 
+    // };
 
     const handelUpdateCellContent=(event) => {
         const content = event.target.value; 
@@ -60,8 +60,8 @@ function Cell( {cell} ){
                     </div>
 
             </div>
-            {modalIsOpen && <ConfirmModal onCancel={handelCloseModal} onConfirm={handelConfirm}/>}
-            {modalIsOpen && <Backdrop onClick={handelCloseModal}/>}
+            {/* {modalIsOpen && <ConfirmModal onCancel={handelCloseModal} onConfirm={handelConfirm}/>}
+            {modalIsOpen && <Backdrop onClick={handelCloseModal}/>} */}
         </div>
     );
 }
