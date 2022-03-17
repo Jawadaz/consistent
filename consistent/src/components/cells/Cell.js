@@ -9,14 +9,14 @@ import CellTags from './CellTags';
 import DeleteCellButton from './DeleteCellButton';
 
 // TODO: implement cool modal yes/no at some point
-import ConfirmModal from '../ui/ConfirmModal';
-import Backdrop from '../ui/Backdrop';
+// import ConfirmModal from '../ui/ConfirmModal';
+// import Backdrop from '../ui/Backdrop';
 
 
 function Cell( {cell} ){
     const { deleteCell, updateCellContent } = useContext(ProjectContext);
 
-    const [ modalIsOpen, setModalIsOpen ] = useState(false);
+    // const [ modalIsOpen, setModalIsOpen ] = useState(false);
     const [ cellContent, setCellContent ] = useState(cell.id);
 
     // const handelDeleteCellButtonClick = () => {
