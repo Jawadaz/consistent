@@ -4,21 +4,22 @@ import ProjectHeader from "../projects/ProjectHeader.js";
 import ProjectControls from "../projects/ProjectControls.js";
 
 import CellsList from "../cells/CellsList.js";
-import { useParams, Redirect, useLocation } from "react-router-dom";
+// import { useParams, useLocation } from "react-router-dom";
 import { useContext } from "react";
 
-import dummyProject from "../../fixtures/dummy_project_1.json"
+// import dummyProject from "../../fixtures/dummy_project_1.json"
 
-import { saveAs } from 'file-saver';
+// import { saveAs } from 'file-saver';
 import ProjectContext from "../context/ProjectContext.js";
 
 function ProjectPage( props ){
     
-    const { projectId } = useParams();
-    const location = useLocation();
-    const search = useLocation().search;
+    // const { projectId } = useParams();
+    // const location = useLocation();
+    // const search = useLocation().search;
     //const project_filename = new URLSearchParams(search).get('filename');
-    const { projectData, newProject } = useContext(ProjectContext)
+    // const { projectData, newProject } = useContext(ProjectContext)
+    const { projectData } = useContext(ProjectContext)
 
     // if(projectId === "new"){
     //     console.log(projectData.id);
