@@ -46,6 +46,8 @@ jobs:
       working-directory: consistent
 
     - name: deploy
+      run: echo "deploy"
       working-directory: consistent
       
     - name: integration
+      run: echo "integration"
