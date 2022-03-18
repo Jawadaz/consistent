@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { FaSave } from "react-icons/fa";
-import AddCellButton from '../cells/AddCellButton';
-import MoveCellDownButton from '../cells/MoveCellDownButton';
-import MoveCellUpButton from '../cells/MoveCellUpButton';
+import { useState, useEffect, useContext } from 'react';
+import { FaSave, FaPlus, FaArrowDown, FaArrowUp } from "react-icons/fa";
 import ProjectContext from '../context/ProjectContext';
+import ControlButton from '../ui/ControlButton'
 
 
 function ProjectControls( {children} )
 {
-    const { projectFilename } = useState(ProjectContext)
+    const { projectFilename, activeCellId, projectCells, addEmptyCell, moveActiveCellDown, moveActiveCellUp } = useContext(ProjectContext)
+    const [ isMoveCellUpButtonDisabled, setIsMoveCellUpButtonDisabled ] = useState(false);
+    const [ isMoveCellDownButtonDisabled, setIsMoveCellDownButtonDisabled ] = useState(false);
     //////
     const btnSaveClickHandler=(e)=>{
         console.log("btnSaveClickHandler")
@@ -25,18 +25,66 @@ function ProjectControls( {children} )
         // saveProject();
     }    
     
+    useEffect(()=>{
+        console.log('ProjectControls.useEffect()');
+        
+        if(projectCells.length===1){
+            setIsMoveCellUpButtonDisabled(true);
+            setIsMoveCellDownButtonDisabled(true);
+        }else{
+            const firstCellId = projectCells[0].id;
+            const lastCellId = projectCells[projectCells.length-1].id;
+            if(activeCellId===firstCellId){
+                setIsMoveCellUpButtonDisabled(true);
+            }else{
+                setIsMoveCellUpButtonDisabled(false);
+            }
+            if(activeCellId===lastCellId){
+                setIsMoveCellDownButtonDisabled(true);
+            }else{
+                setIsMoveCellDownButtonDisabled(false);
+            }
+        }
+
+    }, [projectCells, activeCellId])
+
     return (
         <div>
             {children}
-            <AddCellButton />
-            <MoveCellUpButton />
-            <MoveCellDownButton />
-            <button className={'btn btn-primary'} onClick={btnSaveClickHandler}>
+            <ControlButton 
+                className={'btn btn-primary'}
+                onClick={(e)=>addEmptyCell()} 
+                disabled={false}>
+                <FaPlus color='while' />
+            </ControlButton>
+            <ControlButton 
+                className={'btn btn-primary'}
+                onClick={(e)=>moveActiveCellDown()} 
+                disabled={isMoveCellDownButtonDisabled}
+            >
+                <FaArrowDown color='white' />
+            </ControlButton>
+            <ControlButton 
+                className={'btn btn-primary'}
+                onClick={(e)=>moveActiveCellUp()}
+                disabled={isMoveCellUpButtonDisabled} 
+            >
+                <FaArrowUp color='white' />
+            </ControlButton>
+            <ControlButton 
+                className={'btn btn-primary'}
+                disabled={false}
+                onClick={(e)=>btnSaveClickHandler()}
+            >
                     <FaSave color={'white'} />
-            </button>
-            <button className={'btn btn-primary'} onClick={btnSaveAsClickHandler}>
+            </ControlButton>
+            <ControlButton 
+                className={'btn btn-primary'} 
+                onClick={(e)=>btnSaveAsClickHandler()}
+                disabled={false}
+            >
                 Save As...
-            </button>
+            </ControlButton>
         </div>
     );
 }

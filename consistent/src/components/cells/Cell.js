@@ -1,8 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
 
-// TODO: consider moving to index.css
-import classes from './Cell.module.css'
-
 
 import ProjectContext from '../context/ProjectContext';
 import CellTags from './CellTags';
@@ -42,7 +39,7 @@ function Cell( {cell} ){
     useEffect(()=>{
         console.log('Cell.useEffect()');
         setIsActive(activeCellId===cell.id ? true: false);
-      }, [activeCellId]);
+      }, [activeCellId, cell.id]);
 
     const handelUpdateCellContent=(event) => {
         const content = event.target.value; 
@@ -52,9 +49,9 @@ function Cell( {cell} ){
 
     return (
         <div className={"Cell"} onClick={handleCellClick}>
-            <div className={classes.CellInner}>
+            <div className={'CellInner'}>
 
-                    <div className={classes.CellContent}>
+                    <div className={'CellContent'}>
                         {/* https://www.npmjs.com/package/react-textarea-autosize */}
                         <input 
                             onChange={handelUpdateCellContent} 

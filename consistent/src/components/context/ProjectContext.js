@@ -30,9 +30,11 @@ export const ProjectContextProvider=( {children} )=>{
     // const [ projectFilename, setProjectFilename ] = useState(null);
 
     const newProject = () => {
-        setProjectCells([emptyCell()]);
+        let cell = emptyCell();
+        setProjectCells([cell]);
         let newProjectData = defaultProjectData()
         setProjectData(newProjectData)
+        activateCell(cell.id);
         return newProjectData;
     }
 
@@ -53,6 +55,38 @@ export const ProjectContextProvider=( {children} )=>{
     const activateCell = (id) => {
         console.log('activateCell()');
         setActiveCellId(id);
+    }
+
+    const moveActiveCellUp = ()=>{
+        console.log('moveActiveCellUp():');
+        if(activeCellId===projectCells[0].id){
+            console.log('already at top-most position');
+            return;
+        }
+        const activeCellIndex = projectCells.findIndex(cell => {
+            return cell.id === activeCellId;
+        });
+        const activeCell = projectCells[activeCellIndex];
+        const cells = [...projectCells];
+        cells.splice(activeCellIndex, 1);
+        cells.splice(activeCellIndex-1, 0, activeCell);
+        setProjectCells(cells);
+    }
+
+    const moveActiveCellDown=()=>{
+        console.log('moveActiveCellDown():');
+        if(activeCellId===projectCells[projectCells.length-1].id){
+            console.log('already at buttom-most position');
+            return;            
+        }
+        const activeCellIndex = projectCells.findIndex(cell => {
+            return cell.id === activeCellId;
+        });
+        const activeCell = projectCells[activeCellIndex];
+        const cells = [...projectCells];
+        cells.splice(activeCellIndex, 1);
+        cells.splice(activeCellIndex+1, 0, activeCell);
+        setProjectCells(cells);             
     }
     //Cells stuff
     const addEmptyCell = () => {
@@ -76,7 +110,8 @@ export const ProjectContextProvider=( {children} )=>{
     const deleteCell=(id)=>{
         console.log('deleteCell()');
         if(projectCells.length===1){
-            setProjectCells([emptyCell()]);
+            let cell=emptyCell();
+            setProjectCells([cell]);
         } else {
             setProjectCells(projectCells.filter((cell) => cell.id !== id ));
         }
@@ -119,6 +154,7 @@ export const ProjectContextProvider=( {children} )=>{
     useEffect(()=>{
         console.log('ProjectContext.useEffect()');
         
+        // tags
         const updateProjectTags=()=>{
             //
             const allTags = projectCells.map(
@@ -129,8 +165,14 @@ export const ProjectContextProvider=( {children} )=>{
         }
 
         updateProjectTags();
+
+        // tags
+        if(projectCells.length===1){
+            activateCell(projectCells[0].id);
+        }
+
     }, [projectCells])
-    
+
     return (
         <ProjectContext.Provider value={{
             projectCells,
@@ -147,7 +189,9 @@ export const ProjectContextProvider=( {children} )=>{
             updateCell,
 
             activeCellId,
-            activateCell
+            activateCell,
+            moveActiveCellUp,
+            moveActiveCellDown,
         }}
         >
         {children}

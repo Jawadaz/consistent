@@ -20,6 +20,7 @@ h1, h2 {
   color: white;
   border: 1px solid #404080;
   margin-left: 2px;
+  padding: 4px 7px 1px 7px;
 }
 
 .btn:hover {
@@ -182,14 +183,41 @@ h1, h2 {
     font-size: 0.8rem;
 }
 
+.CellInner {
+    display: flex;
+    margin: 4px;
+}
+
+.CellContent {
+    width: 100%;
+}
+
+.CellContent input {
+    width: 100%;
+    height: 2em;
+}
+
+.CellContent textarea {
+    width: 100%;
+}
+
+/* form {
+    display: inherit;
+    width: 100%;
+} */
+
 .layout-about-link {
+}
+
+.ProjectTags {
+    min-height: 2em;
 }
 
 /* Styles for Tags */
 .ReactTags__tags {
     position: relative;
     margin: 4px;
-    font-size: 0.8rem;
+    font-size: 0.8em;
     display: block;
 }
 

@@ -29,7 +29,7 @@ function ProjectPage( props ){
 
     // }else{
     console.log(projectData.id);
-    
+
     return (
         <div>
             <ProjectHeader>

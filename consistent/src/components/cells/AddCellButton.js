@@ -1,4 +1,4 @@
-import { FaPlus } from "react-icons/fa";
+
 import { useContext } from 'react'
 import ProjectContext from "../context/ProjectContext";
 

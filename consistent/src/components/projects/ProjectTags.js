@@ -12,7 +12,7 @@ function ProjectTags(){
     };
     
     return (
-        <div>
+        <div className={"ProjectTags"}>
             <ReactTags
                 tags={projectTags}
                 // placeholder={"Add tag..."}
