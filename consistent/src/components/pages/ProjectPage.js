@@ -2,6 +2,7 @@ import ProjectTitle from "../projects/ProjectTitle.js";
 import ProjectStats from "../projects/ProjectStats.js";
 import ProjectHeader from "../projects/ProjectHeader.js";
 import ProjectControls from "../projects/ProjectControls.js";
+import ProjectTags from "../projects/ProjectTags.js";
 
 import CellsList from "../cells/CellsList.js";
 // import { useParams, useLocation } from "react-router-dom";
@@ -36,6 +37,7 @@ function ProjectPage( props ){
             </ProjectHeader>
             <ProjectControls >
             </ProjectControls>
+            <ProjectTags />
             <CellsList />
             <ProjectStats/>
         </div>
