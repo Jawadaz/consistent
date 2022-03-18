@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid'
 
 const ProjectContext = createContext();
@@ -24,7 +24,8 @@ export const ProjectContextProvider=( {children} )=>{
 
 
     const [ projectCells, setProjectCells ] = useState( [ emptyCell() ] );
-    const [ projectData, setProjectData ] = useState(defaultProjectData())
+    const [ projectData, setProjectData ] = useState( defaultProjectData() )
+    const [ projectTags, setProjectTags ] = useState([])
     // const [ projectFilename, setProjectFilename ] = useState(null);
 
     const newProject = () => {
@@ -95,6 +96,14 @@ export const ProjectContextProvider=( {children} )=>{
     }
 
     // Cell Tags
+    const updateCellTags=(id, tags)=>{
+        console.log('updateCellTags()');
+        console.log(tags);
+        setProjectCells(
+            projectCells.map(
+                (cell) => (cell.id === id ? {...cell, tags: tags}: cell))
+        );
+    }
     // const deleteCellTag=(id, tag)=>{
     //     let cell = projectCells.filter((cell) => cell.id === id );
     //     let tags = cell.tags.filter((cellTag) => cellTag !== tag);
@@ -102,16 +111,34 @@ export const ProjectContextProvider=( {children} )=>{
     //     return updateCell(id, cell);
     // }
 
+    useEffect(()=>{
+        console.log('useEffect()');
+        
+        const updateProjectTags=()=>{
+            //
+            const allTags = projectCells.map(
+                cell => cell.tags
+            ).flat();
+            const newTags = [...new Map(allTags.map(o => [o.id, o])).values()];
+            setProjectTags(newTags);
+        }
+
+        updateProjectTags();
+    }, [projectCells])
+    
     return (
         <ProjectContext.Provider value={{
             projectCells,
             projectData,
             // projectFilename,
 
+            projectTags,
+
             newProject,
             addEmptyCell,
             deleteCell,
             updateCellContent,
+            updateCellTags,
             updateCell,
         }}
         >

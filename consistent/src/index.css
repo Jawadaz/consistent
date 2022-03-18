@@ -140,43 +140,124 @@ h1, h2 {
   }
   
 .image {
-  width: 100%;
-  height: 20rem;
-  overflow: hidden;
-  border-top-right-radius: 6px;
-  border-top-left-radius: 6px;
+    width: 100%;
+    height: 20rem;
+    overflow: hidden;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
 }
 
 .image img {
-  width: 100%;
-  object-fit: cover;
+    width: 100%;
+    object-fit: cover;
 }
 
 .content {
-  text-align: left;
-  padding: 1rem;
+    text-align: left;
+    padding: 1rem;
 }
 
 .content h3 {
-  font-size: 1.25rem;
-  color: #2c292b;
+    font-size: 1.25rem;
+    color: #2c292b;
 }
 
 .Cell {
-  border-style: solid;
-  border-color: #404080;
-  border-width: 2px;
-  margin-bottom: 2px;
+    border-style: solid;
+    border-color: #404080;
+    border-width: 2px;
+    margin-bottom: 2px;
 }
 
 .CellList {
-  border-style: solid;
+    border-style: solid;
 }
 
 
 .CellsList .list {
-  padding: 0;
+    padding: 0;
+}
+
+.CellContent {
+    font-size: 0.8rem;
 }
 
 .layout-about-link {
+}
+
+/* Styles for Tags */
+.ReactTags__tags {
+    position: relative;
+    margin: 4px;
+    font-size: 0.8rem;
+    display: block;
+}
+
+/* Styles for the tags input */
+.ReactTags__tagInput {
+    display: inline-block;
+}
+.ReactTags__tagInput input.ReactTags__tagInputField,
+.ReactTags__tagInput input.ReactTags__tagInputField:focus {
+    min-width: 158px;
+    font-size: 0.8rem;
+    height: 2.0em;
+    /* border-radius: 2px; */
+}
+.ReactTags__editTagInput {
+    /* display: inline-flex; */
+}
+
+/* Styles for added tags */
+.ReactTags__selected span.ReactTags__tag {
+    /* border: 1px solid #ddd; */
+    background: #5c5ce4;
+    color: white;
+    font-size: 0.8rem;
+    display: inline-block;
+    padding: 4px 6px;
+    margin: 0 4px 4px 0;
+    /* margin-bottom: 4px; */
+    border-radius: 10px;
+}
+.ReactTags__selected span.ReactTags__tag:first-child {
+    margin-left: 0px;
+}
+.ReactTags__selected a.ReactTags__remove {
+    color: white;
+    margin-left: 5px;
+    cursor: pointer;
+}
+.ReactTags__remove {
+    border: none;
+    cursor: pointer;
+    background: none;
+    color: white;
+}
+
+/* Styles for tags suggestions */
+.ReactTags__suggestions {
+    position: absolute;
+    margin-left: 1px;
+    border: 1px solid black;
+}
+.ReactTags__suggestions ul {
+    padding: 0px;
+    padding-left: 2px;
+    list-style-type: none;
+    box-shadow: 0.05em 0.01em 0.5em rgba(0, 0, 0, 0.2);
+    background: white;
+    min-width: 142px;
+    border: 1px;
+}
+.ReactTags__suggestions li {
+    border-bottom: 1px solid #ddd;
+}
+.ReactTags__suggestions li mark {
+    background: none;
+    font-weight: 600;
+}
+.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
+    background: #ababda;
+    cursor: pointer;
 }

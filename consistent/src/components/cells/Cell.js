@@ -60,7 +60,7 @@ function Cell( {cell} ){
                     </div>
 
             </div>
-            <CellTags props={cell.tags}/>
+            <CellTags cell={cell}/>
 
             {/* {modalIsOpen && <ConfirmModal onCancel={handelCloseModal} onConfirm={handelConfirm}/>}
             {modalIsOpen && <Backdrop onClick={handelCloseModal}/>} */}
