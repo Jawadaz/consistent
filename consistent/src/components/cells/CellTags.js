@@ -2,7 +2,7 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import ProjectContext from '../context/ProjectContext';
 import { useContext, useState, useEffect} from 'react'
 
-const CellTags = ( {cell} ) => {
+const CellTags = ( {cell, isActive} ) => {
 
     const { updateCellTags, projectTags } = useContext(ProjectContext);
 
@@ -47,11 +47,11 @@ const CellTags = ( {cell} ) => {
     const delimiters = [KeyCodes.comma, KeyCodes.enter];
   
     useEffect(()=>{
-      console.log('useEffect()');
+      console.log('CellTags.useEffect()');
       setSuggestions(projectTags);
     }, [projectTags]);
   
-    return (
+    return ( isActive?
         <div>
             <ReactTags
                 tags={tags}
@@ -75,7 +75,17 @@ const CellTags = ( {cell} ) => {
                 editable={false}
             />
         </div>
-    )
+        :
+        <div>
+            <ReactTags
+                tags={tags}
+                autofocus={false}
+                allowDeleteFromEmptyInput={false}
+                readOnly={true}
+                allowUnique={true}
+            />
+        </div>
+    );
 }
 
 export default CellTags

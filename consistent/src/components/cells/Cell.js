@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 
 // TODO: consider moving to index.css
 import classes from './Cell.module.css'
@@ -14,10 +14,11 @@ import DeleteCellButton from './DeleteCellButton';
 
 
 function Cell( {cell} ){
-    const { deleteCell, updateCellContent } = useContext(ProjectContext);
+    const { activeCellId, activateCell, deleteCell, updateCellContent } = useContext(ProjectContext);
 
     // const [ modalIsOpen, setModalIsOpen ] = useState(false);
-    const [ cellContent, setCellContent ] = useState(cell.id);
+    const [ cellContent, setCellContent ] = useState("");
+    const [ isActive, setIsActive ] = useState(false);
 
     // const handelDeleteCellButtonClick = () => {
     //     console.log('handelDelete()');
@@ -34,6 +35,14 @@ function Cell( {cell} ){
     //     handelCloseModal();
     //     deleteCell(cell.id); 
     // };
+    const handleCellClick=(event)=>{
+        activateCell(cell.id);
+    }
+
+    useEffect(()=>{
+        console.log('Cell.useEffect()');
+        setIsActive(activeCellId===cell.id ? true: false);
+      }, [activeCellId]);
 
     const handelUpdateCellContent=(event) => {
         const content = event.target.value; 
@@ -42,7 +51,7 @@ function Cell( {cell} ){
     }
 
     return (
-        <div className={"Cell"}>
+        <div className={"Cell"} onClick={handleCellClick}>
             <div className={classes.CellInner}>
 
                     <div className={classes.CellContent}>
@@ -56,11 +65,11 @@ function Cell( {cell} ){
                     </div>
                    
                     <div className="actions">
-                        <DeleteCellButton onClick={()=>{deleteCell(cell.id)}}/>
+                        <DeleteCellButton onClick={(e)=>{e.stopPropagation(); deleteCell(cell.id)}}/>
                     </div>
 
             </div>
-            <CellTags cell={cell}/>
+            <CellTags cell={cell} isActive={isActive}/>
 
             {/* {modalIsOpen && <ConfirmModal onCancel={handelCloseModal} onConfirm={handelConfirm}/>}
             {modalIsOpen && <Backdrop onClick={handelCloseModal}/>} */}

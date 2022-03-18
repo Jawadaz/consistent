@@ -23,9 +23,10 @@ export const ProjectContextProvider=( {children} )=>{
     };
 
 
-    const [ projectCells, setProjectCells ] = useState( [ emptyCell() ] );
-    const [ projectData, setProjectData ] = useState( defaultProjectData() )
-    const [ projectTags, setProjectTags ] = useState([])
+    const [ projectCells, setProjectCells ] = useState([emptyCell()]);
+    const [ projectData, setProjectData ] = useState(defaultProjectData());
+    const [ projectTags, setProjectTags ] = useState([]);
+    const [ activeCellId, setActiveCellId ] = useState();
     // const [ projectFilename, setProjectFilename ] = useState(null);
 
     const newProject = () => {
@@ -49,7 +50,10 @@ export const ProjectContextProvider=( {children} )=>{
     //     // saveAs(blob, projectFilename);
     //     console.log('haha');
     // }
-    
+    const activateCell = (id) => {
+        console.log('activateCell()');
+        setActiveCellId(id);
+    }
     //Cells stuff
     const addEmptyCell = () => {
         // // https://stackoverflow.com/a/10916838/3362720
@@ -65,6 +69,7 @@ export const ProjectContextProvider=( {children} )=>{
         console.log('addEmptyCell()');
         let cell = emptyCell();
         setProjectCells([...projectCells, cell]);
+        setActiveCellId(cell.id);
         console.log(projectCells, cell);
     }
 
@@ -112,7 +117,7 @@ export const ProjectContextProvider=( {children} )=>{
     // }
 
     useEffect(()=>{
-        console.log('useEffect()');
+        console.log('ProjectContext.useEffect()');
         
         const updateProjectTags=()=>{
             //
@@ -140,6 +145,9 @@ export const ProjectContextProvider=( {children} )=>{
             updateCellContent,
             updateCellTags,
             updateCell,
+
+            activeCellId,
+            activateCell
         }}
         >
         {children}
