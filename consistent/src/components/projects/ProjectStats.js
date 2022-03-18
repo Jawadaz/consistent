@@ -22,10 +22,10 @@ function ProjectStats( ){
     ).length
 
     return (<div className='classes.stats'>
-        <h4>Cells count: {projectCells.length}</h4>
-        <h4>Cells without any tags: {isNaN(countOfCellsWithoutTags)?0:countOfCellsWithoutTags}</h4>
-        <h4>Average Tags per Cell: {isNaN(averageTagsPerCell)?0:averageTagsPerCell}</h4>
-        <h4>Orphan Cells: {isNaN(countOfOrphanCells)?0:countOfOrphanCells}</h4>
+        <p>Cells count: {projectCells.length}</p>
+        <p>Cells without any tags: {isNaN(countOfCellsWithoutTags)?0:countOfCellsWithoutTags}</p>
+        <p>Average Tags per Cell: {isNaN(averageTagsPerCell)?0:averageTagsPerCell}</p>
+        <p>Orphan Cells: {isNaN(countOfOrphanCells)?0:countOfOrphanCells}</p>
     </div>); 
 }
 

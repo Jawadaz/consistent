@@ -37,8 +37,17 @@ function ProjectPage( props ){
             </ProjectHeader>
             <ProjectControls >
             </ProjectControls>
+            <h3>
+                Tags
+            </h3>            
             <ProjectTags />
+            <h3>
+                Cells
+            </h3>
             <CellsList />
+            <h3>
+                Stats
+            </h3>
             <ProjectStats/>
         </div>
     );

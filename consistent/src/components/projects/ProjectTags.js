@@ -13,9 +13,6 @@ function ProjectTags(){
     
     return (
         <div>
-            <h3>
-                Project Tags
-            </h3>
             <ReactTags
                 tags={projectTags}
                 // placeholder={"Add tag..."}

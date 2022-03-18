@@ -14,7 +14,7 @@ function CellsList( props ){
     };
 
     return (            
-        <div className={'CellsList'}>            
+        <div className={'CellsList'}>
             <ul className={'list'}>
             <AnimatePresence>               
                 {projectCells.map(item => 
