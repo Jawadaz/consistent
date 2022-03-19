@@ -1,7 +1,7 @@
 import { WithContext as ReactTags } from 'react-tag-input';
 import { useContext} from 'react'
 import ProjectContext from '../context/ProjectContext';
-import Tag from "../tags/Tag";
+import Tag from "../ui/Tag";
 
 function ProjectTags(){
     

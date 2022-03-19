@@ -168,7 +168,8 @@ h1, h2 {
     border-style: solid;
     border-color: #404080;
     border-width: 2px;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
+    border-radius: 6px;
     position: relative;
 }
 

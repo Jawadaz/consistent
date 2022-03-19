@@ -65,7 +65,7 @@ const CellTags = ( {cell, isActive} ) => {
                 handleAddition={handleAddition}
                 handleDrag={handleDrag}
                 handleTagClick={handleTagClick}
-                inputFieldPosition="bottom"
+                inputFieldPosition="inline"
                 autocomplete={true}
                 readOnly={false}
                 allowUnique={true}

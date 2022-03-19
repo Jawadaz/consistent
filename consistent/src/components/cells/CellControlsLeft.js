@@ -1,5 +1,5 @@
 import { FaPlus, FaArrowUp, FaArrowDown } from "react-icons/fa"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import ControlButton from "../ui/ControlButton";
 import ProjectContext from "../context/ProjectContext";
 
@@ -7,8 +7,7 @@ function CellControlsLeft( {cell} ){
     console.log("CellControlsLeft");    
     console.log(cell.id)
     const { addEmptyCell, moveActiveCellDown, moveActiveCellUp, projectCells } = useContext(ProjectContext);
-    // const [ isMoveCellUpButtonDisabled, setIsMoveCellUpButtonDisabled ] = useState(false);
-    // const [ isMoveCellDownButtonDisabled, setIsMoveCellDownButtonDisabled ] = useState(false);
+
     let isMoveCellUpButtonDisabled = false;
     let isMoveCellDownButtonDisabled = false
 

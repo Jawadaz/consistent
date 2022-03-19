@@ -7,7 +7,7 @@ import ProjectContext from '../context/ProjectContext';
 
 function CellsList( props ){
 
-    const { projectCells } = useContext(ProjectContext);
+    const { projectCells, filteredProjectCells } = useContext(ProjectContext);
     const variants = {
         hidden: { opacity: 0 },
         visible: { opacity: 1 },

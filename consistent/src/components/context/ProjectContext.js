@@ -26,7 +26,14 @@ export const ProjectContextProvider=( {children} )=>{
 
 
     const [ projectCells, setProjectCells ] = useState([emptyCell()]);
+    const [ filteredProjectCells, setFilteredProjectCells ] = useState([...projectCells]);
     const [ projectData, setProjectData ] = useState(defaultProjectData());
+    const [ projectUndoRedoStack, setProjectUndoRedoStack] = useState([{
+        'cells': [...projectCells],
+        'data': {...projectData},
+    }]); //for undo/redo
+    const [ filterQuery, setFilterQuery ] = useState({'tags':[], 'operation': 'and'})
+
     const [ projectTags, setProjectTags ] = useState([]);
     const [ activeCellId, setActiveCellId ] = useState();
     // const [ projectFilename, setProjectFilename ] = useState(null);
@@ -39,6 +46,14 @@ export const ProjectContextProvider=( {children} )=>{
         // activateCell(cell.id);
         // return newProjectData;
         return loadFixture();
+    }
+
+    const filterProjectCells = (query) => {
+        const tags = query.tags;
+        const operation = query.operation;
+        console.log(tags);
+        console.log(operation);
+        return;
     }
 
     const loadFixture = () => {
@@ -200,6 +215,10 @@ export const ProjectContextProvider=( {children} )=>{
             // projectFilename,
 
             projectTags,
+            filterProjectCells,
+            filteredProjectCells,
+
+            setFilterQuery,
 
             newProject,
             addEmptyCell,
