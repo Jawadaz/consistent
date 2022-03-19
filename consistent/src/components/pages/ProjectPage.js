@@ -33,6 +33,7 @@ function ProjectPage( props ){
     return (
         <div>
             <div>
+                {/* Changes to go here */}
                 <ProjectHeader>
                     <ProjectTitle title={projectData.title}/>
                 </ProjectHeader>
