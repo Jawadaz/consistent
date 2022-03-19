@@ -1,8 +1,12 @@
 
 
-function Tag( {tag, deleteTag} ){
+function Tag( {tag} ){
     return (
-        <div>{tag}</div>
+        // <div className={" "}>
+            <span className={"ReactTags__tag"}>
+                {tag.text}
+            </span>
+        // </div>
     );
 }
 

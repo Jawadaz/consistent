@@ -1,9 +1,10 @@
 import { useContext, useState, useEffect } from 'react';
-
+import TextareaAutosize from 'react-textarea-autosize';
 
 import ProjectContext from '../context/ProjectContext';
 import CellTags from './CellTags';
-import DeleteCellButton from './DeleteCellButton';
+import CellControlsRight from './CellControlsRight';
+import CellControlsLeft from './CellControlsLeft';
 
 // TODO: implement cool modal yes/no at some point
 // import ConfirmModal from '../ui/ConfirmModal';
@@ -11,10 +12,10 @@ import DeleteCellButton from './DeleteCellButton';
 
 
 function Cell( {cell} ){
-    const { activeCellId, activateCell, deleteCell, updateCellContent } = useContext(ProjectContext);
+    const { activeCellId, activateCell, updateCellContent } = useContext(ProjectContext);
 
     // const [ modalIsOpen, setModalIsOpen ] = useState(false);
-    const [ cellContent, setCellContent ] = useState("");
+    const [ cellContent, setCellContent ] = useState(cell.content);
     const [ isActive, setIsActive ] = useState(false);
 
     // const handelDeleteCellButtonClick = () => {
@@ -39,7 +40,8 @@ function Cell( {cell} ){
     useEffect(()=>{
         console.log('Cell.useEffect()');
         setIsActive(activeCellId===cell.id ? true: false);
-      }, [activeCellId, cell.id]);
+      }, [activeCellId, cell.id]
+    );
 
     const handelUpdateCellContent=(event) => {
         const content = event.target.value; 
@@ -50,24 +52,19 @@ function Cell( {cell} ){
     return (
         <div className={"Cell"} onClick={handleCellClick}>
             <div className={'CellInner'}>
-
                     <div className={'CellContent'}>
                         {/* https://www.npmjs.com/package/react-textarea-autosize */}
-                        <input 
+                        <TextareaAutosize        
                             onChange={handelUpdateCellContent} 
                             type="text" 
                             placeholdre=""
                             value={cellContent}
                         />
                     </div>
-                   
-                    <div className="actions">
-                        <DeleteCellButton onClick={(e)=>{e.stopPropagation(); deleteCell(cell.id)}}/>
-                    </div>
-
+                    {isActive && <CellControlsRight cell={cell}/>}                    
+                    {isActive && <CellControlsLeft cell={cell}/>}
             </div>
             <CellTags cell={cell} isActive={isActive}/>
-
             {/* {modalIsOpen && <ConfirmModal onCancel={handelCloseModal} onConfirm={handelConfirm}/>}
             {modalIsOpen && <Backdrop onClick={handelCloseModal}/>} */}
 

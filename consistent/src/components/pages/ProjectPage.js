@@ -4,6 +4,7 @@ import ProjectHeader from "../projects/ProjectHeader.js";
 import ProjectControls from "../projects/ProjectControls.js";
 import ProjectTags from "../projects/ProjectTags.js";
 
+
 import CellsList from "../cells/CellsList.js";
 // import { useParams, useLocation } from "react-router-dom";
 import { useContext } from "react";
@@ -28,19 +29,21 @@ function ProjectPage( props ){
     //     // return newProjcet;
 
     // }else{
-    console.log(projectData.id);
 
     return (
         <div>
-            <ProjectHeader>
-                <ProjectTitle title={projectData.title}/>
-            </ProjectHeader>
-            <ProjectControls >
-            </ProjectControls>
-            <h3>
-                Tags
-            </h3>            
-            <ProjectTags />
+            <div>
+                <ProjectHeader>
+                    <ProjectTitle title={projectData.title}/>
+                </ProjectHeader>
+                <ProjectControls>
+                </ProjectControls>
+                <h3>
+                    Tags
+                </h3>            
+                <ProjectTags />
+            </div>
+
             <h3>
                 Cells
             </h3>

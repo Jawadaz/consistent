@@ -1,6 +1,6 @@
 function ProjectHeader( {children} ){
     return (
-        <div>
+        <div >
             {children}
         </div>
     );

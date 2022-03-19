@@ -1,6 +1,7 @@
 import { WithContext as ReactTags } from 'react-tag-input';
 import { useContext} from 'react'
 import ProjectContext from '../context/ProjectContext';
+import Tag from "../tags/Tag";
 
 function ProjectTags(){
     
@@ -9,30 +10,32 @@ function ProjectTags(){
     
     const handleTagClick = index => {
         console.log('The tag at index ' + index + ' was clicked');
+        console.log(projectTags);
     };
     
     return (
+        // <div>
+        //     <ul className={"ReactTags__tags ReactTags__selected"}>
+        //         {projectTags.map((tag)=>
+        //                 <Tag 
+        //                     tag={tag} 
+        //                     key={tag.id}
+        //                 />
+        //             )
+        //         }
+        //     </ul>
+        // </div>
         <div className={"ProjectTags"}>
             <ReactTags
                 tags={projectTags}
-                // placeholder={"Add tag..."}
-                // suggestions={suggestions}
-                // minQueryLength={2}
+                
                 autofocus={false}
                 allowDeleteFromEmptyInput={false}
-                // delimiters={delimiters}
-                // handleDelete={handleDelete}
-                // handleAddition={handleAddition}
-                // handleDrag={handleDrag}
+                
                 handleTagClick={handleTagClick}
-                // inputFieldPosition="bottom"
-                // autocomplete={true}
+               
                 readOnly={true}
                 allowUnique={true}
-                // allowDragDrop={true}
-                // inline={true}
-                // allowAdditionFromPaste={true}
-                // editable={false}
             />            
         </div>
     );

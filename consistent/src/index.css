@@ -111,6 +111,7 @@ h1, h2 {
     display: flex;
     align-items: baseline;
 }
+  
 
 .header li {
     margin-left: 3rem;
@@ -168,6 +169,7 @@ h1, h2 {
     border-color: #404080;
     border-width: 2px;
     margin-bottom: 2px;
+    position: relative;
 }
 
 .CellList {
@@ -200,6 +202,23 @@ h1, h2 {
 .CellContent textarea {
     width: 100%;
 }
+
+.CellControlsRight {
+    position: absolute;
+    right: -40px;
+}
+.CellControlsLeft{
+    position: absolute;
+    left: -40px;
+}
+
+.CellControlsLeft button{
+    display: block;
+    margin-bottom: 2px;
+}
+.btnCellControlsLeft-group button:not(:last-child) {
+    border-bottom: none; /* Prevent double borders */
+  }
 
 /* form {
     display: inherit;

@@ -43,7 +43,7 @@ const CellTags = ( {cell, isActive} ) => {
         comma: 188,
         enter: 13
     };
-      
+
     const delimiters = [KeyCodes.comma, KeyCodes.enter];
   
     useEffect(()=>{
@@ -69,7 +69,7 @@ const CellTags = ( {cell, isActive} ) => {
                 autocomplete={true}
                 readOnly={false}
                 allowUnique={true}
-                allowDragDrop={true}
+                allowDragDrop={false}
                 inline={true}
                 allowAdditionFromPaste={true}
                 editable={false}
@@ -83,6 +83,7 @@ const CellTags = ( {cell, isActive} ) => {
                 allowDeleteFromEmptyInput={false}
                 readOnly={true}
                 allowUnique={true}
+                allowDragDrop={false}
             />
         </div>
     );

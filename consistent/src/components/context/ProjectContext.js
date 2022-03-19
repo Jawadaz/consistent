@@ -1,6 +1,8 @@
 import { createContext, useState, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid'
 
+import dummyProject from "../../fixtures/dummy_project_1.json"
+
 const ProjectContext = createContext();
 
 export const ProjectContextProvider=( {children} )=>{
@@ -30,12 +32,23 @@ export const ProjectContextProvider=( {children} )=>{
     // const [ projectFilename, setProjectFilename ] = useState(null);
 
     const newProject = () => {
-        let cell = emptyCell();
-        setProjectCells([cell]);
-        let newProjectData = defaultProjectData()
-        setProjectData(newProjectData)
-        activateCell(cell.id);
-        return newProjectData;
+        // let cell = emptyCell();
+        // setProjectCells([cell]);
+        // let newProjectData = defaultProjectData()
+        // setProjectData(newProjectData)
+        // activateCell(cell.id);
+        // return newProjectData;
+        return loadFixture();
+    }
+
+    const loadFixture = () => {
+        setProjectCells(dummyProject.cells);
+        setProjectData({
+            id: dummyProject.id,
+            title: dummyProject.title,
+            description: dummyProject.description
+        });
+        return dummyProject;
     }
 
     //Project Stuff
@@ -101,10 +114,17 @@ export const ProjectContextProvider=( {children} )=>{
         // let r = (Math.random() + 1).toString(36).substring(7);
         // cell.tags.push(r);
         console.log('addEmptyCell()');
+
+        const activeCellIndex = projectCells.findIndex(cell => {
+            return cell.id === activeCellId;
+        });
+        
         let cell = emptyCell();
-        setProjectCells([...projectCells, cell]);
+        const cells = [...projectCells];
+        cells.splice(activeCellIndex+1, 0, cell);
+        setProjectCells(cells);  
+
         setActiveCellId(cell.id);
-        console.log(projectCells, cell);
     }
 
     const deleteCell=(id)=>{

@@ -21,6 +21,7 @@ function ProjectControls( {children} )
 
     const btnSaveAsClickHandler=(e)=>{
         console.log("btnSaveAsClickHandler");
+        console.log(projectCells);
         // setProjectFilename("helloworld.txt");
         // saveProject();
     }    
