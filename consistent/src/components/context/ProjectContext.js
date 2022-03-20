@@ -1,8 +1,7 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import { v4 as uuidv4 } from 'uuid'
 
 import dummyProject from "../../fixtures/dummy_project_1.json"
-
 const ProjectContext = createContext();
 
 export const ProjectContextProvider=( {children} )=>{
@@ -15,6 +14,7 @@ export const ProjectContextProvider=( {children} )=>{
         };
     };
 
+    
     const defaultProjectData = () => {
         return {
             id: uuidv4(),
@@ -24,15 +24,13 @@ export const ProjectContextProvider=( {children} )=>{
         };
     };
 
-
     const [ projectCells, setProjectCells ] = useState([emptyCell()]);
-    const [ filteredProjectCells, setFilteredProjectCells ] = useState([...projectCells]);
     const [ projectData, setProjectData ] = useState(defaultProjectData());
+    const [ projectCorpus, setProjectCorpus ] = useState([]);
     const [ projectUndoRedoStack, setProjectUndoRedoStack] = useState([{
         'cells': [...projectCells],
         'data': {...projectData},
     }]); //for undo/redo
-    const [ filterQuery, setFilterQuery ] = useState({'tags':[], 'operation': 'and'})
 
     const [ projectTags, setProjectTags ] = useState([]);
     const [ activeCellId, setActiveCellId ] = useState();
@@ -48,12 +46,14 @@ export const ProjectContextProvider=( {children} )=>{
         return loadFixture();
     }
 
-    const filterProjectCells = (query) => {
-        const tags = query.tags;
-        const operation = query.operation;
-        console.log(tags);
-        console.log(operation);
-        return;
+    const generateProjectCorpus = () => {
+        // a function that takes all the contents in the cells and extract unique tokens
+        const corpus = [];
+        // projectCells.forEach(cell=> 
+        //    tokenize cell content and push it to the corpus 
+        //);
+        // sort corpus 
+        // remove duplicates from corpus
     }
 
     const loadFixture = () => {
@@ -196,6 +196,7 @@ export const ProjectContextProvider=( {children} )=>{
                 cell => cell.tags
             ).flat();
             const newTags = [...new Map(allTags.map(o => [o.id, o])).values()];
+            // TODO: sort project tags here:
             setProjectTags(newTags);
         }
 
@@ -215,10 +216,7 @@ export const ProjectContextProvider=( {children} )=>{
             // projectFilename,
 
             projectTags,
-            filterProjectCells,
-            filteredProjectCells,
-
-            setFilterQuery,
+            projectCorpus,
 
             newProject,
             addEmptyCell,

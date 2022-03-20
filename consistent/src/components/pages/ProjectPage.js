@@ -3,7 +3,7 @@ import ProjectStats from "../projects/ProjectStats.js";
 import ProjectHeader from "../projects/ProjectHeader.js";
 import ProjectControls from "../projects/ProjectControls.js";
 import ProjectTags from "../projects/ProjectTags.js";
-import ProjectFilters from "../projects/ProjectFilters"
+import ProjectFiltersTags from "../projects/ProjectFiltersTags"
 
 
 import CellsList from "../cells/CellsList.js";
@@ -33,32 +33,30 @@ function ProjectPage( props ){
 
     return (
         <div>
-            <div>
-                <ProjectHeader>
-                    <ProjectTitle title={projectData.title}/>
-                </ProjectHeader>
-                <ProjectControls>
-                </ProjectControls>
-                <h3>
-                    Tags
-                </h3>            
-                <ProjectTags />
-                <h3>
-                    Filters
-                </h3>
-                <ProjectFilters>
+                    <div>
+                        <ProjectHeader>
+                            <ProjectTitle title={projectData.title}/>
+                        </ProjectHeader>
+                        <ProjectControls>
+                        </ProjectControls>
+                        <h3>
+                            Tags
+                        </h3>            
+                        <ProjectTags />
+                        <h3>
+                            Filter by Tags
+                        </h3>
+                        <ProjectFiltersTags />
+                    </div>
 
-                </ProjectFilters>
-            </div>
-
-            <h3>
-                Cells
-            </h3>
-            <CellsList />
-            <h3>
-                Stats
-            </h3>
-            <ProjectStats/>
+                    <h3>
+                        Cells
+                    </h3>
+                    <CellsList />
+                    <h3>
+                        Stats
+                    </h3>
+                    <ProjectStats/>
         </div>
     );
 }
