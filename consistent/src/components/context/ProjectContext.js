@@ -197,6 +197,13 @@ export const ProjectContextProvider=( {children} )=>{
             ).flat();
             const newTags = [...new Map(allTags.map(o => [o.id, o])).values()];
             // TODO: sort project tags here:
+            newTags.sort(function(a,b){
+                if(a.id.toUpperCase()>b.id.toUpperCase()){
+                    return 1;
+                }
+                //no need to evaluate == because the list contains unique string values
+                return -1;
+            });
             setProjectTags(newTags);
         }
 
