@@ -36,14 +36,15 @@ export const ProjectContextProvider=( {children} )=>{
     const [ activeCellId, setActiveCellId ] = useState();
     // const [ projectFilename, setProjectFilename ] = useState(null);
 
-    const newProject = () => {
+    const newProject = ( projectId ) => {
         // let cell = emptyCell();
         // setProjectCells([cell]);
         // let newProjectData = defaultProjectData()
+        // newProjectData.id = projectID;
         // setProjectData(newProjectData)
         // activateCell(cell.id);
         // return newProjectData;
-        return loadFixture();
+        return loadFixture(projectId);
     }
 
     const generateProjectCorpus = () => {
@@ -56,13 +57,14 @@ export const ProjectContextProvider=( {children} )=>{
         // remove duplicates from corpus
     }
 
-    const loadFixture = () => {
-        setProjectCells(dummyProject.cells);
+    const loadFixture = (projectId) => {
+        console.log('loadFixture');
         setProjectData({
-            id: dummyProject.id,
+            id: projectId,
             title: dummyProject.title,
             description: dummyProject.description
         });
+        setProjectCells(dummyProject.cells);        
         return dummyProject;
     }
 
@@ -148,7 +150,23 @@ export const ProjectContextProvider=( {children} )=>{
             let cell=emptyCell();
             setProjectCells([cell]);
         } else {
+            const activeCellIndex = projectCells.findIndex(cell => {
+                return cell.id === activeCellId;
+            });
             setProjectCells(projectCells.filter((cell) => cell.id !== id ));
+            // select the previous cell in the filteredCells
+            if(activeCellIndex===0){
+                if(projectCells.length>1){
+                    activateCell(projectCells[1].id);
+                    return;
+                }
+            } 
+            if (activeCellIndex===projectCells.length-1){
+                activateCell(projectCells[activeCellIndex-1].id);
+                return;
+            }
+            
+            activateCell(projectCells[activeCellIndex+1].id);
         }
     }
 
@@ -187,8 +205,6 @@ export const ProjectContextProvider=( {children} )=>{
     // }
 
     useEffect(()=>{
-        console.log('ProjectContext.useEffect()');
-        
         // tags
         const updateProjectTags=()=>{
             //

@@ -7,8 +7,8 @@ import ProjectFiltersTags from "../projects/ProjectFiltersTags"
 
 
 import CellsList from "../cells/CellsList.js";
-// import { useParams, useLocation } from "react-router-dom";
-import { useContext } from "react";
+import { useParams, useLocation } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 
 // import dummyProject from "../../fixtures/dummy_project_1.json"
 
@@ -17,25 +17,26 @@ import ProjectContext from "../context/ProjectContext.js";
 
 function ProjectPage( props ){
     
-    // const { projectId } = useParams();
+    const { projectId } = useParams();    
     // const location = useLocation();
     // const search = useLocation().search;
     //const project_filename = new URLSearchParams(search).get('filename');
     // const { projectData, newProject } = useContext(ProjectContext)
+
     const { projectData } = useContext(ProjectContext)
+    const [ data, setData ] = useState(projectData);
 
-    // if(projectId === "new"){
-    //     console.log(projectData.id);
-    //     console.log("newProject");
-    //     // return newProjcet;
+    // newProject(projectId);
 
-    // }else{
+    // useEffect(()=>{
+    //     setData(projectData);
+    // },[projectData]);
 
     return (
         <div>
                     <div>
                         <ProjectHeader>
-                            <ProjectTitle title={projectData.title}/>
+                            <ProjectTitle title={data.title}/>
                         </ProjectHeader>
                         <ProjectControls>
                         </ProjectControls>

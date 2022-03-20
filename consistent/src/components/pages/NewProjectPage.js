@@ -1,14 +1,22 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import ProjectContext from "../context/ProjectContext";
+import { v4 as uuidv4 } from 'uuid'
 
 function NewProjectPage(){
 
     const { newProject } = useContext(ProjectContext);
-    const projectData = newProject();
+    const [ ready, setReady] = useState(false);
+    
+    useEffect(()=>{
+        newProject(uuidv4());
+        setReady(true);
+    },[]);
 
     return (
-        <Redirect to={{pathname:`/projects/${projectData.id}`}}/>
+        <>
+        {ready && <Redirect to={{pathname:`/projects/${uuidv4()}`}}/> }
+        </>
     );
 }
 

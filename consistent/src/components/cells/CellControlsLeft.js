@@ -5,8 +5,6 @@ import ProjectContext from "../context/ProjectContext";
 import FilterContext from "../context/FilterContext";
 
 function CellControlsLeft( {cell} ){
-    console.log("CellControlsLeft");    
-    console.log(cell.id)
     const { addEmptyCell, moveActiveCellDown, moveActiveCellUp, projectCells } = useContext(ProjectContext);
     const { isFiltered } = useContext(FilterContext);
 

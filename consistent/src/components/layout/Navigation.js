@@ -14,7 +14,7 @@ function Navigation() {
                         <Link to='/projects/load'>Load Project</Link>
                     </li> */}
                     <li>
-                        <Link to='/projects/new'>New Project</Link>
+                        <Link to='/projects/_new'>New Project</Link>
                     </li>                    
                     <li>
                         <Link to='/about'>About</Link>

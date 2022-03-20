@@ -20,7 +20,7 @@ function App() {
                 <FilterContextProvider>          
             <Switch>
               <Route path="/" exact component={HomePage} />
-              <Route path="/projects/new" exact component={NewProjectPage} />
+              <Route path="/projects/_new" exact component={NewProjectPage} />
               <Route path="/projects/:projectId" exact component={ProjectPage} />
               {/* <Route path="/projects/" exact component={ProjectsPage} /> */}
               <Route path="/about" exact component={AboutPage} />
