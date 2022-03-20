@@ -2,23 +2,19 @@ import { FaPlus, FaArrowUp, FaArrowDown } from "react-icons/fa"
 import { useContext } from "react"
 import ControlButton from "../ui/ControlButton";
 import ProjectContext from "../context/ProjectContext";
+import FilterContext from "../context/FilterContext";
 
 function CellControlsLeft( {cell} ){
     console.log("CellControlsLeft");    
     console.log(cell.id)
     const { addEmptyCell, moveActiveCellDown, moveActiveCellUp, projectCells } = useContext(ProjectContext);
-
-    let isMoveCellUpButtonDisabled = false;
-    let isMoveCellDownButtonDisabled = false
+    const { isFiltered } = useContext(FilterContext);
 
     const firstCellId = projectCells[0].id;
     const lastCellId = projectCells[projectCells.length-1].id;
-    if(cell.id===firstCellId){
-        isMoveCellUpButtonDisabled = true;
-    }
-    if(cell.id===lastCellId){
-        isMoveCellDownButtonDisabled=true;
-    }
+    
+    let isMoveCellUpButtonDisabled = isFiltered || cell.id===firstCellId;
+    let isMoveCellDownButtonDisabled = isFiltered || cell.id===lastCellId;
 
     return (
         <div className={"CellControlsLeft"}>
@@ -41,7 +37,7 @@ function CellControlsLeft( {cell} ){
             <ControlButton
                 className={'btn btn-primary'}
                 onClick={(e)=>{e.stopPropagation();addEmptyCell()}} 
-                disabled={false}
+                disabled={isFiltered}
             >
                 <FaPlus color='while' />
             </ControlButton>            

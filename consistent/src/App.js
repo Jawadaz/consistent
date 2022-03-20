@@ -5,7 +5,10 @@ import NewProjectPage from './components/pages/NewProjectPage'
 import HomePage from './components/pages/HomePage';
 import AboutPage from './components/pages/AboutPage';
 import Layout from './components/layout/Layout';
+
+
 import {ProjectContextProvider} from './components/context/ProjectContext'
+import {FilterContextProvider} from './components/context/FilterContext'
 
 function App() {
 
@@ -13,7 +16,8 @@ function App() {
     <>
       <BrowserRouter>
         <Layout>
-          <ProjectContextProvider>
+        <ProjectContextProvider>            
+                <FilterContextProvider>          
             <Switch>
               <Route path="/" exact component={HomePage} />
               <Route path="/projects/new" exact component={NewProjectPage} />
@@ -21,7 +25,8 @@ function App() {
               {/* <Route path="/projects/" exact component={ProjectsPage} /> */}
               <Route path="/about" exact component={AboutPage} />
             </Switch>
-          </ProjectContextProvider>
+                </FilterContextProvider>            
+                </ProjectContextProvider>                
         </Layout>
       </BrowserRouter>
     </>

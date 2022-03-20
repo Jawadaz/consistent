@@ -2,15 +2,19 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import { useContext} from 'react'
 import ProjectContext from '../context/ProjectContext';
 import Tag from "../ui/Tag";
+import FilterContext from '../context/FilterContext';
 
 function ProjectTags(){
     
     const { projectTags } = useContext(ProjectContext);
-    
+    const { filterQuery, addTagsToFilterQuery } = useContext(FilterContext);
     
     const handleTagClick = index => {
         console.log('The tag at index ' + index + ' was clicked');
-        console.log(projectTags);
+        const newFilterQurey = {...filterQuery}
+        console.log(projectTags[index]);
+        //if tag is not in tags push
+        addTagsToFilterQuery([projectTags[index]]);
     };
     
     return (

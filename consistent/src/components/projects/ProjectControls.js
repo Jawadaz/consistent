@@ -1,12 +1,15 @@
 import { useState, useEffect, useContext } from 'react';
 import { FaSave, FaPlus, FaArrowDown, FaArrowUp } from "react-icons/fa";
 import ProjectContext from '../context/ProjectContext';
+import FilterContext from '../context/FilterContext';
 import ControlButton from '../ui/ControlButton'
 
 
 function ProjectControls( {children} )
 {
     const { projectFilename, activeCellId, projectCells, addEmptyCell, moveActiveCellDown, moveActiveCellUp } = useContext(ProjectContext)
+    const { isFiltered } = useContext(FilterContext);
+
     const [ isMoveCellUpButtonDisabled, setIsMoveCellUpButtonDisabled ] = useState(false);
     const [ isMoveCellDownButtonDisabled, setIsMoveCellDownButtonDisabled ] = useState(false);
     //////
@@ -32,22 +35,27 @@ function ProjectControls( {children} )
         if(projectCells.length===1){
             setIsMoveCellUpButtonDisabled(true);
             setIsMoveCellDownButtonDisabled(true);
+            return;
+        }
+        if(isFiltered){
+            setIsMoveCellUpButtonDisabled(isFiltered);
+            setIsMoveCellDownButtonDisabled(isFiltered);
+            return;
+        }
+        const firstCellId = projectCells[0].id;
+        const lastCellId = projectCells[projectCells.length-1].id;
+        if(activeCellId===firstCellId){
+            setIsMoveCellUpButtonDisabled(true);
         }else{
-            const firstCellId = projectCells[0].id;
-            const lastCellId = projectCells[projectCells.length-1].id;
-            if(activeCellId===firstCellId){
-                setIsMoveCellUpButtonDisabled(true);
-            }else{
-                setIsMoveCellUpButtonDisabled(false);
-            }
-            if(activeCellId===lastCellId){
-                setIsMoveCellDownButtonDisabled(true);
-            }else{
-                setIsMoveCellDownButtonDisabled(false);
-            }
+            setIsMoveCellUpButtonDisabled(false);
+        }
+        if(activeCellId===lastCellId){
+            setIsMoveCellDownButtonDisabled(true);
+        }else{
+            setIsMoveCellDownButtonDisabled(false);
         }
 
-    }, [projectCells, activeCellId])
+    }, [ projectCells, activeCellId, isFiltered])
 
     return (
         <div>
@@ -55,7 +63,7 @@ function ProjectControls( {children} )
             <ControlButton 
                 className={'btn btn-primary'}
                 onClick={(e)=>addEmptyCell()} 
-                disabled={false}>
+                disabled={isFiltered}>
                 <FaPlus color='while' />
             </ControlButton>
             <ControlButton 
