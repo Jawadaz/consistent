@@ -16,7 +16,15 @@ function ProjectTags(){
         //if tag is not in tags push
         addTagsToFilterQuery([projectTags[index]]);
     };
-    
+
+    const sortedProjectTags = [...projectTags];
+    sortedProjectTags.sort((a,b)=>{
+        if(a.id.toUpperCase()>b.id.toUpperCase()){
+            return 1;
+        }
+        return -1;
+    });
+    console.log([projectTags]);
     return (
         // <div>
         //     <ul className={"ReactTags__tags ReactTags__selected"}>
@@ -31,7 +39,7 @@ function ProjectTags(){
         // </div>
         <div className={"ProjectTags"}>
             <ReactTags
-                tags={projectTags}
+                tags={ sortedProjectTags }
                 
                 autofocus={false}
                 allowDeleteFromEmptyInput={false}
