@@ -78,9 +78,9 @@ h1, h2 {
 }
 
 .main {
-    margin: 3rem auto;
-    width: 100%;
-    max-width: 80rem;
+    margin: 1.6rem;
+    /* width: 80%; */
+    /* max-width: 80%; */
   }
 
 .header {
@@ -89,8 +89,8 @@ h1, h2 {
     align-items: center;
     justify-content: space-between;
     background-color: #404080;
-    max-width: 80rem;
-    margin: auto
+    /* max-width: 80rem; */
+    /* margin: auto */
 }
   
 .logo {
@@ -206,7 +206,7 @@ h1, h2 {
 
 .CellControlsRight {
     position: absolute;
-    right: -40px;
+    right: -38px;
 }
 .CellControlsLeft{
     position: absolute;
