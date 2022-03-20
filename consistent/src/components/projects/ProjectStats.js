@@ -1,32 +1,72 @@
 import { useContext } from 'react'
+import FilterContext from '../context/FilterContext';
 import ProjectContext from '../context/ProjectContext';
 
 function ProjectStats( ){
     //calculate average number of tags/cell
     //
-    const { projectCells } = useContext(ProjectContext)
+    const { projectCells } = useContext(ProjectContext);
+    const { isFiltered, filteredProjectCells } = useContext(FilterContext);
     //
-    let averageTagsPerCell = projectCells.map(cell=>cell.tags.length).reduce((acc, cur) => {
-        return acc + cur;
-    }, 0)/projectCells.length;
-    averageTagsPerCell = averageTagsPerCell.toFixed(1).replace("/[.,]0$", '');
 
-    let countOfCellsWithoutTags = projectCells.filter((cell) => cell.tags.length === 0 ).length;
+    const averageTagsPerCell = (cells) => {
+        let result = cells.map(cell=>cell.tags.length).reduce((acc, cur) => {
+            return acc + cur;
+        }, 0)/cells.length;
+        result = result.toFixed(1).replace("/[.,]0$", '');
+        result = isNaN(result)?0:result;
+        return result
+    }
 
-    let countOfOrphanCells = projectCells.filter(cell => 
-        cell.tags.every(tag => 
-            projectCells.filter(x=>x.id !== cell.id)
-                 .filter(x=>x.tags.find(x=>x===tag)
-            ).length === 0
-        )
-    ).length
+    const countOfCellsWithoutTags = (cells) => {
+        let result = cells.filter((cell) => cell.tags.length === 0 ).length;
+        result=isNaN(result)?0:result;
+        return result
+    }    
+
+    // const countOfOrphanCells = (cells) => {
+    //     let result = cells.filter(cell => 
+    //         cell.tags.every(tag => 
+    //             cells.filter(x=>x.id !== cell.id)
+    //                  .filter(x=>x.tags.find(x=>x===tag)
+    //             ).length === 0
+    //         )
+    //     ).length;
+    //     result = isNaN(result)?0:result;
+    //     return result
+    // }
+    
+
+    let projectCellsAverageTagsPerCell = averageTagsPerCell(projectCells);
+    let filteredProjectCellsAverageTagsPerCell = averageTagsPerCell(filteredProjectCells);
+
+    let projectCellsCountOfCellsWithoutTags = countOfCellsWithoutTags(projectCells);
+    let filteredProjectCellsCountOfCellsWithoutTags = countOfCellsWithoutTags(filteredProjectCells);
+
+    // let countOfOrphanProjectCells = countOfOrphanCells(projectCells);
+    // let countOfOrphanFilteredProjectCells = countOfOrphanCells(filteredProjectCells);
 
     return (<div className='classes.stats'>
-        <p>Cells count: {projectCells.length}</p>
-        <p>Cells without any tags: {isNaN(countOfCellsWithoutTags)?0:countOfCellsWithoutTags}</p>
-        <p>Average Tags per Cell: {isNaN(averageTagsPerCell)?0:averageTagsPerCell}</p>
-        <p>Orphan Cells: {isNaN(countOfOrphanCells)?0:countOfOrphanCells}</p>
+        {isFiltered
+            ?
+            <>
+            <p>Cells count: {filteredProjectCells.length}/{projectCells.length}</p>
+            <p>Cells without any tags: {filteredProjectCellsCountOfCellsWithoutTags}/{projectCellsCountOfCellsWithoutTags}</p>
+            <p>Average Tags per Cell: {filteredProjectCellsAverageTagsPerCell}/{projectCellsAverageTagsPerCell}</p>
+            </>
+            :
+            <>
+            <p>Cells count: {projectCells.length}</p>
+            <p>Cells without any tags: {projectCellsCountOfCellsWithoutTags}</p>
+            <p>Average Tags per Cell: {projectCellsAverageTagsPerCell}</p>
+            </>
+        }
     </div>); 
 }
+
+
+
+
+
 
 export default ProjectStats;
