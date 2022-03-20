@@ -11,7 +11,7 @@ function NewProjectPage(){
     useEffect(()=>{
         newProject(uuidv4());
         setReady(true);
-    },[]);
+    },[newProject]);
 
     return (
         <>

@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useState, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid'
 
 import dummyProject from "../../fixtures/dummy_project_1.json"
@@ -27,10 +27,10 @@ export const ProjectContextProvider=( {children} )=>{
     const [ projectCells, setProjectCells ] = useState([emptyCell()]);
     const [ projectData, setProjectData ] = useState(defaultProjectData());
     const [ projectCorpus, setProjectCorpus ] = useState([]);
-    const [ projectUndoRedoStack, setProjectUndoRedoStack] = useState([{
-        'cells': [...projectCells],
-        'data': {...projectData},
-    }]); //for undo/redo
+    // const [ projectUndoRedoStack, setProjectUndoRedoStack] = useState([{
+    //     'cells': [...projectCells],
+    //     'data': {...projectData},
+    // }]); //for undo/redo
 
     const [ projectTags, setProjectTags ] = useState([]);
     const [ activeCellId, setActiveCellId ] = useState();
@@ -55,6 +55,7 @@ export const ProjectContextProvider=( {children} )=>{
         //);
         // sort corpus 
         // remove duplicates from corpus
+        setProjectCorpus(corpus);
     }
 
     const loadFixture = (projectId) => {
@@ -222,10 +223,12 @@ export const ProjectContextProvider=( {children} )=>{
             });
             setProjectTags(newTags);
         }
-
+        // tags
         updateProjectTags();
 
-        // tags
+        // corppus
+        generateProjectCorpus();
+
         if(projectCells.length===1){
             activateCell(projectCells[0].id);
         }

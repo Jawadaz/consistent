@@ -14,33 +14,6 @@ export const FilterContextProvider=( {children} )=> {
     const [ filteredProjectCells, setFilteredProjectCells ] = useState([...projectCells]);
     const [ isFiltered, setIsFiltered ] = useState(false)
 
-
-    const filterProjectCells = (query) => {
-        const tagsIds = query.tags.map(tag=>tag.id);
-        const text = query.text;
-        const operation = query.operation;
-        
-        if(tagsIds.length===0 && text.length===0){
-            setFilteredProjectCells(projectCells);
-            setIsFiltered(false);
-            return;
-        }
-        // FilterTags:
-        const cells = projectCells.filter(
-            cell=>cell.tags
-                .map(tag => tag.id)
-                .some(tag => tagsIds.includes(tag))
-        );
-        // FilterText:
-        // cells = cells.filter(
-        //      cell=>cell.content 
-        // );
-        setFilteredProjectCells(cells);
-        setIsFiltered(projectCells.length!=cells.length);
-        return;
-    }
-
-
     const resetFilterQuery=()=>{
         setFilterQuery(emptyFilterQuery);
     }
@@ -74,14 +47,45 @@ export const FilterContextProvider=( {children} )=> {
     }
 
     useEffect(()=>{
+        const filterProjectCells = (query) => {
+            const tagsIds = query.tags.map(tag=>tag.id);
+            const text = query.text;
+            const operation = query.operation;
+            
+            if(tagsIds.length===0 && text.length===0){
+                setFilteredProjectCells(projectCells);
+                setIsFiltered(false);
+                return;
+            }
+            // FilterTags:
+            let cells = [];
+            if (operation==='or'){
+                cells= projectCells.filter(
+                    cell=>cell.tags
+                        .map(tag => tag.id)
+                        .some(tag => tagsIds.includes(tag))
+                );
+            } else {
+                //TODO: Change the behavior to and
+                cells = projectCells.filter(
+                    cell=>cell.tags
+                        .map(tag => tag.id)
+                        .some(tag => tagsIds.includes(tag))
+                );
+            }
+            // FilterText:
+            // cells = cells.filter(
+            //      cell=>cell.content 
+            // );
+            setFilteredProjectCells(cells);
+            setIsFiltered(!cells||(projectCells.length!==cells.length));
+            return;
+        }
+        
         console.log("filterQuery");
         console.log(filterQuery);
         filterProjectCells(filterQuery);
-    }, [filterQuery]);
-
-    useEffect(()=>{
-        filterProjectCells(filterQuery);
-    }, [projectCells]);
+    }, [filterQuery, projectCells]);
 
     return (
         <FilterContext.Provider value={{
