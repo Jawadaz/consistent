@@ -37,14 +37,14 @@ export const ProjectContextProvider=( {children} )=>{
     // const [ projectFilename, setProjectFilename ] = useState(null);
 
     const newProject = ( projectId ) => {
-        // let cell = emptyCell();
-        // setProjectCells([cell]);
-        // let newProjectData = defaultProjectData()
-        // newProjectData.id = projectID;
-        // setProjectData(newProjectData)
-        // activateCell(cell.id);
-        // return newProjectData;
-        return loadFixture(projectId);
+        let cell = emptyCell();
+        setProjectCells([cell]);
+        let newProjectData = defaultProjectData()
+        newProjectData.id = projectId;
+        setProjectData(newProjectData)
+        activateCell(cell.id);
+        return newProjectData;
+        // return loadFixture();
     }
 
     const generateProjectCorpus = () => {
@@ -58,10 +58,10 @@ export const ProjectContextProvider=( {children} )=>{
         setProjectCorpus(corpus);
     }
 
-    const loadFixture = (projectId) => {
+    const loadFixture = () => {
         console.log('loadFixture');
         setProjectData({
-            id: projectId,
+            id: dummyProject.title,
             title: dummyProject.title,
             description: dummyProject.description
         });
@@ -244,6 +244,7 @@ export const ProjectContextProvider=( {children} )=>{
             projectTags,
             projectCorpus,
 
+            loadFixture,
             newProject,
             addEmptyCell,
             deleteCell,
