@@ -9,11 +9,16 @@ function ProjectControls( {children} )
 {
     const { projectFilename, activeCellId, projectCells, 
         addEmptyCell, moveActiveCellDown, moveActiveCellUp, 
-        toggleLockProject, isProjectLocked, undo, redo } = useContext(ProjectContext)
+        toggleLockProject, isProjectLocked, undo, redo,
+        isUndoDisabled, isRedoDisabled } = useContext(ProjectContext)
     const { isFiltered } = useContext(FilterContext);
 
     const [ isMoveCellUpButtonDisabled, setIsMoveCellUpButtonDisabled ] = useState(false);
     const [ isMoveCellDownButtonDisabled, setIsMoveCellDownButtonDisabled ] = useState(false);
+
+    const [ isUndoButtonDisabled, setIsUndoButtonDisabled] = useState(true);
+    const [ isRedoButtonDisabled, setIsRedoButtonDisabled] = useState(true);
+
     //////
     const btnSaveClickHandler=(e)=>{
         console.log("btnSaveClickHandler")
@@ -78,7 +83,11 @@ function ProjectControls( {children} )
             setIsMoveCellDownButtonDisabled(false);
         }
 
+        setIsUndoButtonDisabled(isUndoDisabled);
+        setIsRedoButtonDisabled(isRedoDisabled);
+
     }, [ projectCells, activeCellId, isFiltered, isProjectLocked])
+
 
     return (
         <div>
@@ -106,14 +115,15 @@ function ProjectControls( {children} )
 
             <ControlButton 
                 className={'btn btn-primary'}
-                disabled={false}
+                disabled={isUndoButtonDisabled}
                 onClick={(e)=>btnUndoClickHandler()}
             >
                     <FaUndo color={'white'} />
             </ControlButton>
+
             <ControlButton 
                 className={'btn btn-primary'}
-                disabled={false}
+                disabled={isRedoButtonDisabled}
                 onClick={(e)=>btnRedoClickHandler()}
             >
                     <FaRedo color={'white'} />
