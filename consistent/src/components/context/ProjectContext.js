@@ -65,7 +65,7 @@ export const ProjectContextProvider=( {children} )=>{
     const updateHistoryIndex=(index)=>{
         setHistoryIndex(index);
         
-        setIsUndoDisabled((index===projectCellsHistory-1) || isProjectLocked);
+        setIsUndoDisabled((index===projectCellsHistory.length-1) || isProjectLocked);
         setIsRedoDisabled((index===0) || isProjectLocked);
     }
 

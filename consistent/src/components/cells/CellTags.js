@@ -47,9 +47,14 @@ const CellTags = ( {cell, isActive, updateCellTags } ) => {
     const delimiters = [KeyCodes.comma, KeyCodes.enter];
   
     useEffect(()=>{
-      console.log('CellTags.useEffect()');
+      console.log('CellTags.useEffect() projectTags');
       setSuggestions(projectTags);
     }, [projectTags]);
+
+    useEffect(()=>{
+        console.log('CellTags.useEffect() cell.tags');
+        setTags(cell.tags);
+    },[cell.tags]);
   
     return ( isActive?
         <div>

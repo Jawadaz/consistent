@@ -49,6 +49,9 @@ function Cell( {cell} ){
 
     const handleUpdateCell=(event) =>{
         const content = event.target.value; 
+        if(content===cell.content){
+            return;
+        }
         updateCellContent(cell.id, content);
     }
 
@@ -62,6 +65,12 @@ function Cell( {cell} ){
         console.log('Cell.useEffect() cell.content');
         setCellContent(cell.content);
     }, [cell.content]);
+
+    useEffect(()=>{
+        console.log('Cell.useEffect() cell.content');
+        setCellTags(cell.content);
+
+    }, [cell.tags]);
 
     return (
         <div className={"Cell"} onClick={handleCellClick}>
