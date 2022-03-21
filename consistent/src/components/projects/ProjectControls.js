@@ -86,7 +86,7 @@ function ProjectControls( {children} )
         setIsUndoButtonDisabled(isUndoDisabled);
         setIsRedoButtonDisabled(isRedoDisabled);
 
-    }, [ projectCells, activeCellId, isFiltered, isProjectLocked])
+    }, [ projectCells, activeCellId, isFiltered, isProjectLocked, isUndoDisabled, isRedoDisabled ])
 
 
     return (

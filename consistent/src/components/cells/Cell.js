@@ -52,6 +52,8 @@ function Cell( {cell} ){
         if(content===cell.content){
             return;
         }
+        //TODO: Consider tags as in issue #17        
+        console.log(cellTags);
         updateCellContent(cell.id, content);
     }
 
@@ -68,7 +70,7 @@ function Cell( {cell} ){
 
     useEffect(()=>{
         console.log('Cell.useEffect() cell.content');
-        setCellTags(cell.content);
+        setCellTags(cell.tags);
 
     }, [cell.tags]);
 
