@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { FaSave, FaPlus, FaArrowDown, FaArrowUp, FaLock, FaLockOpen } from "react-icons/fa";
+import { FaSave, FaPlus, FaArrowDown, FaArrowUp, FaLock, FaLockOpen, FaUndo, FaRedo } from "react-icons/fa";
 import ProjectContext from '../context/ProjectContext';
 import FilterContext from '../context/FilterContext';
 import ControlButton from '../ui/ControlButton'
@@ -7,7 +7,9 @@ import ControlButton from '../ui/ControlButton'
 
 function ProjectControls( {children} )
 {
-    const { projectFilename, activeCellId, projectCells, addEmptyCell, moveActiveCellDown, moveActiveCellUp, toggleLockProject, isProjectLocked} = useContext(ProjectContext)
+    const { projectFilename, activeCellId, projectCells, 
+        addEmptyCell, moveActiveCellDown, moveActiveCellUp, 
+        toggleLockProject, isProjectLocked, undo, redo } = useContext(ProjectContext)
     const { isFiltered } = useContext(FilterContext);
 
     const [ isMoveCellUpButtonDisabled, setIsMoveCellUpButtonDisabled ] = useState(false);
@@ -32,6 +34,16 @@ function ProjectControls( {children} )
     const btnLockClickHandler=(e)=>{
         console.log("btnLockClickHandler");
         toggleLockProject();
+    }
+
+    const btnUndoClickHandler=(e)=>{
+        console.log("btnUndoClickHandler");
+        undo();
+    }
+
+    const btnRedoClickHandler=(e)=>{
+        console.log("btnRedoClickHandler");
+        redo();
     }
     
     useEffect(()=>{
@@ -91,6 +103,22 @@ function ProjectControls( {children} )
             >
                 <FaArrowUp color='white' />
             </ControlButton>
+
+            <ControlButton 
+                className={'btn btn-primary'}
+                disabled={false}
+                onClick={(e)=>btnUndoClickHandler()}
+            >
+                    <FaUndo color={'white'} />
+            </ControlButton>
+            <ControlButton 
+                className={'btn btn-primary'}
+                disabled={false}
+                onClick={(e)=>btnRedoClickHandler()}
+            >
+                    <FaRedo color={'white'} />
+            </ControlButton>
+
             <ControlButton 
                 className={'btn btn-primary'}
                 disabled={false}

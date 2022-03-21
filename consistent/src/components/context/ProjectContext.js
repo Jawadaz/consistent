@@ -60,6 +60,7 @@ export const ProjectContextProvider=( {children} )=>{
     }
 
     const undo = () => {
+        console.log('undo');
         if(historyIndex<projectCellsHistory.length-1){
             setHistoryIndex(historyIndex+1);
             setProjectCells(projectCellsHistory[historyIndex+1]);
@@ -67,6 +68,7 @@ export const ProjectContextProvider=( {children} )=>{
     }
 
     const redo = () => {
+        console.log('redo');
         if(historyIndex>0){
             setHistoryIndex(historyIndex-1);
             setProjectCells(projectCellsHistory[historyIndex-1]);
@@ -291,6 +293,9 @@ export const ProjectContextProvider=( {children} )=>{
 
             toggleLockProject,
             isProjectLocked,
+
+            undo,
+            redo,
 
             loadFixture,
             newProject,
