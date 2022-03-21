@@ -100,6 +100,9 @@ export const ProjectContextProvider=( {children} )=>{
 
     const toggleLockProject=()=>{
         setIsProjectLocked(!isProjectLocked);
+        if(!isProjectLocked){
+            setActiveCellId(null);
+        }
     }
 
     const generateProjectCorpus = () => {
