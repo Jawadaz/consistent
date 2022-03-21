@@ -49,6 +49,10 @@ function Cell( {cell} ){
     const handelUpdateCellContent=(event) => {
         const content = event.target.value; 
         setCellContent(content);
+    }
+
+    const handleUpdateCell=(event) =>{
+        const content = event.target.value; 
         updateCellContent(cell.id, content);
     }
 
@@ -58,11 +62,12 @@ function Cell( {cell} ){
                     <div className={'CellContent'}>
                         {/* https://www.npmjs.com/package/react-textarea-autosize */}
                         <TextareaAutosize        
-                            onBlur={handelUpdateCellContent}
+                            onChange={handelUpdateCellContent}
+                            onBlur={handleUpdateCell}
                             type="text" 
                             placeholdre=""
                             value={cellContent}
-                            disabled={isProjectLocked}
+                            // disabled={isProjectLocked}
                         />
                     </div>
                     {isActive && <CellControlsRight cell={cell}/>}                    
