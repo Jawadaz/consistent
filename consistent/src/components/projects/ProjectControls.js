@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { FaSave, FaPlus, FaArrowDown, FaArrowUp, FaLock, FaLockOpen, FaUndo, FaRedo } from "react-icons/fa";
+import { FaSave, FaPlus, FaArrowDown, FaArrowUp, FaLock, FaLockOpen, FaUndo, FaRedo, FaFileExport } from "react-icons/fa";
 import ProjectContext from '../context/ProjectContext';
 import FilterContext from '../context/FilterContext';
 import ControlButton from '../ui/ControlButton'
@@ -49,6 +49,11 @@ function ProjectControls( {children} )
     const btnRedoClickHandler=(e)=>{
         console.log("btnRedoClickHandler");
         redo();
+    }
+
+    const btnExportClickHandler=(e)=>{
+        console.log('btnExportClickHandler():');
+        return;
     }
     
     useEffect(()=>{
@@ -142,6 +147,13 @@ function ProjectControls( {children} )
                 disabled={false}
             >
                 Save As...
+            </ControlButton>
+            <ControlButton
+                className={'btn btn-primary'} 
+                onClick={(e)=>btnExportClickHandler()}
+                disabled={false}            
+            >
+                <FaFileExport color={'white'} />
             </ControlButton>
             <ControlButton 
                 className={'btn btn-primary'} 
