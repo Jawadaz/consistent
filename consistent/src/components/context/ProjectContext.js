@@ -66,7 +66,7 @@ export const ProjectContextProvider=( {children} )=>{
     const loadFixture = () => {
         console.log('loadFixture');
         setProjectData({
-            id: dummyProject.title,
+            id: dummyProject.id,
             title: dummyProject.title,
             description: dummyProject.description
         });
