@@ -85,7 +85,7 @@ function Cell( {cell} ){
                             type="text" 
                             placeholdre=""
                             value={cellContent}
-                            // disabled={isProjectLocked}
+                            disabled={isProjectLocked}
                         />
                     </div>
                     {isActive && <CellControlsRight cell={cell}/>}                    
