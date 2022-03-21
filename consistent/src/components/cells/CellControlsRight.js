@@ -6,7 +6,7 @@ import ControlButton from "../ui/ControlButton.js"
 
 function CellControlsRight ( { cell } ) {
 
-    const { deleteCell } = useContext(ProjectContext);
+    const { deleteCell, isProjectLocked } = useContext(ProjectContext);
 
     return (
         <div 
@@ -16,6 +16,7 @@ function CellControlsRight ( { cell } ) {
                 isDisabled={false} 
                 onClick={(e)=>{e.stopPropagation(); deleteCell(cell.id);}}
                 className={"btn btn-primary"}
+                disabled={isProjectLocked}
             >
                 <FaTimes color={"white"}/>
             </ControlButton>

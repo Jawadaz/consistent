@@ -12,7 +12,7 @@ import CellControlsLeft from './CellControlsLeft';
 
 
 function Cell( {cell} ){
-    const { activeCellId, activateCell, updateCellContent } = useContext(ProjectContext);
+    const { activeCellId, activateCell, updateCellContent, isProjectLocked } = useContext(ProjectContext);
 
     // const [ modalIsOpen, setModalIsOpen ] = useState(false);
     const [ cellContent, setCellContent ] = useState(cell.content);
@@ -34,6 +34,9 @@ function Cell( {cell} ){
     //     deleteCell(cell.id); 
     // };
     const handleCellClick=(event)=>{
+        if(isProjectLocked){
+            return;
+        }
         activateCell(cell.id);
     }
 
@@ -55,10 +58,11 @@ function Cell( {cell} ){
                     <div className={'CellContent'}>
                         {/* https://www.npmjs.com/package/react-textarea-autosize */}
                         <TextareaAutosize        
-                            onChange={handelUpdateCellContent} 
+                            onBlur={handelUpdateCellContent}
                             type="text" 
                             placeholdre=""
                             value={cellContent}
+                            disabled={isProjectLocked}
                         />
                     </div>
                     {isActive && <CellControlsRight cell={cell}/>}                    

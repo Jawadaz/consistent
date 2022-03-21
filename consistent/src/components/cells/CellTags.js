@@ -4,7 +4,7 @@ import { useContext, useState, useEffect} from 'react'
 
 const CellTags = ( {cell, isActive} ) => {
 
-    const { updateCellTags, projectTags } = useContext(ProjectContext);
+    const { updateCellTags, projectTags, isProjectLocked } = useContext(ProjectContext);
 
     const [tags, setTags] = useState(cell.tags);
     const [suggestions, setSuggestions] = useState(projectTags)
@@ -67,7 +67,7 @@ const CellTags = ( {cell, isActive} ) => {
                 handleTagClick={handleTagClick}
                 inputFieldPosition="inline"
                 autocomplete={true}
-                readOnly={false}
+                readOnly={isProjectLocked}
                 allowUnique={true}
                 allowDragDrop={false}
                 inline={true}

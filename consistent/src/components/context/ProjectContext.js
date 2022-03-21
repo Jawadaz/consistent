@@ -27,6 +27,7 @@ export const ProjectContextProvider=( {children} )=>{
     const [ projectCells, setProjectCells ] = useState([emptyCell()]);
     const [ projectData, setProjectData ] = useState(defaultProjectData());
     const [ projectCorpus, setProjectCorpus ] = useState([]);
+    const [ isProjectLocked, setIsProjectLocked ] = useState(false);
     // const [ projectUndoRedoStack, setProjectUndoRedoStack] = useState([{
     //     'cells': [...projectCells],
     //     'data': {...projectData},
@@ -45,6 +46,10 @@ export const ProjectContextProvider=( {children} )=>{
         activateCell(cell.id);
         return newProjectData;
         // return loadFixture();
+    }
+
+    const toggleLockProject=()=>{
+        setIsProjectLocked(!isProjectLocked);
     }
 
     const generateProjectCorpus = () => {
@@ -66,6 +71,7 @@ export const ProjectContextProvider=( {children} )=>{
             description: dummyProject.description
         });
         setProjectCells(dummyProject.cells);        
+        setIsProjectLocked(true);
         return dummyProject;
     }
 
@@ -243,6 +249,9 @@ export const ProjectContextProvider=( {children} )=>{
 
             projectTags,
             projectCorpus,
+
+            toggleLockProject,
+            isProjectLocked,
 
             loadFixture,
             newProject,

@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { FaSave, FaPlus, FaArrowDown, FaArrowUp } from "react-icons/fa";
+import { FaSave, FaPlus, FaArrowDown, FaArrowUp, FaLock, FaLockOpen } from "react-icons/fa";
 import ProjectContext from '../context/ProjectContext';
 import FilterContext from '../context/FilterContext';
 import ControlButton from '../ui/ControlButton'
@@ -7,7 +7,7 @@ import ControlButton from '../ui/ControlButton'
 
 function ProjectControls( {children} )
 {
-    const { projectFilename, activeCellId, projectCells, addEmptyCell, moveActiveCellDown, moveActiveCellUp } = useContext(ProjectContext)
+    const { projectFilename, activeCellId, projectCells, addEmptyCell, moveActiveCellDown, moveActiveCellUp, toggleLockProject, isProjectLocked} = useContext(ProjectContext)
     const { isFiltered } = useContext(FilterContext);
 
     const [ isMoveCellUpButtonDisabled, setIsMoveCellUpButtonDisabled ] = useState(false);
@@ -28,6 +28,11 @@ function ProjectControls( {children} )
         // setProjectFilename("helloworld.txt");
         // saveProject();
     }    
+
+    const btnLockClickHandler=(e)=>{
+        console.log("btnLockClickHandler");
+        toggleLockProject();
+    }
     
     useEffect(()=>{
         console.log('ProjectControls.useEffect()');
@@ -38,8 +43,14 @@ function ProjectControls( {children} )
             return;
         }
         if(isFiltered){
-            setIsMoveCellUpButtonDisabled(isFiltered);
-            setIsMoveCellDownButtonDisabled(isFiltered);
+            setIsMoveCellUpButtonDisabled(true);
+            setIsMoveCellDownButtonDisabled(true);
+            return;
+        }
+        console.log(isProjectLocked);        
+        if(isProjectLocked){
+            setIsMoveCellUpButtonDisabled(true);
+            setIsMoveCellDownButtonDisabled(true);
             return;
         }
         const firstCellId = projectCells[0].id;
@@ -55,7 +66,7 @@ function ProjectControls( {children} )
             setIsMoveCellDownButtonDisabled(false);
         }
 
-    }, [ projectCells, activeCellId, isFiltered])
+    }, [ projectCells, activeCellId, isFiltered, isProjectLocked])
 
     return (
         <div>
@@ -63,7 +74,7 @@ function ProjectControls( {children} )
             <ControlButton 
                 className={'btn btn-primary'}
                 onClick={(e)=>addEmptyCell()} 
-                disabled={isFiltered}>
+                disabled={isFiltered||isProjectLocked}>
                 <FaPlus color='while' />
             </ControlButton>
             <ControlButton 
@@ -94,6 +105,17 @@ function ProjectControls( {children} )
             >
                 Save As...
             </ControlButton>
+            <ControlButton 
+                className={'btn btn-primary'} 
+                onClick={(e)=>btnLockClickHandler()}
+                disabled={false}
+            >
+                {isProjectLocked ?
+                    <FaLock color={'white'} />                
+                :
+                    <FaLockOpen color={'white'} />
+                }
+            </ControlButton>            
         </div>
     );
 }
