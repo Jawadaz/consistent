@@ -37,6 +37,60 @@ export const ProjectContextProvider=( {children} )=>{
     const [ activeCellId, setActiveCellId ] = useState();
     // const [ projectFilename, setProjectFilename ] = useState(null);
 
+    const [ projectCellsHistory, setProjectCellsHistory ] = useState([projectCells]);
+    const [ historyIndex, setHistoryIndex ] = useState(0);
+    const [ isUndoDisabled, setIsUndoDisabled ] = useState(true);
+    const [ isRedoDisabled, setIsRedoDisabled ] = useState(true);
+
+    const updateProjectCells = (cells) => {
+        setProjectCells(cells);
+        pushToProjectCellsHistory(cells);
+    }
+
+    const pushToProjectCellsHistory = (cells) => {
+        console.log('pushing');
+        if(historyIndex===0){
+            const updatedHistory = [cells,...projectCellsHistory];
+            setProjectCellsHistory(updatedHistory);
+            updateHistoryIndex(0);
+        }else{
+            //from index 
+            const updatedHistory = [...projectCellsHistory];
+            updatedHistory.splice(0, historyIndex, cells);
+            setProjectCellsHistory(updatedHistory);
+            updateHistoryIndex(0);
+        }
+    }
+
+    const updateHistoryIndex=(index)=>{
+        setHistoryIndex(index);
+        
+        setIsUndoDisabled((index===projectCellsHistory.length-1) || isProjectLocked);
+        setIsRedoDisabled((index===0) || isProjectLocked);
+    }
+
+    const undo = () => {
+        console.log('undo');
+        if(isProjectLocked){
+            return;
+        }
+        if(historyIndex<projectCellsHistory.length-1){
+            updateHistoryIndex(historyIndex+1);
+            setProjectCells(projectCellsHistory[historyIndex+1]);
+        }
+    }
+
+    const redo = () => {
+        console.log('redo');
+        if(isProjectLocked){
+            return;
+        }        
+        if(historyIndex>0){
+            updateHistoryIndex(historyIndex-1);
+            setProjectCells(projectCellsHistory[historyIndex-1]);
+        }        
+    }
+
     const newProject = ( projectId ) => {
         let cell = emptyCell();
         setProjectCells([cell]);
@@ -44,12 +98,17 @@ export const ProjectContextProvider=( {children} )=>{
         newProjectData.id = projectId;
         setProjectData(newProjectData)
         activateCell(cell.id);
+        setHistoryIndex(0);
+        setProjectCellsHistory([[cell]]);
         return newProjectData;
         // return loadFixture();
     }
 
     const toggleLockProject=()=>{
         setIsProjectLocked(!isProjectLocked);
+        if(!isProjectLocked){
+            setActiveCellId(null);
+        }
     }
 
     const generateProjectCorpus = () => {
@@ -72,6 +131,8 @@ export const ProjectContextProvider=( {children} )=>{
         });
         setProjectCells(dummyProject.cells);        
         setIsProjectLocked(true);
+        setHistoryIndex(0);
+        setProjectCellsHistory([dummyProject.cells]);        
         return dummyProject;
     }
 
@@ -107,7 +168,7 @@ export const ProjectContextProvider=( {children} )=>{
         const cells = [...projectCells];
         cells.splice(activeCellIndex, 1);
         cells.splice(activeCellIndex-1, 0, activeCell);
-        setProjectCells(cells);
+        updateProjectCells(cells);
     }
 
     const moveActiveCellDown=()=>{
@@ -123,7 +184,7 @@ export const ProjectContextProvider=( {children} )=>{
         const cells = [...projectCells];
         cells.splice(activeCellIndex, 1);
         cells.splice(activeCellIndex+1, 0, activeCell);
-        setProjectCells(cells);             
+        updateProjectCells(cells);             
     }
     //Cells stuff
     const addEmptyCell = () => {
@@ -146,7 +207,7 @@ export const ProjectContextProvider=( {children} )=>{
         let cell = emptyCell();
         const cells = [...projectCells];
         cells.splice(activeCellIndex+1, 0, cell);
-        setProjectCells(cells);  
+        updateProjectCells(cells);  
 
         setActiveCellId(cell.id);
     }
@@ -155,12 +216,12 @@ export const ProjectContextProvider=( {children} )=>{
         console.log('deleteCell()');
         if(projectCells.length===1){
             let cell=emptyCell();
-            setProjectCells([cell]);
+            updateProjectCells([cell]);
         } else {
             const activeCellIndex = projectCells.findIndex(cell => {
                 return cell.id === activeCellId;
             });
-            setProjectCells(projectCells.filter((cell) => cell.id !== id ));
+            updateProjectCells(projectCells.filter((cell) => cell.id !== id ));
             // select the previous cell in the filteredCells
             if(activeCellIndex===0){
                 if(projectCells.length>1){
@@ -179,14 +240,14 @@ export const ProjectContextProvider=( {children} )=>{
 
     const updateCell=(id, updatedCell)=>{
         console.log('updateCell()');
-        setProjectCells(projectCells.map(
+        updateProjectCells(projectCells.map(
                 (cell) => (cell.id === id ? {...cell, ...updatedCell}: cell))
         );
     }        
 
     const updateCellContent=(id, content)=>{
         console.log('updateCellContent()');
-        setProjectCells(
+        updateProjectCells(
             projectCells.map(
                 (cell) => (cell.id === id ? {...cell, content: content}: cell))
         );
@@ -199,7 +260,7 @@ export const ProjectContextProvider=( {children} )=>{
     const updateCellTags=(id, tags)=>{
         console.log('updateCellTags()');
         console.log(tags);
-        setProjectCells(
+        updateProjectCells(
             projectCells.map(
                 (cell) => (cell.id === id ? {...cell, tags: tags}: cell))
         );
@@ -238,7 +299,6 @@ export const ProjectContextProvider=( {children} )=>{
         if(projectCells.length===1){
             activateCell(projectCells[0].id);
         }
-
     }, [projectCells])
 
     return (
@@ -252,6 +312,11 @@ export const ProjectContextProvider=( {children} )=>{
 
             toggleLockProject,
             isProjectLocked,
+
+            undo,
+            redo,
+            isUndoDisabled,
+            isRedoDisabled,
 
             loadFixture,
             newProject,

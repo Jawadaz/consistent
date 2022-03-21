@@ -2,9 +2,9 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import ProjectContext from '../context/ProjectContext';
 import { useContext, useState, useEffect} from 'react'
 
-const CellTags = ( {cell, isActive} ) => {
+const CellTags = ( {cell, isActive, updateCellTags } ) => {
 
-    const { updateCellTags, projectTags, isProjectLocked } = useContext(ProjectContext);
+    const { projectTags, isProjectLocked } = useContext(ProjectContext);
 
     const [tags, setTags] = useState(cell.tags);
     const [suggestions, setSuggestions] = useState(projectTags)
@@ -47,9 +47,14 @@ const CellTags = ( {cell, isActive} ) => {
     const delimiters = [KeyCodes.comma, KeyCodes.enter];
   
     useEffect(()=>{
-      console.log('CellTags.useEffect()');
+      console.log('CellTags.useEffect() projectTags');
       setSuggestions(projectTags);
     }, [projectTags]);
+
+    useEffect(()=>{
+        console.log('CellTags.useEffect() cell.tags');
+        setTags(cell.tags);
+    },[cell.tags]);
   
     return ( isActive?
         <div>

@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { FaSave, FaPlus, FaArrowDown, FaArrowUp, FaLock, FaLockOpen } from "react-icons/fa";
+import { FaSave, FaPlus, FaArrowDown, FaArrowUp, FaLock, FaLockOpen, FaUndo, FaRedo } from "react-icons/fa";
 import ProjectContext from '../context/ProjectContext';
 import FilterContext from '../context/FilterContext';
 import ControlButton from '../ui/ControlButton'
@@ -7,11 +7,18 @@ import ControlButton from '../ui/ControlButton'
 
 function ProjectControls( {children} )
 {
-    const { projectFilename, activeCellId, projectCells, addEmptyCell, moveActiveCellDown, moveActiveCellUp, toggleLockProject, isProjectLocked} = useContext(ProjectContext)
+    const { projectFilename, activeCellId, projectCells, 
+        addEmptyCell, moveActiveCellDown, moveActiveCellUp, 
+        toggleLockProject, isProjectLocked, undo, redo,
+        isUndoDisabled, isRedoDisabled } = useContext(ProjectContext)
     const { isFiltered } = useContext(FilterContext);
 
     const [ isMoveCellUpButtonDisabled, setIsMoveCellUpButtonDisabled ] = useState(false);
     const [ isMoveCellDownButtonDisabled, setIsMoveCellDownButtonDisabled ] = useState(false);
+
+    const [ isUndoButtonDisabled, setIsUndoButtonDisabled] = useState(true);
+    const [ isRedoButtonDisabled, setIsRedoButtonDisabled] = useState(true);
+
     //////
     const btnSaveClickHandler=(e)=>{
         console.log("btnSaveClickHandler")
@@ -32,6 +39,16 @@ function ProjectControls( {children} )
     const btnLockClickHandler=(e)=>{
         console.log("btnLockClickHandler");
         toggleLockProject();
+    }
+
+    const btnUndoClickHandler=(e)=>{
+        console.log("btnUndoClickHandler");
+        undo();
+    }
+
+    const btnRedoClickHandler=(e)=>{
+        console.log("btnRedoClickHandler");
+        redo();
     }
     
     useEffect(()=>{
@@ -66,7 +83,11 @@ function ProjectControls( {children} )
             setIsMoveCellDownButtonDisabled(false);
         }
 
+        setIsUndoButtonDisabled(isUndoDisabled);
+        setIsRedoButtonDisabled(isRedoDisabled);
+
     }, [ projectCells, activeCellId, isFiltered, isProjectLocked])
+
 
     return (
         <div>
@@ -91,9 +112,26 @@ function ProjectControls( {children} )
             >
                 <FaArrowUp color='white' />
             </ControlButton>
+
             <ControlButton 
                 className={'btn btn-primary'}
-                disabled={false}
+                disabled={isUndoButtonDisabled}
+                onClick={(e)=>btnUndoClickHandler()}
+            >
+                    <FaUndo color={'white'} />
+            </ControlButton>
+
+            <ControlButton 
+                className={'btn btn-primary'}
+                disabled={isRedoButtonDisabled}
+                onClick={(e)=>btnRedoClickHandler()}
+            >
+                    <FaRedo color={'white'} />
+            </ControlButton>
+
+            <ControlButton 
+                className={'btn btn-primary'}
+                disabled={isProjectLocked}
                 onClick={(e)=>btnSaveClickHandler()}
             >
                     <FaSave color={'white'} />
