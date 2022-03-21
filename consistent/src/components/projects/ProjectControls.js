@@ -131,7 +131,7 @@ function ProjectControls( {children} )
 
             <ControlButton 
                 className={'btn btn-primary'}
-                disabled={false}
+                disabled={isProjectLocked}
                 onClick={(e)=>btnSaveClickHandler()}
             >
                     <FaSave color={'white'} />

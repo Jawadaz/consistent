@@ -65,12 +65,15 @@ export const ProjectContextProvider=( {children} )=>{
     const updateHistoryIndex=(index)=>{
         setHistoryIndex(index);
         
-        setIsUndoDisabled(index===projectCellsHistory-1);
-        setIsRedoDisabled(index===0);
+        setIsUndoDisabled((index===projectCellsHistory-1) || isProjectLocked);
+        setIsRedoDisabled((index===0) || isProjectLocked);
     }
 
     const undo = () => {
         console.log('undo');
+        if(isProjectLocked){
+            return;
+        }
         if(historyIndex<projectCellsHistory.length-1){
             updateHistoryIndex(historyIndex+1);
             setProjectCells(projectCellsHistory[historyIndex+1]);
@@ -79,6 +82,9 @@ export const ProjectContextProvider=( {children} )=>{
 
     const redo = () => {
         console.log('redo');
+        if(isProjectLocked){
+            return;
+        }        
         if(historyIndex>0){
             updateHistoryIndex(historyIndex-1);
             setProjectCells(projectCellsHistory[historyIndex-1]);
