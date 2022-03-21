@@ -2,9 +2,9 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import ProjectContext from '../context/ProjectContext';
 import { useContext, useState, useEffect} from 'react'
 
-const CellTags = ( {cell, isActive} ) => {
+const CellTags = ( {cell, isActive, updateCellTags } ) => {
 
-    const { updateCellTags, projectTags, isProjectLocked } = useContext(ProjectContext);
+    const { projectTags, isProjectLocked } = useContext(ProjectContext);
 
     const [tags, setTags] = useState(cell.tags);
     const [suggestions, setSuggestions] = useState(projectTags)
