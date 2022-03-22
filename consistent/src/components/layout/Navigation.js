@@ -14,9 +14,7 @@ function Navigation() {
         loadProject(project);
         setLoadedProject(project.id);
       };
-    return (
-        
-        <>
+    return (<>
         {loadedProject && <Redirect to={{pathname:`/projects/${loadedProject}`}} ></Redirect>}
         {loadedProject === null && <Redirect to="/" ></Redirect>}
         <header className={'header'}>
