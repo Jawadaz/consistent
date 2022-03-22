@@ -52,11 +52,7 @@ function Navigation() {
                         </a>
                         
                     </li>
-
-                    <li>
-                        <Link to='/projects/_load'>Load Project</Link>
-                    </li>
-                    <li>
+                     <li>
                         <Link to='/projects/_new'>New Project</Link>
                     </li>                    
                     <li>
