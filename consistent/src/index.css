@@ -288,6 +288,7 @@ h1, h2 {
     position: absolute;
     margin-left: 1px;
     border: 1px solid black;
+    z-index: 100;
 }
 .ReactTags__suggestions ul {
     padding: 0px;
@@ -307,5 +308,10 @@ h1, h2 {
 }
 .ReactTags__suggestions ul li.ReactTags__activeSuggestion {
     background: #ababda;
+    cursor: pointer;
+}
+
+.files-dropzone
+{
     cursor: pointer;
 }
