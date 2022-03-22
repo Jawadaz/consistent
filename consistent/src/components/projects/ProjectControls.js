@@ -6,7 +6,7 @@ import ControlButton from '../ui/ControlButton'
 
 function ProjectControls( {children} )
 {
-    const { projectFilename, activeCellId, projectCells, addEmptyCell, moveActiveCellDown, moveActiveCellUp } = useContext(ProjectContext)
+    const { projectFilename, activeCellId, projectCells, addEmptyCell, moveActiveCellDown, moveActiveCellUp,saveAsClick } = useContext(ProjectContext)
     const [ isMoveCellUpButtonDisabled, setIsMoveCellUpButtonDisabled ] = useState(false);
     const [ isMoveCellDownButtonDisabled, setIsMoveCellDownButtonDisabled ] = useState(false);
     //////
@@ -22,6 +22,8 @@ function ProjectControls( {children} )
     const btnSaveAsClickHandler=(e)=>{
         console.log("btnSaveAsClickHandler");
         console.log(projectCells);
+        saveAsClick();
+        
         // setProjectFilename("helloworld.txt");
         // saveProject();
     }    

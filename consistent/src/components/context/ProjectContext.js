@@ -2,7 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid'
 
 import dummyProject from "../../fixtures/dummy_project_1.json"
-
+import { saveAs } from 'file-saver'
 const ProjectContext = createContext();
 
 export const ProjectContextProvider=( {children} )=>{
@@ -66,6 +66,15 @@ export const ProjectContextProvider=( {children} )=>{
         return dummyProject;
     }
 
+    const loadProject = (project) => {
+        setProjectCells(project.cells);
+        setProjectData({
+            id: project.id,
+            title: project.title,
+            description: project.description
+        });
+        return project;
+    }
     //Project Stuff
     // const saveProject=()=>{
     //     console.log('Save Project');
@@ -85,6 +94,11 @@ export const ProjectContextProvider=( {children} )=>{
         setActiveCellId(id);
     }
 
+    const saveAsClick = (id) => {
+        console.log('saveAsClick()');
+        var blob = new Blob([JSON.stringify({...projectData, cells:projectCells})], {type: "json/plain;charset=utf-8"});
+        saveAs(blob, `${projectData.title} v${new Date().toLocaleDateString()}-${new Date().toLocaleTimeString()}.json`);
+    }
     const moveActiveCellUp = ()=>{
         console.log('moveActiveCellUp():');
         if(activeCellId===projectCells[0].id){
@@ -213,7 +227,7 @@ export const ProjectContextProvider=( {children} )=>{
             projectCells,
             projectData,
             // projectFilename,
-
+          
             projectTags,
             filterProjectCells,
             filteredProjectCells,
@@ -231,6 +245,8 @@ export const ProjectContextProvider=( {children} )=>{
             activateCell,
             moveActiveCellUp,
             moveActiveCellDown,
+            saveAsClick,
+            loadProject
         }}
         >
         {children}
