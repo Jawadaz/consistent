@@ -7,11 +7,13 @@ import ControlButton from '../ui/ControlButton'
 
 function ProjectControls( {children} )
 {
+
     const { projectFilename, activeCellId, projectCells, 
         addEmptyCell, moveActiveCellDown, moveActiveCellUp, 
         toggleLockProject, isProjectLocked, undo, redo,
-        isUndoDisabled, isRedoDisabled } = useContext(ProjectContext)
+        isUndoDisabled, isRedoDisabled,saveAsClick } = useContext(ProjectContext)
     const { isFiltered } = useContext(FilterContext);
+
 
     const [ isMoveCellUpButtonDisabled, setIsMoveCellUpButtonDisabled ] = useState(false);
     const [ isMoveCellDownButtonDisabled, setIsMoveCellDownButtonDisabled ] = useState(false);
@@ -32,6 +34,8 @@ function ProjectControls( {children} )
     const btnSaveAsClickHandler=(e)=>{
         console.log("btnSaveAsClickHandler");
         console.log(projectCells);
+        saveAsClick();
+        
         // setProjectFilename("helloworld.txt");
         // saveProject();
     }    
