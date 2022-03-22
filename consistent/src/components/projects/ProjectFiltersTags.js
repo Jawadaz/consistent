@@ -1,17 +1,15 @@
 import { WithContext as ReactTags } from 'react-tag-input';
 import ProjectContext from '../context/ProjectContext';
+import FilterContext from '../context/FilterContext';
 import { useContext, useState, useEffect} from 'react'
 
 function ProjectFilters(){
-    const { projectTags, filterProjectCells } = useContext(ProjectContext);
+    const { projectTags } = useContext(ProjectContext);
+    const { filterQuery, addTagsToFilterQuery, removeTagsFromFilterQuery } = useContext(FilterContext);
     
-    const [tags, setTags] = useState([]);
     const [suggestions, setSuggestions] = useState(projectTags)
-    const [query, setQuery] = useState({
-        'tags': [],
-        'operation': "and"
-    });
-    
+    const [tags, setTags] = useState(filterQuery.tags);
+
     const KeyCodes = {
         comma: 188,
         enter: 13
@@ -20,25 +18,24 @@ function ProjectFilters(){
     const delimiters = [KeyCodes.comma, KeyCodes.enter];
   
     const handleAddition = (tag) => {
-        if(projectTags.some((projectTag)=>{if(projectTag.id===tag.id){return true;}})){
+        if(projectTags.some((projectTag)=>projectTag.id===tag.id)){
             const newTags = [...tags, tag];
             setTags(newTags);
-            const newQuery = {
-                'tags': newTags,
-                'operation': query.operation
-            }
-            setQuery(newQuery);            
+            // const newQuery = {
+            //     'tags': newTags,
+            //     'operation': query.operation,
+            //     'text': ''
+            // }
+            // setQuery(newQuery);
+            addTagsToFilterQuery(newTags);
+            // setFilterQuery(newQuery);
         }
     };
     
     const handleDelete = i => {
         const newTags = tags.filter((tag, index) => index !== i);
         setTags(newTags);
-        const newQuery = {
-            'tags': newTags,
-            'operation': query.operation
-        }
-        setQuery(newQuery);
+        removeTagsFromFilterQuery([tags[i]]);
     };
 
     useEffect(()=>{
@@ -47,18 +44,19 @@ function ProjectFilters(){
     }, [projectTags]);
 
     useEffect(()=>{
-        filterProjectCells(query);
-    }, [query]);
+        console.log('CellTags.useEffect()');
+        setTags(filterQuery.tags);
+      }, [filterQuery]);
 
     return (
-        <div>
+        <div>            
             <ReactTags
                 tags={tags}
                 placeholder={"Filter by tag..."}
                 suggestions={suggestions}
                 minQueryLength={2}
                 autofocus={false}
-                allowDeleteFromEmptyInput={false}
+                allowDeleteFromEmptyInput={true}
                 delimiters={delimiters}
                 handleDelete={handleDelete}
                 handleAddition={handleAddition}

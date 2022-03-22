@@ -30,6 +30,7 @@ function Navigation() {
             <nav>
             
                 <ul>
+
                     <li>
                         <a >
                     <Files
@@ -51,8 +52,12 @@ function Navigation() {
                         </a>
                         
                     </li>
+
                     <li>
-                        <Link to='/projects/new'>New Project</Link>
+                        <Link to='/projects/_load'>Load Project</Link>
+                    </li>
+                    <li>
+                        <Link to='/projects/_new'>New Project</Link>
                     </li>                    
                     <li>
                         <Link to='/about'>About</Link>

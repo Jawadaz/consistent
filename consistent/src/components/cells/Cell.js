@@ -12,11 +12,13 @@ import CellControlsLeft from './CellControlsLeft';
 
 
 function Cell( {cell} ){
-    const { activeCellId, activateCell, updateCellContent } = useContext(ProjectContext);
+    const { activeCellId, activateCell, updateCellContent, updateCellTags, isProjectLocked } = useContext(ProjectContext);
 
     // const [ modalIsOpen, setModalIsOpen ] = useState(false);
     const [ cellContent, setCellContent ] = useState(cell.content);
     const [ isActive, setIsActive ] = useState(false);
+    
+    const [ cellTags, setCellTags ] = useState(cell.tags);
 
     // const handelDeleteCellButtonClick = () => {
     //     console.log('handelDelete()');
@@ -34,7 +36,25 @@ function Cell( {cell} ){
     //     deleteCell(cell.id); 
     // };
     const handleCellClick=(event)=>{
+        if(isProjectLocked){
+            return;
+        }
         activateCell(cell.id);
+    }
+
+    const handelUpdateCellContent=(event) => {
+        const content = event.target.value; 
+        setCellContent(content);
+    }
+
+    const handleUpdateCell=(event) =>{
+        const content = event.target.value; 
+        if(content===cell.content){
+            return;
+        }
+        //TODO: Consider tags as in issue #17        
+        console.log(cellTags);
+        updateCellContent(cell.id, content);
     }
 
     useEffect(()=>{
@@ -43,11 +63,16 @@ function Cell( {cell} ){
       }, [activeCellId, cell.id]
     );
 
-    const handelUpdateCellContent=(event) => {
-        const content = event.target.value; 
-        setCellContent(content);
-        updateCellContent(cell.id, content);
-    }
+    useEffect(()=>{
+        console.log('Cell.useEffect() cell.content');
+        setCellContent(cell.content);
+    }, [cell.content]);
+
+    useEffect(()=>{
+        console.log('Cell.useEffect() cell.content');
+        setCellTags(cell.tags);
+
+    }, [cell.tags]);
 
     return (
         <div className={"Cell"} onClick={handleCellClick}>
@@ -55,16 +80,18 @@ function Cell( {cell} ){
                     <div className={'CellContent'}>
                         {/* https://www.npmjs.com/package/react-textarea-autosize */}
                         <TextareaAutosize        
-                            onChange={handelUpdateCellContent} 
+                            onChange={handelUpdateCellContent}
+                            onBlur={handleUpdateCell}
                             type="text" 
                             placeholdre=""
                             value={cellContent}
+                            disabled={isProjectLocked}
                         />
                     </div>
                     {isActive && <CellControlsRight cell={cell}/>}                    
                     {isActive && <CellControlsLeft cell={cell}/>}
             </div>
-            <CellTags cell={cell} isActive={isActive}/>
+            <CellTags cell={cell} isActive={isActive} updateCellTags={updateCellTags}/>
             {/* {modalIsOpen && <ConfirmModal onCancel={handelCloseModal} onConfirm={handelConfirm}/>}
             {modalIsOpen && <Backdrop onClick={handelCloseModal}/>} */}
 

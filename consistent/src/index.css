@@ -78,9 +78,9 @@ h1, h2 {
 }
 
 .main {
-    margin: 3rem auto;
-    width: 100%;
-    max-width: 80rem;
+    margin: 1.6rem;
+    /* width: 80%; */
+    /* max-width: 80%; */
   }
 
 .header {
@@ -89,8 +89,8 @@ h1, h2 {
     align-items: center;
     justify-content: space-between;
     background-color: #404080;
-    max-width: 80rem;
-    margin: auto
+    /* max-width: 80rem; */
+    /* margin: auto */
 }
   
 .logo {
@@ -206,11 +206,13 @@ h1, h2 {
 
 .CellControlsRight {
     position: absolute;
-    right: -40px;
+    right: -38px;
+    top: -2px;
 }
 .CellControlsLeft{
     position: absolute;
     left: -40px;
+    top: -2px;
 }
 
 .CellControlsLeft button{
@@ -259,7 +261,8 @@ h1, h2 {
 /* Styles for added tags */
 .ReactTags__selected span.ReactTags__tag {
     /* border: 1px solid #ddd; */
-    background: #5c5ce4;
+    /* background: #5c5ce4; */
+    background: #404080;
     color: white;
     font-size: 0.8rem;
     display: inline-block;
