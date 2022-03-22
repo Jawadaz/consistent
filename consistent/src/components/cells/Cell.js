@@ -4,6 +4,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import ProjectContext from '../context/ProjectContext';
 import CellTags from './CellTags';
 import CellControlsRight from './CellControlsRight';
+import CellContentControlsRight from './CellContentControlsRight'
 import CellControlsLeft from './CellControlsLeft';
 
 // TODO: implement cool modal yes/no at some point
@@ -17,7 +18,7 @@ function Cell( {cell} ){
     // const [ modalIsOpen, setModalIsOpen ] = useState(false);
     const [ cellContent, setCellContent ] = useState(cell.content);
     const [ isActive, setIsActive ] = useState(false);
-    
+    const [ isCellContentFocused, setIsCellContentFocused] = useState(false)
     const [ cellTags, setCellTags ] = useState(cell.tags);
 
     // const handelDeleteCellButtonClick = () => {
@@ -77,18 +78,22 @@ function Cell( {cell} ){
     return (
         <div className={"Cell"} onClick={handleCellClick}>
             <div className={'CellInner'}>
+                {/* <CopyToClipboard text={"asdadsads"}
+                    onCopy={() => {console.log('hi');} }> */}
+                {/* </CopyToClipboard>                 */}
                     <div className={'CellContent'}>
                         {/* https://www.npmjs.com/package/react-textarea-autosize */}
                         <TextareaAutosize        
                             onChange={handelUpdateCellContent}
-                            onBlur={handleUpdateCell}
+                            onFocus={() => setIsCellContentFocused(true)}
+                            onBlur={(e) => {setIsCellContentFocused(false);handleUpdateCell(e)}}
                             type="text" 
                             placeholdre=""
                             value={cellContent}
                             disabled={isProjectLocked}
                         />
                     </div>
-                    {isActive && <CellControlsRight cell={cell}/>}                    
+                    {isActive && <CellControlsRight cell={cell} />}                    
                     {isActive && <CellControlsLeft cell={cell}/>}
             </div>
             <CellTags cell={cell} isActive={isActive} updateCellTags={updateCellTags}/>

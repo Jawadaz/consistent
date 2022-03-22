@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { FaSave, FaPlus, FaArrowDown, FaArrowUp, FaLock, FaLockOpen, FaUndo, FaRedo, FaFileExport } from "react-icons/fa";
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 import ProjectContext from '../context/ProjectContext';
 import FilterContext from '../context/FilterContext';
 import ControlButton from '../ui/ControlButton'
@@ -125,7 +126,8 @@ function ProjectControls( {children} )
             >
                     <FaUndo color={'white'} />
             </ControlButton>
-
+        
+            
             <ControlButton 
                 className={'btn btn-primary'}
                 disabled={isRedoButtonDisabled}
@@ -148,13 +150,17 @@ function ProjectControls( {children} )
             >
                 Save As...
             </ControlButton>
-            <ControlButton
-                className={'btn btn-primary'} 
-                onClick={(e)=>btnExportClickHandler()}
-                disabled={false}            
-            >
-                <FaFileExport color={'white'} />
-            </ControlButton>
+            
+            <CopyToClipboard text={"asdadsads"}
+                onCopy={() => {console.log('hi');} }>
+                <ControlButton
+                    className={'btn btn-primary'} 
+                    onClick={(e) => {} }
+                    disabled={false}            
+                >
+                    <FaFileExport color={'white'} />
+                </ControlButton>
+            </CopyToClipboard>
             <ControlButton 
                 className={'btn btn-primary'} 
                 onClick={(e)=>btnLockClickHandler()}
