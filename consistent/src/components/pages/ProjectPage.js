@@ -38,7 +38,7 @@ function ProjectPage( props ){
 
     return (
         <div>
-                    <div>
+                    <div  className="project-header">
                         <ProjectHeader>
                             <ProjectTitle title={projectData.title}/>
                         </ProjectHeader>
@@ -63,6 +63,7 @@ function ProjectPage( props ){
                     </h3>
                     <ProjectStats/>
         </div>
+
     );
 }
     
