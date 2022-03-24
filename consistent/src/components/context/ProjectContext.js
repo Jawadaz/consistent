@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from 'uuid'
 
 import dummyProject from "../../fixtures/dummy_project_1.json"
 
+import { saveAs } from 'file-saver'
+
 const ProjectContext = createContext();
 
 export const ProjectContextProvider=( {children} )=>{
@@ -15,6 +17,7 @@ export const ProjectContextProvider=( {children} )=>{
         };
     };
 
+    
     const defaultProjectData = () => {
         return {
             id: uuidv4(),
@@ -24,33 +27,127 @@ export const ProjectContextProvider=( {children} )=>{
         };
     };
 
-
     const [ projectCells, setProjectCells ] = useState([emptyCell()]);
     const [ projectData, setProjectData ] = useState(defaultProjectData());
+    const [ projectCorpus, setProjectCorpus ] = useState([]);
+    const [ isProjectLocked, setIsProjectLocked ] = useState(false);
+    // const [ projectUndoRedoStack, setProjectUndoRedoStack] = useState([{
+    //     'cells': [...projectCells],
+    //     'data': {...projectData},
+    // }]); //for undo/redo
+
     const [ projectTags, setProjectTags ] = useState([]);
     const [ activeCellId, setActiveCellId ] = useState();
     // const [ projectFilename, setProjectFilename ] = useState(null);
 
-    const newProject = () => {
-        // let cell = emptyCell();
-        // setProjectCells([cell]);
-        // let newProjectData = defaultProjectData()
-        // setProjectData(newProjectData)
-        // activateCell(cell.id);
-        // return newProjectData;
-        return loadFixture();
+    const [ projectCellsHistory, setProjectCellsHistory ] = useState([projectCells]);
+    const [ historyIndex, setHistoryIndex ] = useState(0);
+    const [ isUndoDisabled, setIsUndoDisabled ] = useState(true);
+    const [ isRedoDisabled, setIsRedoDisabled ] = useState(true);
+
+    const updateProjectCells = (cells) => {
+        setProjectCells(cells);
+        pushToProjectCellsHistory(cells);
+    }
+
+    const pushToProjectCellsHistory = (cells) => {
+        console.log('pushing');
+        if(historyIndex===0){
+            const updatedHistory = [cells,...projectCellsHistory];
+            setProjectCellsHistory(updatedHistory);
+            updateHistoryIndex(0);
+        }else{
+            //from index 
+            const updatedHistory = [...projectCellsHistory];
+            updatedHistory.splice(0, historyIndex, cells);
+            setProjectCellsHistory(updatedHistory);
+            updateHistoryIndex(0);
+        }
+    }
+
+    const updateHistoryIndex=(index)=>{
+        setHistoryIndex(index);
+        
+        setIsUndoDisabled((index===projectCellsHistory.length-1) || isProjectLocked);
+        setIsRedoDisabled((index===0) || isProjectLocked);
+    }
+
+    const undo = () => {
+        console.log('undo');
+        if(isProjectLocked){
+            return;
+        }
+        if(historyIndex<projectCellsHistory.length-1){
+            updateHistoryIndex(historyIndex+1);
+            setProjectCells(projectCellsHistory[historyIndex+1]);
+        }
+    }
+
+    const redo = () => {
+        console.log('redo');
+        if(isProjectLocked){
+            return;
+        }        
+        if(historyIndex>0){
+            updateHistoryIndex(historyIndex-1);
+            setProjectCells(projectCellsHistory[historyIndex-1]);
+        }        
+    }
+
+    const newProject = ( projectId ) => {
+        let cell = emptyCell();
+        setProjectCells([cell]);
+        let newProjectData = defaultProjectData()
+        newProjectData.id = projectId;
+        setProjectData(newProjectData)
+        activateCell(cell.id);
+        setHistoryIndex(0);
+        setProjectCellsHistory([[cell]]);
+        return newProjectData;
+        // return loadFixture();
+    }
+
+    const toggleLockProject=()=>{
+        setIsProjectLocked(!isProjectLocked);
+        if(!isProjectLocked){
+            setActiveCellId(null);
+        }
+    }
+
+    const generateProjectCorpus = () => {
+        // a function that takes all the contents in the cells and extract unique tokens
+        const corpus = [];
+        // projectCells.forEach(cell=> 
+        //    tokenize cell content and push it to the corpus 
+        //);
+        // sort corpus 
+        // remove duplicates from corpus
+        setProjectCorpus(corpus);
     }
 
     const loadFixture = () => {
-        setProjectCells(dummyProject.cells);
+        console.log('loadFixture');
         setProjectData({
             id: dummyProject.id,
             title: dummyProject.title,
             description: dummyProject.description
         });
+        setProjectCells(dummyProject.cells);        
+        setIsProjectLocked(true);
+        setHistoryIndex(0);
+        setProjectCellsHistory([dummyProject.cells]);        
         return dummyProject;
     }
 
+    const loadProject = (project) => {
+        setProjectCells(project.cells);
+        setProjectData({
+            id: project.id,
+            title: project.title,
+            description: project.description
+        });
+        return project;
+    }
     //Project Stuff
     // const saveProject=()=>{
     //     console.log('Save Project');
@@ -70,6 +167,11 @@ export const ProjectContextProvider=( {children} )=>{
         setActiveCellId(id);
     }
 
+    const saveAsClick = (id) => {
+        console.log('saveAsClick()');
+        var blob = new Blob([JSON.stringify({...projectData, cells:projectCells})], {type: "json/plain;charset=utf-8"});
+        saveAs(blob, `${projectData.title} v${new Date().toLocaleDateString()}-${new Date().toLocaleTimeString()}.json`);
+    }
     const moveActiveCellUp = ()=>{
         console.log('moveActiveCellUp():');
         if(activeCellId===projectCells[0].id){
@@ -83,7 +185,7 @@ export const ProjectContextProvider=( {children} )=>{
         const cells = [...projectCells];
         cells.splice(activeCellIndex, 1);
         cells.splice(activeCellIndex-1, 0, activeCell);
-        setProjectCells(cells);
+        updateProjectCells(cells);
     }
 
     const moveActiveCellDown=()=>{
@@ -99,7 +201,7 @@ export const ProjectContextProvider=( {children} )=>{
         const cells = [...projectCells];
         cells.splice(activeCellIndex, 1);
         cells.splice(activeCellIndex+1, 0, activeCell);
-        setProjectCells(cells);             
+        updateProjectCells(cells);             
     }
     //Cells stuff
     const addEmptyCell = () => {
@@ -122,7 +224,7 @@ export const ProjectContextProvider=( {children} )=>{
         let cell = emptyCell();
         const cells = [...projectCells];
         cells.splice(activeCellIndex+1, 0, cell);
-        setProjectCells(cells);  
+        updateProjectCells(cells);  
 
         setActiveCellId(cell.id);
     }
@@ -131,22 +233,38 @@ export const ProjectContextProvider=( {children} )=>{
         console.log('deleteCell()');
         if(projectCells.length===1){
             let cell=emptyCell();
-            setProjectCells([cell]);
+            updateProjectCells([cell]);
         } else {
-            setProjectCells(projectCells.filter((cell) => cell.id !== id ));
+            const activeCellIndex = projectCells.findIndex(cell => {
+                return cell.id === activeCellId;
+            });
+            updateProjectCells(projectCells.filter((cell) => cell.id !== id ));
+            // select the previous cell in the filteredCells
+            if(activeCellIndex===0){
+                if(projectCells.length>1){
+                    activateCell(projectCells[1].id);
+                    return;
+                }
+            } 
+            if (activeCellIndex===projectCells.length-1){
+                activateCell(projectCells[activeCellIndex-1].id);
+                return;
+            }
+            
+            activateCell(projectCells[activeCellIndex+1].id);
         }
     }
 
     const updateCell=(id, updatedCell)=>{
         console.log('updateCell()');
-        setProjectCells(projectCells.map(
+        updateProjectCells(projectCells.map(
                 (cell) => (cell.id === id ? {...cell, ...updatedCell}: cell))
         );
     }        
 
     const updateCellContent=(id, content)=>{
         console.log('updateCellContent()');
-        setProjectCells(
+        updateProjectCells(
             projectCells.map(
                 (cell) => (cell.id === id ? {...cell, content: content}: cell))
         );
@@ -159,7 +277,7 @@ export const ProjectContextProvider=( {children} )=>{
     const updateCellTags=(id, tags)=>{
         console.log('updateCellTags()');
         console.log(tags);
-        setProjectCells(
+        updateProjectCells(
             projectCells.map(
                 (cell) => (cell.id === id ? {...cell, tags: tags}: cell))
         );
@@ -172,8 +290,6 @@ export const ProjectContextProvider=( {children} )=>{
     // }
 
     useEffect(()=>{
-        console.log('ProjectContext.useEffect()');
-        
         // tags
         const updateProjectTags=()=>{
             //
@@ -181,16 +297,25 @@ export const ProjectContextProvider=( {children} )=>{
                 cell => cell.tags
             ).flat();
             const newTags = [...new Map(allTags.map(o => [o.id, o])).values()];
+            // TODO: sort project tags here:
+            newTags.sort(function(a,b){
+                if(a.id.toUpperCase()>b.id.toUpperCase()){
+                    return 1;
+                }
+                //no need to evaluate == because the list contains unique string values
+                return -1;
+            });
             setProjectTags(newTags);
         }
-
+        // tags
         updateProjectTags();
 
-        // tags
+        // corppus
+        generateProjectCorpus();
+
         if(projectCells.length===1){
             activateCell(projectCells[0].id);
         }
-
     }, [projectCells])
 
     return (
@@ -198,9 +323,19 @@ export const ProjectContextProvider=( {children} )=>{
             projectCells,
             projectData,
             // projectFilename,
-
+          
             projectTags,
+            projectCorpus,
 
+            toggleLockProject,
+            isProjectLocked,
+
+            undo,
+            redo,
+            isUndoDisabled,
+            isRedoDisabled,
+
+            loadFixture,
             newProject,
             addEmptyCell,
             deleteCell,
@@ -212,6 +347,8 @@ export const ProjectContextProvider=( {children} )=>{
             activateCell,
             moveActiveCellUp,
             moveActiveCellDown,
+            saveAsClick,
+            loadProject
         }}
         >
         {children}
