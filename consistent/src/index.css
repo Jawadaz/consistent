@@ -308,3 +308,12 @@ h1, h2 {
     background: #ababda;
     cursor: pointer;
 }
+
+.project-header
+{
+    position: sticky;
+  top: 0;
+  background-color: #dfdfdf;
+  z-index: 10;
+  border-bottom: solid black 3px ;
+}

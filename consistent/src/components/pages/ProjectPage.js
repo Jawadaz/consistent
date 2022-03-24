@@ -32,7 +32,8 @@ function ProjectPage( props ){
 
     return (
         <div>
-            <div>
+          <div className="project-header">
+         
                 {/* Changes to go here */}
                 <ProjectHeader>
                     <ProjectTitle title={projectData.title}/>
@@ -43,8 +44,9 @@ function ProjectPage( props ){
                     Tags
                 </h3>            
                 <ProjectTags />
-            </div>
-
+          </div>
+        
+     
             <h3>
                 Cells
             </h3>
@@ -53,7 +55,8 @@ function ProjectPage( props ){
                 Stats
             </h3>
             <ProjectStats/>
-        </div>
+            </div>
+     
     );
 }
     
