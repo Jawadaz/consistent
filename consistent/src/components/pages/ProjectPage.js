@@ -40,9 +40,22 @@ function ProjectPage( props ){
         <div className="prject-page">
                     
                     <div  className="project-cells">
-                    <h3>
+                    <div className="project-controls">
+                        <div className="transperant-top">
+
+                        </div>
+                      <div className="gray-background">
+                      <ProjectHeader>
+                            <ProjectTitle title={projectData.title}/>
+                        </ProjectHeader>
+                        <ProjectControls>
+                        </ProjectControls>
+                        <h3>
                         Cells
                     </h3>
+                      </div>
+                    </div>
+                    
                     <CellsList />
                     <h3>
                         Stats
@@ -50,11 +63,7 @@ function ProjectPage( props ){
                     <ProjectStats/>
                     </div>
                     <div  className="project-header">
-                        <ProjectHeader>
-                            <ProjectTitle title={projectData.title}/>
-                        </ProjectHeader>
-                        <ProjectControls>
-                        </ProjectControls>
+                       
                         <h3>
                             Tags
                         </h3>            
