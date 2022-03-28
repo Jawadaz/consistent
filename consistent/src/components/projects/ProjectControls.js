@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
-import { FaSave, FaPlus, FaArrowDown, FaArrowUp, FaLock, FaLockOpen, FaUndo, FaRedo } from "react-icons/fa";
+import { FaSave, FaPlus, FaArrowDown, FaArrowUp, FaLock, FaLockOpen, FaUndo, FaRedo, FaFileExport } from "react-icons/fa";
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 import ProjectContext from '../context/ProjectContext';
 import FilterContext from '../context/FilterContext';
 import ControlButton from '../ui/ControlButton'
@@ -11,7 +12,8 @@ function ProjectControls( {children} )
     const { projectFilename, activeCellId, projectCells, 
         addEmptyCell, moveActiveCellDown, moveActiveCellUp, 
         toggleLockProject, isProjectLocked, undo, redo,
-        isUndoDisabled, isRedoDisabled,saveAsClick } = useContext(ProjectContext)
+        isUndoDisabled, isRedoDisabled, 
+        getProjctCellsContentAsText } = useContext(ProjectContext)
     const { isFiltered } = useContext(FilterContext);
 
 
@@ -53,6 +55,11 @@ function ProjectControls( {children} )
     const btnRedoClickHandler=(e)=>{
         console.log("btnRedoClickHandler");
         redo();
+    }
+
+    const btnExportClickHandler=(e)=>{
+        console.log('btnExportClickHandler():');
+        return;
     }
     
     useEffect(()=>{
@@ -124,7 +131,8 @@ function ProjectControls( {children} )
             >
                     <FaUndo color={'white'} />
             </ControlButton>
-
+        
+            
             <ControlButton 
                 className={'btn btn-primary'}
                 disabled={isRedoButtonDisabled}
@@ -147,6 +155,17 @@ function ProjectControls( {children} )
             >
                 Save As...
             </ControlButton>
+            
+            <CopyToClipboard text={ getProjctCellsContentAsText() }
+                onCopy={() => {console.log('hi');} }>
+                <ControlButton
+                    className={'btn btn-primary'} 
+                    onClick={(e) => {} }
+                    disabled={false}            
+                >
+                    <FaFileExport color={'white'} />
+                </ControlButton>
+            </CopyToClipboard>
             <ControlButton 
                 className={'btn btn-primary'} 
                 onClick={(e)=>btnLockClickHandler()}
