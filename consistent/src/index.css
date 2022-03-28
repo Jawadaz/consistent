@@ -292,6 +292,7 @@ h1, h2 {
     position: absolute;
     margin-left: 1px;
     border: 1px solid black;
+    z-index: 100;
 }
 .ReactTags__suggestions ul {
     padding: 0px;
@@ -313,3 +314,18 @@ h1, h2 {
     background: #ababda;
     cursor: pointer;
 }
+
+.project-header
+{
+    position: sticky;
+  top: 0;
+  background-color: #dfdfdf;
+  z-index: 10;
+  border-bottom: solid black 3px ;
+}
+
+.files-dropzone
+{
+    cursor: pointer;
+}
+

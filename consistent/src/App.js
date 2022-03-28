@@ -16,20 +16,22 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Layout>
-        <ProjectContextProvider>            
-                <FilterContextProvider>          
-            <Switch>
-              <Route path="/" exact component={HomePage} />
-              <Route path="/projects/_new" exact component={NewProjectPage} />
-              <Route path="/projects/_load" exact component={LoadFixturessPage} />
-              <Route path="/projects/:projectId" exact component={ProjectPage} />
-              {/* <Route path="/projects/" exact component={ProjectsPage} /> */}
-              <Route path="/about" exact component={AboutPage} />
-            </Switch>
-                </FilterContextProvider>            
-                </ProjectContextProvider>                
-        </Layout>
+        
+        <ProjectContextProvider>       
+           <Layout>
+            <FilterContextProvider>          
+              <Switch>
+                  <Route path="/" exact component={HomePage} />
+                  <Route path="/projects/_new" exact component={NewProjectPage} />
+                  <Route path="/projects/_load" exact component={LoadFixturessPage} />
+                  <Route path="/projects/:projectId" exact component={ProjectPage} />
+                  {/* <Route path="/projects/" exact component={ProjectsPage} /> */}
+                  <Route path="/about" exact component={AboutPage} />
+              </Switch>
+              </FilterContextProvider>     
+             </Layout>
+            </ProjectContextProvider>                
+       
       </BrowserRouter>
     </>
   );
