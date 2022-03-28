@@ -4,7 +4,6 @@ import TextareaAutosize from 'react-textarea-autosize';
 import ProjectContext from '../context/ProjectContext';
 import CellTags from './CellTags';
 import CellControlsRight from './CellControlsRight';
-import CellContentControlsRight from './CellContentControlsRight'
 import CellControlsLeft from './CellControlsLeft';
 
 // TODO: implement cool modal yes/no at some point
