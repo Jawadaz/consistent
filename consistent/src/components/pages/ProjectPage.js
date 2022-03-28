@@ -37,7 +37,18 @@ function ProjectPage( props ){
     },[]);
 
     return (
-        <div>
+        <div className="prject-page">
+                    
+                    <div  className="project-cells">
+                    <h3>
+                        Cells
+                    </h3>
+                    <CellsList />
+                    <h3>
+                        Stats
+                    </h3>
+                    <ProjectStats/>
+                    </div>
                     <div  className="project-header">
                         <ProjectHeader>
                             <ProjectTitle title={projectData.title}/>
@@ -53,15 +64,6 @@ function ProjectPage( props ){
                         </h3>
                         <ProjectFiltersTags />
                     </div>
-
-                    <h3>
-                        Cells
-                    </h3>
-                    <CellsList />
-                    <h3>
-                        Stats
-                    </h3>
-                    <ProjectStats/>
         </div>
 
     );

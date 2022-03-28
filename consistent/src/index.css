@@ -78,7 +78,7 @@ h1, h2 {
 }
 
 .main {
-    margin: 1.6rem;
+    /* margin: 1.6rem; */
     /* width: 80%; */
     /* max-width: 80%; */
   }
@@ -315,13 +315,35 @@ h1, h2 {
     cursor: pointer;
 }
 
+.prject-page {
+
+    display: flex;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+.project-cells {
+
+    display: inline-block;
+    width: 75%;
+    padding: 15px;
+    padding-right: 30px;
+    padding-left: 30px;
+    border: 1px solid #ddd;
+    }
+
+
 .project-header
 {
-    position: sticky;
-  top: 0;
-  background-color: #dfdfdf;
-  z-index: 10;
-  border-bottom: solid black 3px ;
+    width: 25%;    
+    border-left: 1px solid #404080; 
+    padding: 5px;
+    position:fixed;
+    top: 50px;
+    right: 0;
+    z-index:100;
+    bottom:0;
+    overflow-y: auto;      
 }
 
 .files-dropzone
