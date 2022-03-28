@@ -111,6 +111,11 @@ export const ProjectContextProvider=( {children} )=>{
         }
     }
 
+    const getProjctCellsContentAsText = () => {
+        let contents = projectCells.map(cell=>cell.content).join('\n\n');
+        return contents;
+    }
+
     const generateProjectCorpus = () => {
         // a function that takes all the contents in the cells and extract unique tokens
         const corpus = [];
@@ -309,6 +314,7 @@ export const ProjectContextProvider=( {children} )=>{
 
             projectTags,
             projectCorpus,
+            getProjctCellsContentAsText, 
 
             toggleLockProject,
             isProjectLocked,
