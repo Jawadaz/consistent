@@ -12,7 +12,7 @@ function ProjectControls( {children} )
     const { projectFilename, activeCellId, projectCells, 
         addEmptyCell, moveActiveCellDown, moveActiveCellUp, 
         toggleLockProject, isProjectLocked, undo, redo,
-        isUndoDisabled, isRedoDisabled, 
+        isUndoDisabled, isRedoDisabled, saveAsClick,
         getProjctCellsContentAsText } = useContext(ProjectContext)
     const { isFiltered } = useContext(FilterContext);
 
