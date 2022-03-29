@@ -230,7 +230,7 @@ export const ProjectContextProvider=( {children} )=>{
             return cell.id === activeCellId;
         });        
         let cell = emptyCell();
-        if (content!==null || content!=""){
+        if (content!==null || content!==""){
             cell.content = content;   
         }
         const cells = [...projectCells];
@@ -390,6 +390,7 @@ export const ProjectContextProvider=( {children} )=>{
             addCell,
             addCells,
             deleteCell,
+            deleteEmptyCells,
             updateCellContent,
             updateCellTags,
             updateCell,
