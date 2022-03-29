@@ -32,49 +32,44 @@ function ProjectPage( props ){
     //     setData(projectData);
     // },[projectData]);
 
-    useEffect(()=>{
-        console.log('ProjectPage.useEffect():');
-    },[]);
+    // useEffect(()=>{
+    //     console.log('ProjectPage.useEffect():');
+    // },[]);
 
     return (
-        <div className="prject-page">
-                    
-                    <div  className="project-cells">
-                    <div className="project-controls">
-                        <div className="transperant-top">
-
-                        </div>
-                      <div className="gray-background">
-                      <ProjectHeader>
-                            <ProjectTitle title={projectData.title}/>
-                        </ProjectHeader>
-                        <ProjectControls>
-                        </ProjectControls>
-                        <h3>
+        <div className="ProjectPage">
+            <div className="column1">
+                {/* <div className="row1"> */}
+                <ProjectHeader>
+                    <ProjectTitle title={projectData.title}/>
+                    <ProjectControls></ProjectControls>
+                    <h3>
                         Cells
-                    </h3>
-                      </div>
-                    </div>
-                    
+                    </h3>                    
+                </ProjectHeader>
+                {/* </div> */}
+                <div  className="ProjectCells">                
+
                     <CellsList />
+                </div>
+            </div>
+            <div className="column2">
+                <div className="ProjectFilters">
+                    <h3>
+                        Tags
+                    </h3>            
+                    <ProjectTags />
+                    <h3>
+                        Filter by Tags
+                    </h3>
+                    <ProjectFiltersTags />
                     <h3>
                         Stats
                     </h3>
                     <ProjectStats/>
-                    </div>
-                    <div  className="project-header">
-                       
-                        <h3>
-                            Tags
-                        </h3>            
-                        <ProjectTags />
-                        <h3>
-                            Filter by Tags
-                        </h3>
-                        <ProjectFiltersTags />
-                    </div>
+                </div>
+            </div>
         </div>
-
     );
 }
     
