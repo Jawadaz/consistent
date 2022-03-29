@@ -64,23 +64,24 @@ function ProjectControls( {children} )
     
     useEffect(()=>{
         console.log('ProjectControls.useEffect()');
-        
+
+        if(isProjectLocked){
+            setIsMoveCellUpButtonDisabled(true);
+            setIsMoveCellDownButtonDisabled(true);
+            setIsUndoButtonDisabled(true);
+            setIsRedoButtonDisabled(true);
+            return;
+        }
+
         if(projectCells.length===1){
             setIsMoveCellUpButtonDisabled(true);
             setIsMoveCellDownButtonDisabled(true);
-            return;
         }
         if(isFiltered){
             setIsMoveCellUpButtonDisabled(true);
             setIsMoveCellDownButtonDisabled(true);
-            return;
         }
-        console.log(isProjectLocked);        
-        if(isProjectLocked){
-            setIsMoveCellUpButtonDisabled(true);
-            setIsMoveCellDownButtonDisabled(true);
-            return;
-        }
+
         const firstCellId = projectCells[0].id;
         const lastCellId = projectCells[projectCells.length-1].id;
         if(activeCellId===firstCellId){

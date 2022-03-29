@@ -55,20 +55,20 @@ export const ProjectContextProvider=( {children} )=>{
         if(historyIndex===0){
             const updatedHistory = [cells,...projectCellsHistory];
             setProjectCellsHistory(updatedHistory);
-            updateHistoryIndex(0);
+            updateHistoryIndex(0, updatedHistory.length);
         }else{
             //from index 
             const updatedHistory = [...projectCellsHistory];
             updatedHistory.splice(0, historyIndex, cells);
             setProjectCellsHistory(updatedHistory);
-            updateHistoryIndex(0);
+            updateHistoryIndex(0, updatedHistory.length);
         }
     }
 
-    const updateHistoryIndex=(index)=>{
+    const updateHistoryIndex=(index, length)=>{
         setHistoryIndex(index);
-        
-        setIsUndoDisabled((index===projectCellsHistory.length-1) || isProjectLocked);
+        console.log('hehhe');
+        setIsUndoDisabled((index===length-1) || isProjectLocked);
         setIsRedoDisabled((index===0) || isProjectLocked);
     }
 
@@ -78,7 +78,7 @@ export const ProjectContextProvider=( {children} )=>{
             return;
         }
         if(historyIndex<projectCellsHistory.length-1){
-            updateHistoryIndex(historyIndex+1);
+            updateHistoryIndex(historyIndex+1, projectCellsHistory.length);
             setProjectCells(projectCellsHistory[historyIndex+1]);
         }
     }
@@ -89,7 +89,7 @@ export const ProjectContextProvider=( {children} )=>{
             return;
         }        
         if(historyIndex>0){
-            updateHistoryIndex(historyIndex-1);
+            updateHistoryIndex(historyIndex-1, projectCellsHistory.length);
             setProjectCells(projectCellsHistory[historyIndex-1]);
         }        
     }
@@ -101,8 +101,8 @@ export const ProjectContextProvider=( {children} )=>{
         newProjectData.id = projectId;
         setProjectData(newProjectData)
         activateCell(cell.id);
-        setHistoryIndex(0);
-        setProjectCellsHistory([[cell]]);
+        setProjectCellsHistory([[cell]]);        
+        updateHistoryIndex(0, 1);
         return newProjectData;
         // return loadFixture();
     }
@@ -139,8 +139,8 @@ export const ProjectContextProvider=( {children} )=>{
         });
         setProjectCells(dummyProject.cells);        
         setIsProjectLocked(true);
-        setHistoryIndex(0);
-        setProjectCellsHistory([dummyProject.cells]);        
+        setProjectCellsHistory([dummyProject.cells]);
+        updateHistoryIndex(0, 1);
         return dummyProject;
     }
 
