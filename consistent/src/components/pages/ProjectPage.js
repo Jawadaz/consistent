@@ -49,6 +49,7 @@ function ProjectPage( props ){
                 </ProjectHeader>
                 {/* </div> */}
                 <div  className="ProjectCells">                
+
                     <CellsList />
                 </div>
             </div>
