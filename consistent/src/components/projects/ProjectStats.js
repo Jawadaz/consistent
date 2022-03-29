@@ -5,10 +5,11 @@ import ProjectContext from '../context/ProjectContext';
 function ProjectStats( ){
     //calculate average number of tags/cell
     //
-    const { projectCells } = useContext(ProjectContext);
+    const { projectTags, projectCells } = useContext(ProjectContext);
     const { isFiltered, filteredProjectCells } = useContext(FilterContext);
     //
 
+    
     const averageTagsPerCell = (cells) => {
         let result = cells.map(cell=>cell.tags.length).reduce((acc, cur) => {
             return acc + cur;
@@ -22,7 +23,11 @@ function ProjectStats( ){
         let result = cells.filter((cell) => cell.tags.length === 0 ).length;
         result=isNaN(result)?0:result;
         return result
-    }    
+    }
+
+    const countUniqueTags = (cells)=> {
+        return Array.from(new Set(cells.map(cell=>cell.tags).flat().map(tag=>tag.id))).length;
+    }
 
     // const countOfOrphanCells = (cells) => {
     //     let result = cells.filter(cell => 
@@ -35,7 +40,6 @@ function ProjectStats( ){
     //     result = isNaN(result)?0:result;
     //     return result
     // }
-    
 
     let projectCellsAverageTagsPerCell = averageTagsPerCell(projectCells);
     let filteredProjectCellsAverageTagsPerCell = averageTagsPerCell(filteredProjectCells);
@@ -43,22 +47,26 @@ function ProjectStats( ){
     let projectCellsCountOfCellsWithoutTags = countOfCellsWithoutTags(projectCells);
     let filteredProjectCellsCountOfCellsWithoutTags = countOfCellsWithoutTags(filteredProjectCells);
 
+    
+
     // let countOfOrphanProjectCells = countOfOrphanCells(projectCells);
     // let countOfOrphanFilteredProjectCells = countOfOrphanCells(filteredProjectCells);
 
-    return (<div className='classes.stats'>
+    return (<div>
         {isFiltered
             ?
             <>
             <p>Cells count: {filteredProjectCells.length}/{projectCells.length}</p>
             <p>Cells without any tags: {filteredProjectCellsCountOfCellsWithoutTags}/{projectCellsCountOfCellsWithoutTags}</p>
             <p>Average Tags per Cell: {filteredProjectCellsAverageTagsPerCell}/{projectCellsAverageTagsPerCell}</p>
+            <p>Tags Count: {countUniqueTags(filteredProjectCells)}/{projectTags.length}</p>
             </>
             :
             <>
             <p>Cells count: {projectCells.length}</p>
             <p>Cells without any tags: {projectCellsCountOfCellsWithoutTags}</p>
             <p>Average Tags per Cell: {projectCellsAverageTagsPerCell}</p>
+            <p>Tags Count: {projectTags.length}</p>
             </>
         }
     </div>); 
