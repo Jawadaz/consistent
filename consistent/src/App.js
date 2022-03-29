@@ -23,7 +23,7 @@ function App() {
               <Switch>
                   <Route path="/" exact component={HomePage} />
                   <Route path="/projects/_new" exact component={NewProjectPage} />
-                  <Route path="/projects/_load" exact component={LoadFixturessPage} />
+                  <Route path="/projects/_example" exact component={LoadFixturessPage} />
                   <Route path="/projects/:projectId" exact component={ProjectPage} />
                   {/* <Route path="/projects/" exact component={ProjectsPage} /> */}
                   <Route path="/about" exact component={AboutPage} />

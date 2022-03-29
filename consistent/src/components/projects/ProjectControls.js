@@ -13,8 +13,8 @@ function ProjectControls( {children} )
         addEmptyCell, moveActiveCellDown, moveActiveCellUp, 
         toggleLockProject, isProjectLocked, undo, redo,
         isUndoDisabled, isRedoDisabled, saveAsClick,
-        getProjctCellsContentAsText } = useContext(ProjectContext)
-    const { isFiltered } = useContext(FilterContext);
+        getCellsContentAsText } = useContext(ProjectContext)
+    const { isFiltered, filteredProjectCells } = useContext(FilterContext);
 
 
     const [ isMoveCellUpButtonDisabled, setIsMoveCellUpButtonDisabled ] = useState(false);
@@ -156,7 +156,7 @@ function ProjectControls( {children} )
                 Save As...
             </ControlButton>
             
-            <CopyToClipboard text={ getProjctCellsContentAsText() }
+            <CopyToClipboard text={ getCellsContentAsText( isFiltered? filteredProjectCells: projectCells ) }
                 onCopy={() => {console.log('hi');} }>
                 <ControlButton
                     className={'btn btn-primary'} 

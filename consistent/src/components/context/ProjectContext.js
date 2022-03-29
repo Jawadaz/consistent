@@ -114,8 +114,8 @@ export const ProjectContextProvider=( {children} )=>{
         }
     }
 
-    const getProjctCellsContentAsText = () => {
-        let contents = projectCells.map(cell=>cell.content).join('\n\n');
+    const getCellsContentAsText = (cells) => {
+        let contents = cells.map(cell=>cell.content).join('\n\n');
         return contents;
     }
 
@@ -302,7 +302,7 @@ export const ProjectContextProvider=( {children} )=>{
                 cell => cell.tags
             ).flat();
             const newTags = [...new Map(allTags.map(o => [o.id, o])).values()];
-            // TODO: sort project tags here:
+            
             newTags.sort(function(a,b){
                 if(a.id.toUpperCase()>b.id.toUpperCase()){
                     return 1;
@@ -331,7 +331,7 @@ export const ProjectContextProvider=( {children} )=>{
           
             projectTags,
             projectCorpus,
-            getProjctCellsContentAsText, 
+            getCellsContentAsText,
 
             toggleLockProject,
             isProjectLocked,

@@ -28,7 +28,9 @@ function Navigation() {
             <nav>
             
                 <ul>
-
+                    <li>
+                        <Link to='/projects/_example'>Example</Link>
+                    </li>
                     <li>
                         <a >
                     <Files
