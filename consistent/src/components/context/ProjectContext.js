@@ -67,7 +67,6 @@ export const ProjectContextProvider=( {children} )=>{
 
     const updateHistoryIndex=(index, length)=>{
         setHistoryIndex(index);
-        console.log('hehhe');
         setIsUndoDisabled((index===length-1) || isProjectLocked);
         setIsRedoDisabled((index===0) || isProjectLocked);
     }
@@ -100,7 +99,8 @@ export const ProjectContextProvider=( {children} )=>{
         let newProjectData = defaultProjectData()
         newProjectData.id = projectId;
         setProjectData(newProjectData)
-        activateCell(cell.id);
+        setIsProjectLocked(false);        
+        activateCell(cell.id);        
         setProjectCellsHistory([[cell]]);        
         updateHistoryIndex(0, 1);
         return newProjectData;
@@ -221,17 +221,51 @@ export const ProjectContextProvider=( {children} )=>{
         // let r = (Math.random() + 1).toString(36).substring(7);
         // cell.tags.push(r);
         console.log('addEmptyCell()');
+        return addCell("");
+    }
 
+    const addCell = (content) => {
+        console.log('addCell()');
+        const activeCellIndex = projectCells.findIndex(cell => {
+            return cell.id === activeCellId;
+        });        
+        let cell = emptyCell();
+        if (content!==null || content!=""){
+            cell.content = content;   
+        }
+        const cells = [...projectCells];
+        cells.splice(activeCellIndex+1, 0, cell);
+        updateProjectCells(cells);
+        setActiveCellId(cell.id);
+    }
+
+    const addCells = ( cellContents ) => {
+        console.log("addCells():");
         const activeCellIndex = projectCells.findIndex(cell => {
             return cell.id === activeCellId;
         });
-        
-        let cell = emptyCell();
         const cells = [...projectCells];
-        cells.splice(activeCellIndex+1, 0, cell);
-        updateProjectCells(cells);  
+        const newCells = [];
+        cellContents.forEach(content=>{
+            let cell = emptyCell();
+            cell.content = content;
+            newCells.push(cell);
+        })
+        cells.splice(activeCellIndex+1, 0, ...newCells);
+        updateProjectCells(cells);
+    }
+    
+    const deleteEmptyCells=()=>{
+        console.log('deleteEmptyCells()');
+        if(projectCells.length===1){
+            return;
+        }
+        let cells = [];
+        projectCells.forEach(cell => { if(cell.content!==""){
+            cells.push(cell); }
+        });
+        updateProjectCells(cells);
 
-        setActiveCellId(cell.id);
     }
 
     const deleteCell=(id)=>{
@@ -294,6 +328,14 @@ export const ProjectContextProvider=( {children} )=>{
     //     return updateCell(id, cell);
     // }
 
+    const createCellsFromText=(text)=>{
+        console.log('createCellsFromText():');
+        console.log(text);
+        let paragraph = [];
+        paragraph = text.split(/\n\n/);
+        addCells(paragraph);
+    }
+
     useEffect(()=>{
         // tags
         const updateProjectTags=()=>{
@@ -332,6 +374,7 @@ export const ProjectContextProvider=( {children} )=>{
             projectTags,
             projectCorpus,
             getCellsContentAsText,
+            createCellsFromText,
 
             toggleLockProject,
             isProjectLocked,
@@ -344,6 +387,8 @@ export const ProjectContextProvider=( {children} )=>{
             loadFixture,
             newProject,
             addEmptyCell,
+            addCell,
+            addCells,
             deleteCell,
             updateCellContent,
             updateCellTags,
