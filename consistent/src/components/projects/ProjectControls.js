@@ -1,5 +1,8 @@
 import { useState, useEffect, useContext } from 'react';
-import { FaSave, FaPlus, FaArrowDown, FaArrowUp, FaLock, FaLockOpen, FaUndo, FaRedo, FaFileExport } from "react-icons/fa";
+import { FaSave, FaPlus, FaArrowDown, 
+    FaArrowUp, FaLock, FaLockOpen, 
+    FaUndo, FaRedo, FaFileExport,
+    FaFileImport } from "react-icons/fa";
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import ProjectContext from '../context/ProjectContext';
 import FilterContext from '../context/FilterContext';
@@ -13,7 +16,7 @@ function ProjectControls( {children} )
         addEmptyCell, moveActiveCellDown, moveActiveCellUp, 
         toggleLockProject, isProjectLocked, undo, redo,
         isUndoDisabled, isRedoDisabled, saveAsClick,
-        getCellsContentAsText } = useContext(ProjectContext)
+        getCellsContentAsText, createCellsFromText } = useContext(ProjectContext)
     const { isFiltered, filteredProjectCells } = useContext(FilterContext);
 
 
@@ -57,8 +60,17 @@ function ProjectControls( {children} )
         redo();
     }
 
-    const btnExportClickHandler=(e)=>{
-        console.log('btnExportClickHandler():');
+    // const btnExportClickHandler=(e)=>{
+    //     console.log('btnExportClickHandler():');
+    //     return;
+    // }
+
+    const btnImportClickHandler=(e)=>{
+        console.log('btnImportClickHandler():');
+        var text = "";
+        navigator.clipboard.readText().then(clipboardText=>{
+            createCellsFromText(clipboardText);
+        });
         return;
     }
     
@@ -141,7 +153,13 @@ function ProjectControls( {children} )
             >
                     <FaRedo color={'white'} />
             </ControlButton>
-
+            <ControlButton 
+                className={'btn btn-primary'}
+                onClick={(e)=>btnImportClickHandler(e)}
+                disabled={isProjectLocked}
+                >
+                    <FaFileImport color={'white'} />
+            </ControlButton>
             <ControlButton 
                 className={'btn btn-primary'}
                 disabled={isProjectLocked}
@@ -162,11 +180,12 @@ function ProjectControls( {children} )
                 <ControlButton
                     className={'btn btn-primary'} 
                     onClick={(e) => {} }
-                    disabled={false}            
+                    disabled={projectCells.length===1&&projectCells[0].content==""?true:false}
                 >
                     <FaFileExport color={'white'} />
                 </ControlButton>
             </CopyToClipboard>
+
             <ControlButton 
                 className={'btn btn-primary'} 
                 onClick={(e)=>btnLockClickHandler()}
