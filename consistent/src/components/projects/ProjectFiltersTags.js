@@ -11,11 +11,10 @@ function ProjectFilters(){
     const [tags, setTags] = useState(filterQuery.tags);
 
     const KeyCodes = {
-        comma: 188,
         enter: 13
     };
 
-    const delimiters = [KeyCodes.comma, KeyCodes.enter];
+    const delimiters = [KeyCodes.enter];
   
     const handleAddition = (tag) => {
         if(projectTags.some((projectTag)=>projectTag.id===tag.id)){

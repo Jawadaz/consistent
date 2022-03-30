@@ -67,7 +67,6 @@ function ProjectControls( {children} )
 
     const btnImportClickHandler=(e)=>{
         console.log('btnImportClickHandler():');
-        var text = "";
         navigator.clipboard.readText().then(clipboardText=>{
             createCellsFromText(clipboardText);
         });
@@ -180,7 +179,7 @@ function ProjectControls( {children} )
                 <ControlButton
                     className={'btn btn-primary'} 
                     onClick={(e) => {} }
-                    disabled={projectCells.length===1&&projectCells[0].content==""?true:false}
+                    disabled={projectCells.length===1&&projectCells[0].content===""?true:false}
                 >
                     <FaFileExport color={'white'} />
                 </ControlButton>

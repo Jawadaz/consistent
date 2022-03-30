@@ -40,11 +40,10 @@ const CellTags = ( {cell, isActive, updateCellTags } ) => {
     };
 
     const KeyCodes = {
-        comma: 188,
         enter: 13
     };
 
-    const delimiters = [KeyCodes.comma, KeyCodes.enter];
+    const delimiters = [KeyCodes.enter];
   
     useEffect(()=>{
       console.log('CellTags.useEffect() projectTags');
