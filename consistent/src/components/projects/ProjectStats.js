@@ -56,16 +56,16 @@ function ProjectStats( ){
         {isFiltered
             ?
             <>
-            <p>Cells count: {filteredProjectCells.length}/{projectCells.length}</p>
-            <p>Cells without any tags: {filteredProjectCellsCountOfCellsWithoutTags}/{projectCellsCountOfCellsWithoutTags}</p>
-            <p>Average Tags per Cell: {filteredProjectCellsAverageTagsPerCell}/{projectCellsAverageTagsPerCell}</p>
+            <p>Paragraphs count: {filteredProjectCells.length}/{projectCells.length}</p>
+            <p>Paragraphs without any tags: {filteredProjectCellsCountOfCellsWithoutTags}/{projectCellsCountOfCellsWithoutTags}</p>
+            <p>Average Tags per Paragraph: {filteredProjectCellsAverageTagsPerCell}/{projectCellsAverageTagsPerCell}</p>
             <p>Tags Count: {countUniqueTags(filteredProjectCells)}/{projectTags.length}</p>
             </>
             :
             <>
-            <p>Cells count: {projectCells.length}</p>
-            <p>Cells without any tags: {projectCellsCountOfCellsWithoutTags}</p>
-            <p>Average Tags per Cell: {projectCellsAverageTagsPerCell}</p>
+            <p>Paragraphs count: {projectCells.length}</p>
+            <p>Paragraphs without any tags: {projectCellsCountOfCellsWithoutTags}</p>
+            <p>Average Tags per Paragraph: {projectCellsAverageTagsPerCell}</p>
             <p>Tags Count: {projectTags.length}</p>
             </>
         }
