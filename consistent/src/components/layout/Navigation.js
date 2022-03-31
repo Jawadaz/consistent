@@ -2,11 +2,14 @@ import { useContext, useState } from 'react';
 import { Link, Redirect} from 'react-router-dom'
 import Files from "react-files";
 import ProjectContext from '../context/ProjectContext';
+// import FilterContext from '../context/FilterContext';
 
 function Navigation() {
 
-    const [loadedProject, setLoadedProject] = useState()
-    const {loadProject} = useContext(ProjectContext)    
+    const [loadedProject, setLoadedProject] = useState();
+    const {loadProject} = useContext(ProjectContext);
+    // const {clearFilterQuery} = useContext(FilterContext);
+
     const fileReader = new FileReader()
     fileReader.onload = event => {
         setLoadedProject(null);

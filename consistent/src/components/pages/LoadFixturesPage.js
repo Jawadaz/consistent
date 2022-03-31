@@ -5,15 +5,15 @@ import FilterContext from "../context/FilterContext";
 
 function LoadFixturesPage(){
     const { loadFixture, projectData } = useContext(ProjectContext);
-    const { resetFilterQuery } = useContext(FilterContext);
+    const { clearFilterQuery } = useContext(FilterContext);
     
     const [ ready, setReady] = useState(false);
 
     useEffect(()=>{
-        resetFilterQuery();        
+        clearFilterQuery();        
         loadFixture();
         setReady(true);
-    },[loadFixture, resetFilterQuery]);
+    },[loadFixture, clearFilterQuery]);
 
     return (
         <>

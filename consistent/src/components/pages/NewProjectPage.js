@@ -9,20 +9,20 @@ import { v4 as uuidv4 } from 'uuid'
 function NewProjectPage(){
 
     const { newProject } = useContext(ProjectContext);
-  const { resetFilterQuery } = useContext(FilterContext);
+    const { clearFilterQuery } = useContext(FilterContext);
     
     const [ ready, setReady] = useState(false);
 
     const [projectData, setprojectData] = useState(null)
     useEffect(() => {
         setprojectData(newProject());
-        resetFilterQuery();
+        clearFilterQuery();
         newProject(uuidv4());
         setReady(true);
       return () => {
         
       }
-    },  [newProject, resetFilterQuery])
+    },  [newProject, clearFilterQuery])
     
     return ( 
         <>

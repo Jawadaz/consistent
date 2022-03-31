@@ -93,16 +93,24 @@ export const ProjectContextProvider=( {children} )=>{
         }        
     }
 
+    const cleanupProject = (cells) => {
+        setIsProjectLocked(false);
+        activateCell(cells[0].id);        
+        setProjectCellsHistory([cells]);
+        updateHistoryIndex(0, 1);
+        //clear tags filter
+        //clear tokens filter
+    }
+
     const newProject = ( projectId ) => {
         let cell = emptyCell();
         setProjectCells([cell]);
         let newProjectData = defaultProjectData()
         newProjectData.id = projectId;
         setProjectData(newProjectData)
-        setIsProjectLocked(false);        
-        activateCell(cell.id);        
-        setProjectCellsHistory([[cell]]);        
-        updateHistoryIndex(0, 1);
+        
+        cleanupProject([cell]);
+
         return newProjectData;
         // return loadFixture();
     }
@@ -137,10 +145,10 @@ export const ProjectContextProvider=( {children} )=>{
             title: dummyProject.title,
             description: dummyProject.description
         });
-        setProjectCells(dummyProject.cells);        
+        setProjectCells(dummyProject.cells);
+        
+        cleanupProject(dummyProject.cells)
         setIsProjectLocked(true);
-        setProjectCellsHistory([dummyProject.cells]);
-        updateHistoryIndex(0, 1);
         return dummyProject;
     }
 
@@ -151,7 +159,9 @@ export const ProjectContextProvider=( {children} )=>{
             title: project.title,
             description: project.description
         });
-        return project;
+        cleanupProject(project.cells);
+        setIsProjectLocked(true);
+        return project.data;
     }
     //Project Stuff
     // const saveProject=()=>{
