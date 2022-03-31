@@ -122,15 +122,17 @@ h1, h2 {
     margin-left: 3rem;
 }
 
-.header a {
+.header a, .NavButton {
     text-decoration: none;
     font-size: 1.5rem;
     color: #8e8ebf;
+    background-color: #404080;
+    border: 0px;
 }
 
-.header a:hover,
-.header a:active,
-.header a.active {
+.header a:hover, .NavButton:hover,
+.header a:active, .NavButton:active
+{
     color: white;
 }
 

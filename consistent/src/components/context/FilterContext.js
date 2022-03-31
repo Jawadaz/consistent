@@ -14,7 +14,7 @@ export const FilterContextProvider=( {children} )=> {
     const [ filteredProjectCells, setFilteredProjectCells ] = useState([...projectCells]);
     const [ isFiltered, setIsFiltered ] = useState(false)
 
-    const resetFilterQuery=()=>{
+    const clearFilterQuery=()=>{
         setFilterQuery(emptyFilterQuery);
     }
 
@@ -168,7 +168,7 @@ export const FilterContextProvider=( {children} )=> {
             removeTagsFromFilterQuery,
             addTokensToFilterQuery,
             removeTokensFromFilterQuery,
-            resetFilterQuery,
+            clearFilterQuery,
 
             filterQuery,
             filteredProjectCells,
