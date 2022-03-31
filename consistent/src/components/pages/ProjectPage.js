@@ -45,7 +45,7 @@ function ProjectPage( props ){
                     <ProjectTitle title={projectData.title}/>
                     <ProjectControls></ProjectControls>
                     <h3>
-                        Cells
+                        Paragraphs
                     </h3>                    
                 </ProjectHeader>
                 {/* </div> */}
