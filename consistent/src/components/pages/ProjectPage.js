@@ -9,7 +9,7 @@ import ProjectFiltersContents from "../projects/ProjectFiltersContents";
 
 import CellsList from "../cells/CellsList.js";
 // import { useParams } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 // import dummyProject from "../../fixtures/dummy_project_1.json"
 

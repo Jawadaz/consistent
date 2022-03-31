@@ -1,6 +1,5 @@
 import { WithContext as ReactTags } from 'react-tag-input';
 import { useContext, useState, useEffect} from 'react'
-import ProjectContext from '../context/ProjectContext';
 import FilterContext from '../context/FilterContext';
 
 function ProjectFiltersContent(){
