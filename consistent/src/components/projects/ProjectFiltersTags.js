@@ -3,7 +3,7 @@ import ProjectContext from '../context/ProjectContext';
 import FilterContext from '../context/FilterContext';
 import { useContext, useState, useEffect} from 'react'
 
-function ProjectFilters(){
+function ProjectFiltersTags(){
     const { projectTags } = useContext(ProjectContext);
     const { filterQuery, addTagsToFilterQuery, removeTagsFromFilterQuery } = useContext(FilterContext);
     
@@ -22,7 +22,7 @@ function ProjectFilters(){
             setTags(newTags);
             // const newQuery = {
             //     'tags': newTags,
-            //     'operation': query.operation,
+            //     'operator': query.operator,
             //     'text': ''
             // }
             // setQuery(newQuery);
@@ -72,4 +72,4 @@ function ProjectFilters(){
     );
 }
 
-export default ProjectFilters;
+export default ProjectFiltersTags;

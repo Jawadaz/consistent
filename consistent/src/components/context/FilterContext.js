@@ -6,7 +6,7 @@ const FilterContext = createContext();
 export const FilterContextProvider=( {children} )=> {
     const emptyFilterQuery = {
         tags: [],
-        text: [],
+        tokens: [],
         operator: 'or'
     };
     const { projectCells } = useContext(ProjectContext);    
@@ -46,37 +46,112 @@ export const FilterContextProvider=( {children} )=> {
         return;
     }
 
+    const addTokensToFilterQuery=(tokens)=>{
+        const newQuery = {...filterQuery};
+        console.log(tokens);
+
+        tokens.forEach(token=>{
+            var i = newQuery.tokens.findIndex(x => x.id === token.id);
+            if(i<=-1){
+                newQuery.tokens.push(token);
+            }
+        });
+
+        setFilterQuery(newQuery);
+        return;
+    }    
+
+    const removeTokensFromFilterQuery=(tokens)=>{
+        const newQuery = {...filterQuery};
+        console.log(tokens);
+        newQuery.tokens = newQuery.tokens.filter(token=>{
+            return !tokens.map(token=>token.id).includes(token.id);
+        });
+        setFilterQuery(newQuery);
+        return;
+    }    
+
     useEffect(()=>{
+
+        
         const filterProjectCells = (query) => {
             const tagsIds = query.tags.map(tag=>tag.id);
-            const text = query.text;
-            const operation = query.operation;
+            const tokens = query.tokens;
+            const operator = query.operator;
             
-            if(tagsIds.length===0 && text.length===0){
+            if(tagsIds.length===0 && tokens.length===0){
                 setFilteredProjectCells(projectCells);
                 setIsFiltered(false);
                 return;
             }
-            // FilterTags:
             let cells = [];
-            if (operation==='or'){
-                cells= projectCells.filter(
-                    cell=>cell.tags
-                        .map(tag => tag.id)
-                        .some(tag => tagsIds.includes(tag))
-                );
-            } else {
-                //TODO: Change the behavior to and
-                cells = projectCells.filter(
-                    cell=>cell.tags
-                        .map(tag => tag.id)
-                        .some(tag => tagsIds.includes(tag))
-                );
+            // let cellsAfterTagsFilter = [];
+            // let cellsAfterTokensFilter = [];
+            if (operator==='or'){
+                projectCells.forEach(cell=>{
+                    if(tagsIds.length>0){
+                        if(cell.tags
+                            .map(tag => tag.id)
+                            .some(tag => tagsIds.includes(tag))
+                        ){
+                            cells.push(cell);
+                            return;
+                        }
+                    }
+                    if(tokens.length>0){
+                        if(tokens.some(token=>
+                                cell.content.toLowerCase().includes(token.id.toLowerCase()))
+                        ){
+                            cells.push(cell);
+                            return;
+                        }
+                    }
+                })
+                // // FilterTags:
+                // if(tagsIds.length>0){
+                //     cellsAfterTagsFilter = cells.filter(
+                //         cell=>cell.tags
+                //             .map(tag => tag.id)
+                //             .some(tag => tagsIds.includes(tag))
+                //     );
+                // }
+                // // FilterContent:                
+                // if(tokens.length>0){
+                //     cellsAfterTokensFilter = cells.filter(
+                //         cell=>tokens.some(token=>
+                //             cell.content.toLowerCase().includes(token.id.toLowerCase())
+                //             )
+                //     );
+                // }
+
+                // cells = [...cellsAfterTagsFilter, ...cellsAfterTokensFilter];
+                //filter the cells to keep only unique items
+                //
+                //
+                //
+                
+            } else{
+                if (operator==='and'){
+                    cells = [...projectCells];
+                    // FilterTags:
+                    if(tagsIds.length>0){
+                        cells = cells.filter(
+                            cell=>cell.tags
+                                .map(tag => tag.id)
+                                .some(tag => tagsIds.includes(tag))
+                        );
+                    }
+                    // FilterContent:
+                    if(tokens.length>0){
+                        cells = cells.filter(
+                            cell=>tokens.every(token=>
+                                cell.content.toLowerCase().includes(token.id.toLowerCase())
+                            )
+                        );
+                    }
+                }
             }
-            // FilterText:
-            // cells = cells.filter(
-            //      cell=>cell.content 
-            // );
+
             setFilteredProjectCells(cells);
             setIsFiltered(!cells||(projectCells.length!==cells.length));
             return;
@@ -91,7 +166,8 @@ export const FilterContextProvider=( {children} )=> {
         <FilterContext.Provider value={{
             addTagsToFilterQuery,
             removeTagsFromFilterQuery,
-
+            addTokensToFilterQuery,
+            removeTokensFromFilterQuery,
             resetFilterQuery,
 
             filterQuery,

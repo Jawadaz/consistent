@@ -3,7 +3,8 @@ import ProjectStats from "../projects/ProjectStats.js";
 import ProjectHeader from "../projects/ProjectHeader.js";
 import ProjectControls from "../projects/ProjectControls.js";
 import ProjectTags from "../projects/ProjectTags.js";
-import ProjectFiltersTags from "../projects/ProjectFiltersTags"
+import ProjectFiltersTags from "../projects/ProjectFiltersTags";
+import ProjectFiltersContents from "../projects/ProjectFiltersContents";
 
 
 import CellsList from "../cells/CellsList.js";
@@ -63,6 +64,10 @@ function ProjectPage( props ){
                         Filter by Tags
                     </h3>
                     <ProjectFiltersTags />
+                    <h3>
+                        Filter by Content
+                    </h3>
+                    <ProjectFiltersContents />
                     <h3>
                         Stats
                     </h3>
