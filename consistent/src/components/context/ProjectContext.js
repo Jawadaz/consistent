@@ -249,6 +249,15 @@ export const ProjectContextProvider = ({ children }) => {
       activateCell(projectCells[activeCellIndex + 1].id);
     }
 
+
+    const setProjectTitle = (newProjectTitle) => {
+      setProjectData({
+        ...projectData,
+        title: newProjectTitle
+      });
+     };
+
+
     //Cells stuff
     const addEmptyCell = () => {
         // // https://stackoverflow.com/a/10916838/3362720
@@ -435,7 +444,8 @@ export const ProjectContextProvider = ({ children }) => {
             moveActiveCellDown,
             saveAsClick,
             loadProject,
-            setProjectTitle,
+            setProjectTitle
+
         }}
         >
         {children}
