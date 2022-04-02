@@ -13,7 +13,7 @@ function ProjectTitle() {
   };
 
   return (
-
+<h2>
     <Editable
       text= {text}
       editButton
@@ -21,6 +21,7 @@ function ProjectTitle() {
       placeholder="Type your title here"
       cb={handleTextUpdate}
     />
+</h2>    
   );
 }
 
