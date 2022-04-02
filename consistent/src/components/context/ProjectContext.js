@@ -64,11 +64,7 @@ export const ProjectContextProvider=( {children} )=>{
             updateHistoryIndex(0, updatedHistory.length);
         }
     }
-    const setProjectTitle=(newProjectTitle)=>{
-        setProjectData({
-            ...projectData, title: newProjectTitle
-        });
-    }
+
 
     const updateHistoryIndex=(index, length)=>{
         setHistoryIndex(index);
@@ -223,6 +219,15 @@ export const ProjectContextProvider=( {children} )=>{
         cells.splice(activeCellIndex+1, 0, activeCell);
         updateProjectCells(cells);             
     }
+
+    const setProjectTitle = (newProjectTitle) => {
+      setProjectData({
+        ...projectData,
+        title: newProjectTitle
+      });
+     };
+
+
     //Cells stuff
     const addEmptyCell = () => {
         // // https://stackoverflow.com/a/10916838/3362720
@@ -416,7 +421,8 @@ export const ProjectContextProvider=( {children} )=>{
             moveActiveCellDown,
             saveAsClick,
             loadProject,
-            setProjectTitle,
+            setProjectTitle
+
         }}
         >
         {children}
