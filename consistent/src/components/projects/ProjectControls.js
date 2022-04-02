@@ -1,5 +1,9 @@
 import { useState, useEffect, useContext } from 'react';
-import { FaSave, FaPlus, FaArrowDown, FaArrowUp, FaLock, FaLockOpen, FaUndo, FaRedo } from "react-icons/fa";
+import { FaSave, FaPlus, FaArrowDown, 
+    FaArrowUp, FaLock, FaLockOpen, 
+    FaUndo, FaRedo, FaFileExport,
+    FaFileImport } from "react-icons/fa";
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 import ProjectContext from '../context/ProjectContext';
 import FilterContext from '../context/FilterContext';
 import ControlButton from '../ui/ControlButton'
@@ -11,8 +15,9 @@ function ProjectControls( {children} )
     const { projectFilename, activeCellId, projectCells, 
         addEmptyCell, moveActiveCellDown, moveActiveCellUp, 
         toggleLockProject, isProjectLocked, undo, redo,
-        isUndoDisabled, isRedoDisabled,saveAsClick } = useContext(ProjectContext)
-    const { isFiltered } = useContext(FilterContext);
+        isUndoDisabled, isRedoDisabled, saveAsClick,
+        getCellsContentAsText, createCellsFromText } = useContext(ProjectContext)
+    const { isFiltered, filteredProjectCells } = useContext(FilterContext);
 
 
     const [ isMoveCellUpButtonDisabled, setIsMoveCellUpButtonDisabled ] = useState(false);
@@ -54,26 +59,40 @@ function ProjectControls( {children} )
         console.log("btnRedoClickHandler");
         redo();
     }
+
+    // const btnExportClickHandler=(e)=>{
+    //     console.log('btnExportClickHandler():');
+    //     return;
+    // }
+
+    const btnImportClickHandler=(e)=>{
+        console.log('btnImportClickHandler():');
+        navigator.clipboard.readText().then(clipboardText=>{
+            createCellsFromText(clipboardText);
+        });
+        return;
+    }
     
     useEffect(()=>{
         console.log('ProjectControls.useEffect()');
-        
+
+        if(isProjectLocked){
+            setIsMoveCellUpButtonDisabled(true);
+            setIsMoveCellDownButtonDisabled(true);
+            setIsUndoButtonDisabled(true);
+            setIsRedoButtonDisabled(true);
+            return;
+        }
+
         if(projectCells.length===1){
             setIsMoveCellUpButtonDisabled(true);
             setIsMoveCellDownButtonDisabled(true);
-            return;
         }
         if(isFiltered){
             setIsMoveCellUpButtonDisabled(true);
             setIsMoveCellDownButtonDisabled(true);
-            return;
         }
-        console.log(isProjectLocked);        
-        if(isProjectLocked){
-            setIsMoveCellUpButtonDisabled(true);
-            setIsMoveCellDownButtonDisabled(true);
-            return;
-        }
+
         const firstCellId = projectCells[0].id;
         const lastCellId = projectCells[projectCells.length-1].id;
         if(activeCellId===firstCellId){
@@ -124,7 +143,8 @@ function ProjectControls( {children} )
             >
                     <FaUndo color={'white'} />
             </ControlButton>
-
+        
+            
             <ControlButton 
                 className={'btn btn-primary'}
                 disabled={isRedoButtonDisabled}
@@ -132,7 +152,13 @@ function ProjectControls( {children} )
             >
                     <FaRedo color={'white'} />
             </ControlButton>
-
+            <ControlButton 
+                className={'btn btn-primary'}
+                onClick={(e)=>btnImportClickHandler(e)}
+                disabled={isProjectLocked}
+                >
+                    <FaFileImport color={'white'} />
+            </ControlButton>
             <ControlButton 
                 className={'btn btn-primary'}
                 disabled={isProjectLocked}
@@ -147,6 +173,18 @@ function ProjectControls( {children} )
             >
                 Save As...
             </ControlButton>
+            
+            <CopyToClipboard text={ getCellsContentAsText( isFiltered? filteredProjectCells: projectCells ) }
+                onCopy={() => {console.log('hi');} }>
+                <ControlButton
+                    className={'btn btn-primary'} 
+                    onClick={(e) => {} }
+                    disabled={projectCells.length===1&&projectCells[0].content===""?true:false}
+                >
+                    <FaFileExport color={'white'} />
+                </ControlButton>
+            </CopyToClipboard>
+
             <ControlButton 
                 className={'btn btn-primary'} 
                 onClick={(e)=>btnLockClickHandler()}

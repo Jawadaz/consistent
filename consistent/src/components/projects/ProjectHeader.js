@@ -1,8 +1,8 @@
 function ProjectHeader( {children} ){
     return (
-        <h1 >
+        <div className="ProjectHeader">
             {children}
-        </h1>
+        </div>
     );
 }
 

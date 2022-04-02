@@ -3,7 +3,7 @@ import ProjectContext from '../context/ProjectContext';
 import FilterContext from '../context/FilterContext';
 import { useContext, useState, useEffect} from 'react'
 
-function ProjectFilters(){
+function ProjectFiltersTags(){
     const { projectTags } = useContext(ProjectContext);
     const { filterQuery, addTagsToFilterQuery, removeTagsFromFilterQuery } = useContext(FilterContext);
     
@@ -11,11 +11,10 @@ function ProjectFilters(){
     const [tags, setTags] = useState(filterQuery.tags);
 
     const KeyCodes = {
-        comma: 188,
         enter: 13
     };
 
-    const delimiters = [KeyCodes.comma, KeyCodes.enter];
+    const delimiters = [KeyCodes.enter];
   
     const handleAddition = (tag) => {
         if(projectTags.some((projectTag)=>projectTag.id===tag.id)){
@@ -23,7 +22,7 @@ function ProjectFilters(){
             setTags(newTags);
             // const newQuery = {
             //     'tags': newTags,
-            //     'operation': query.operation,
+            //     'operator': query.operator,
             //     'text': ''
             // }
             // setQuery(newQuery);
@@ -73,4 +72,4 @@ function ProjectFilters(){
     );
 }
 
-export default ProjectFilters;
+export default ProjectFiltersTags;
