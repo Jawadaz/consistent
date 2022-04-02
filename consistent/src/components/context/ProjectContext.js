@@ -51,21 +51,6 @@ export const ProjectContextProvider = ({ children }) => {
     pushToProjectCellsHistory(cells);
   };
 
-  const pushToProjectCellsHistory = (cells) => {
-    console.log("pushing");
-    if (historyIndex === 0) {
-      const updatedHistory = [cells, ...projectCellsHistory];
-      setProjectCellsHistory(updatedHistory);
-      updateHistoryIndex(0);
-    } else {
-      //from index
-      const updatedHistory = [...projectCellsHistory];
-      updatedHistory.splice(0, historyIndex, cells);
-      setProjectCellsHistory(updatedHistory);
-      updateHistoryIndex(0);
-    }
-  };
-
     const pushToProjectCellsHistory = (cells) => {
         console.log('pushing');
         if(historyIndex===0){
@@ -324,6 +309,13 @@ export const ProjectContextProvider = ({ children }) => {
 
     }
 
+    const setProjectTitle = (newProjectTitle) => {
+      setProjectData({
+        ...projectData,
+        title: newProjectTitle
+      });
+     };
+     
     const deleteCell=(id)=>{
         console.log('deleteCell()');
         if(projectCells.length===1){
