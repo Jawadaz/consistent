@@ -1,3 +1,6 @@
+
+import Grid from "@mui/material/Grid"
+
 // import PropTypes from 'prop-types';
 import Cell from './Cell';
 // import { motion, AnimatePresence } from "framer-motion"
@@ -5,7 +8,6 @@ import { motion } from "framer-motion"
 import { useContext } from 'react'
 // import ProjectContext from '../context/ProjectContext';
 import FilterContext from '../context/FilterContext';
-
 
 function CellsList( props ){
 
@@ -16,6 +18,7 @@ function CellsList( props ){
     };
 
     return (            
+        <Grid container >
         <div className={'CellsList'}>
             <ul className={'list'}>
             {/* <AnimatePresence>                */}
@@ -36,6 +39,7 @@ function CellsList( props ){
             {/* </AnimatePresence>                                                                   */}
             </ul>            
         </div>
+        </Grid>
     );
 }
 

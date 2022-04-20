@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import Editable from "react-editable-title";
 import { useContext, useState } from "react";
 import ProjectContext from '../context/ProjectContext';

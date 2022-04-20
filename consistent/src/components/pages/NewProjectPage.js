@@ -1,7 +1,6 @@
-
 import { useContext, useState, useEffect } from "react";
 
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import ProjectContext from "../context/ProjectContext";
 import FilterContext from "../context/FilterContext";
 import { v4 as uuidv4 } from 'uuid'
@@ -26,8 +25,8 @@ function NewProjectPage(){
     
     return ( 
         <>
-        {projectData &&  <Redirect to={{pathname:`/projects/${projectData.id}`}}/>}
-         {ready && <Redirect to={{pathname:`/projects/${uuidv4()}`}}/> }
+        {projectData &&  <Navigate to={{pathname:`/projects/${projectData.id}`}}/>}
+         {ready && <Navigate to={{pathname:`/projects/${uuidv4()}`}}/> }
         </>
         
 

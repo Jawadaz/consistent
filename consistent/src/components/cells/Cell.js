@@ -1,3 +1,6 @@
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+
 import { useContext, useState, useEffect } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 
@@ -75,7 +78,9 @@ function Cell( {cell} ){
     }, [cell.tags]);
 
     return (
+        <Grid item xs={12}>
         <div className={"Cell"} onClick={handleCellClick}>
+            <Box>
             <div className={'CellInner'}>
                 {/* <CopyToClipboard text={"asdadsads"}
                     onCopy={() => {console.log('hi');} }> */}
@@ -92,14 +97,18 @@ function Cell( {cell} ){
                             disabled={isProjectLocked}
                         />
                     </div>
-                    {isActive && <CellControlsRight cell={cell} />}                    
+                    {isActive && <CellControlsRight cell={cell} />}
                     {isActive && <CellControlsLeft cell={cell}/>}
             </div>
-            <CellTags cell={cell} isActive={isActive} updateCellTags={updateCellTags}/>
+            </Box>
+            <Box>
+                <CellTags cell={cell} isActive={isActive} updateCellTags={updateCellTags}/>
+            </Box>
             {/* {modalIsOpen && <ConfirmModal onCancel={handelCloseModal} onConfirm={handelConfirm}/>}
             {modalIsOpen && <Backdrop onClick={handelCloseModal}/>} */}
 
         </div>
+        </Grid>
     );
 }
 

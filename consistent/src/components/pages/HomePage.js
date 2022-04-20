@@ -1,11 +1,12 @@
+import Container from "@mui/material/Container"
 
 function HomePage(props){
     return (
-        <div>
+        <Container>
             <h1>...</h1>
             <div>
             </div>
-        </div>
+        </Container>
     );
 };
 

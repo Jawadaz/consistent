@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Redirect} from 'react-router-dom'
+import { Navigate} from 'react-router-dom'
 import Files from "react-files";
 import ProjectContext from '../context/ProjectContext';
 import FilterContext from '../context/FilterContext';
@@ -23,8 +23,8 @@ function LoadFile( {children} ){
 
     return (
         <>
-            {loadedProject && <Redirect to={{pathname:`/projects/${loadedProject}`}} ></Redirect>}
-            {loadedProject === null && <Redirect to="/" ></Redirect>}
+            {loadedProject && <Navigate to={{pathname:`/projects/${loadedProject}`}} />}
+            {loadedProject === null && <Navigate to="/" />}
             <div className="files">
                 <Files
                     className='files-dropzone'

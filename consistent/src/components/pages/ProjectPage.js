@@ -1,3 +1,5 @@
+import Container from "@mui/material/Container"
+
 import ProjectTitle from "../projects/ProjectTitle.js";
 import ProjectStats from "../projects/ProjectStats.js";
 import ProjectHeader from "../projects/ProjectHeader.js";
@@ -40,19 +42,23 @@ function ProjectPage( props ){
     return (
         <div className="ProjectPage">
             <div className="column1">
+                <Container 
+                // maxWidth="xm"
+                >
                 {/* <div className="row1"> */}
-                <ProjectHeader>
-                    <ProjectTitle title={projectData.title}/>
-                    <ProjectControls></ProjectControls>
-                    <h3>
-                        Paragraphs
-                    </h3>                    
-                </ProjectHeader>
-                {/* </div> */}
-                <div  className="ProjectCells">                
+                    <ProjectHeader>
+                        <ProjectTitle title={projectData.title}/>
+                        <ProjectControls></ProjectControls>
+                        <h3>
+                            Paragraphs
+                        </h3>                    
+                    </ProjectHeader>
+                    {/* </div> */}
+                    <div  className="ProjectCells">                
 
-                    <CellsList />
-                </div>
+                        <CellsList />
+                    </div>
+                </Container>                
             </div>
             <div className="column2">
                 <div className="ProjectFilters">

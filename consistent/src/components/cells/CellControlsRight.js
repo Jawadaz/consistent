@@ -2,7 +2,9 @@ import { FaTimes } from "react-icons/fa"
 import {useContext} from "react"
 import ProjectContext from "../context/ProjectContext";
 import ControlButton from "../ui/ControlButton.js"
-
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function CellControlsRight ( { cell } ) {
 
@@ -10,8 +12,17 @@ function CellControlsRight ( { cell } ) {
 
     return (
         <div 
-            className="CellControlsRight"
-        >
+            className="CellControlsRight">
+            <IconButton 
+            aria-label="delete" 
+            fontSize="small"
+            variant="contained"
+            color="primary"
+            onClick={(e)=>{e.stopPropagation(); deleteCell(cell.id);}}
+            >
+                <DeleteIcon fontSize="small" />
+            </IconButton>
+
             <ControlButton 
                 isDisabled={false} 
                 onClick={(e)=>{e.stopPropagation(); deleteCell(cell.id);}}
