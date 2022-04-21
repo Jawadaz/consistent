@@ -3,7 +3,9 @@ import { useContext } from "react"
 import ControlButton from "../ui/ControlButton";
 import ProjectContext from "../context/ProjectContext";
 import FilterContext from "../context/FilterContext";
-import { ButtonGroup,IconButton } from "@mui/material";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import IconButton from "@mui/material/IconButton";
+
 import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
@@ -26,7 +28,7 @@ function CellControlsLeft( {cell} ){
         <div className={"CellControlsLeft"}>
             <ButtonGroup
                 orientation="vertical"
-                aria-label="cell controls left"
+                aria-label="Paragraph Controls - Left"
             >
                 <IconButton
                     variant="contained"

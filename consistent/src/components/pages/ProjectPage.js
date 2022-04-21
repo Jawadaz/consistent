@@ -17,6 +17,7 @@ import { useContext } from "react";
 
 // import { saveAs } from 'file-saver';
 import ProjectContext from "../context/ProjectContext.js";
+import ProjectToolbar from "../layout/ProjectToolbar.js";
 
 function ProjectPage( props ){
     
@@ -41,6 +42,7 @@ function ProjectPage( props ){
 
     return (
         <Container maxWidth="xl">
+        <ProjectToolbar />        
             {/* <div className="column1"> */}
                 {/* <div className="row1"> */}
                     {/* <ProjectHeader>

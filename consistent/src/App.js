@@ -7,7 +7,7 @@ import LoadProjectPage from './components/pages/LoadProjectPage';
 
 import HomePage from './components/pages/HomePage';
 import AboutPage from './components/pages/AboutPage';
-import Navigation from './components/layout/Navigation';
+import ApplicationBar from './components/layout/ApplicationBar';
 
 import {ProjectContextProvider} from './components/context/ProjectContext'
 import {FilterContextProvider} from './components/context/FilterContext'
@@ -17,7 +17,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Navigation />
+        <ApplicationBar />
         <ProjectContextProvider>
           <FilterContextProvider>
             <Routes>

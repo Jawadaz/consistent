@@ -92,13 +92,19 @@ function Cell( {cell} ){
             >
                 {/* WE NEED A COULUMN HERE */}
                 {/* {isActive && <CellControlsLeft cell={cell}/>} */}
-                <Box sx={{ width: '3%' }}>
+                <Box 
+                    sx={{ 
+                        // width: '4%', 
+                        maxWidth: '36px',
+                        minWidth: '36px'
+                    }}
+                >
                     {isActive && <CellControlsLeft cell={cell}/>}
                 </Box>
                 {/* WE NEED A COULUMN HERE */}
                 <Box 
                     sx={{ 
-                        width: '100%',
+                        width: '92%',
                     }} 
                     className={'CellInner'}
                 >
@@ -121,7 +127,11 @@ function Cell( {cell} ){
                         <CellTags cell={cell} isActive={isActive} updateCellTags={updateCellTags}/>
                     </div>
                 </Box>
-                <Box sx={{ width: '3%' }}>
+                <Box sx={{ 
+                        maxWidth: '36px',
+                        minWidth: '36px'
+                    }}
+                 >
                     {isActive && <CellControlsRight cell={cell} />}
                 </Box>
             </Stack>

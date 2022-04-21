@@ -9,8 +9,9 @@ import MenuIcon from "@mui/icons-material/Menu"
 
 import { useNavigate } from 'react-router-dom';
 import LoadFile from '../ui/LoadFile';
+import ProjectToolbar from "./ProjectToolbar";
 
-function Navigation() {
+function NavigationBar() {
 
     const pages = [
         {
@@ -35,8 +36,6 @@ function Navigation() {
 
     return (
         <>
-        <AppBar position="sticky">
-            <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <IconButton
                         size="large"
@@ -52,14 +51,14 @@ function Navigation() {
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ mr: 2, display: { xs: 'none', sm: 'flex', md: 'flex', lg: 'flex' } }}
+                        sx={{ mr: 2, display: { xs: 'flex', sm: 'flex', md: 'flex', lg: 'flex' } }}
                         onClick={()=>navigate('/')}
                     >
                         CONSISTENT
                     </Typography>
 
                     <Box 
-                        sx= {{ flexGrow: 1, display: { xs: 'flex', sm: 'flex', md: 'flex', lg:'flex' } }}
+                        sx= {{ flexGrow: 1, display: { xs: 'none', sm: 'flex', md: 'flex', lg:'flex' } }}
                     >
                         {pages.map((page) => (
                         <Button
@@ -72,8 +71,6 @@ function Navigation() {
                         ))}         
                     </Box>
                 </Toolbar>
-            </Container>
-        </AppBar>
         </>
     );
     // return (<>
@@ -110,4 +107,4 @@ function Navigation() {
     // );
 }
 
-export default Navigation;
+export default NavigationBar;
