@@ -1,5 +1,6 @@
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 
 import { useContext, useState, useEffect } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -78,37 +79,48 @@ function Cell( {cell} ){
     }, [cell.tags]);
 
     return (
-        <Grid item xs={12}>
         <div className={"Cell"} onClick={handleCellClick}>
-            <Box>
-            <div className={'CellInner'}>
-                {/* <CopyToClipboard text={"asdadsads"}
-                    onCopy={() => {console.log('hi');} }> */}
-                {/* </CopyToClipboard>                 */}
-                    <div className={'CellContent'}>
-                        {/* https://www.npmjs.com/package/react-textarea-autosize */}
-                        <TextareaAutosize        
-                            onChange={handelUpdateCellContent}
-                            onFocus={() => setIsCellContentFocused(true)}
-                            onBlur={(e) => {setIsCellContentFocused(false);handleUpdateCell(e)}}
-                            type="text" 
-                            placeholdre=""
-                            value={cellContent}
-                            disabled={isProjectLocked}
-                        />
-                    </div>
-                    {isActive && <CellControlsRight cell={cell} />}
+            <Stack 
+                direction="row" 
+                spacing={0}
+                alignItems="stretch"
+            >
+                {/* WE NEED A COULUMN HERE */}
+                {/* {isActive && <CellControlsLeft cell={cell}/>} */}
+                <Box sx={{ width: '3%' }}>
                     {isActive && <CellControlsLeft cell={cell}/>}
-            </div>
-            </Box>
-            <Box>
-                <CellTags cell={cell} isActive={isActive} updateCellTags={updateCellTags}/>
-            </Box>
-            {/* {modalIsOpen && <ConfirmModal onCancel={handelCloseModal} onConfirm={handelConfirm}/>}
-            {modalIsOpen && <Backdrop onClick={handelCloseModal}/>} */}
-
+                </Box>
+                {/* WE NEED A COULUMN HERE */}
+                <Box 
+                    sx={{ 
+                        width: '100%',
+                    }} 
+                    className={'CellInner'}
+                >
+                    <div>
+                        {/* <CopyToClipboard text={"asdadsads"}
+                            onCopy={() => {console.log('hi');} }> */}
+                        {/* </CopyToClipboard>                 */}
+                        <div className={'CellContent'}>
+                            {/* https://www.npmjs.com/package/react-textarea-autosize */}
+                            <TextareaAutosize        
+                                onChange={handelUpdateCellContent}
+                                onFocus={() => setIsCellContentFocused(true)}
+                                onBlur={(e) => {setIsCellContentFocused(false);handleUpdateCell(e)}}
+                                type="text" 
+                                placeholdre=""
+                                value={cellContent}
+                                disabled={isProjectLocked}
+                            />
+                        </div>
+                        <CellTags cell={cell} isActive={isActive} updateCellTags={updateCellTags}/>
+                    </div>
+                </Box>
+                <Box sx={{ width: '3%' }}>
+                    {isActive && <CellControlsRight cell={cell} />}
+                </Box>
+            </Stack>
         </div>
-        </Grid>
     );
 }
 

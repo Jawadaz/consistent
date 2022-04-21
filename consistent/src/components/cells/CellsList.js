@@ -3,11 +3,11 @@ import Grid from "@mui/material/Grid"
 
 // import PropTypes from 'prop-types';
 import Cell from './Cell';
-// import { motion, AnimatePresence } from "framer-motion"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { useContext } from 'react'
 // import ProjectContext from '../context/ProjectContext';
 import FilterContext from '../context/FilterContext';
+import Stack from "@mui/material/Stack";
 
 function CellsList( props ){
 
@@ -17,11 +17,11 @@ function CellsList( props ){
         visible: { opacity: 1 },
     };
 
-    return (            
-        <Grid container >
-        <div className={'CellsList'}>
-            <ul className={'list'}>
-            {/* <AnimatePresence>                */}
+    return (     
+        <>
+        {/* <div className={'CellsList'}> */}
+            <Stack spacing={2}>
+            <AnimatePresence>               
                 {filteredProjectCells.map(item => 
                 <motion.div
                     key={item.id}
@@ -29,17 +29,17 @@ function CellsList( props ){
                     animate="visible"
                     variants={variants}
                     exit="hidden"
-                > 
+                >
                     <Cell 
                         key={item.id}
                         cell={item}
                         />
                 </motion.div>
                 )}
-            {/* </AnimatePresence>                                                                   */}
-            </ul>            
-        </div>
-        </Grid>
+            </AnimatePresence>                                                                  
+            </Stack>
+        {/* </div> */}
+        </>
     );
 }
 

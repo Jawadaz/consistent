@@ -25,7 +25,7 @@ function NewProjectPage(){
     
     return ( 
         <>
-        {projectData &&  <Navigate to={{pathname:`/projects/${projectData.id}`}}/>}
+         {projectData &&  <Navigate to={{pathname:`/projects/${projectData.id}`}}/>}
          {ready && <Navigate to={{pathname:`/projects/${uuidv4()}`}}/> }
         </>
         

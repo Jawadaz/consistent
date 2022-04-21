@@ -13,7 +13,7 @@ function CellControlsRight ( { cell } ) {
     return (
         <div 
             className="CellControlsRight">
-            <IconButton 
+            {/* <IconButton 
             aria-label="delete" 
             fontSize="small"
             variant="contained"
@@ -21,7 +21,7 @@ function CellControlsRight ( { cell } ) {
             onClick={(e)=>{e.stopPropagation(); deleteCell(cell.id);}}
             >
                 <DeleteIcon fontSize="small" />
-            </IconButton>
+            </IconButton> */}
 
             <ControlButton 
                 isDisabled={false} 

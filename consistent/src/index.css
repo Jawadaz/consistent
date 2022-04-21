@@ -1,5 +1,5 @@
 * {
-  /* box-sizing: border-box; */
+  box-sizing: border-box;
   font-family: roboto;
 }
 
@@ -8,7 +8,7 @@ body {
   /* padding: 1rem; */
   margin: 0px;
   background-color: #dfdfdf;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 h1, h2 {
@@ -45,19 +45,19 @@ h1, h2 {
   background-color: #f8dae9;
 } */
 
-.card {
+/* .card {
   background-color: white;
   border-radius: 4px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   padding: 1rem;
   width: 20rem;
-}
+} */
 
 .actions {
   text-align: right;
 }
 
-.modal {
+/* .modal {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   background-color: white;
@@ -68,9 +68,9 @@ h1, h2 {
   position: fixed;
   top: 20vh;
   left: calc(50% - 15rem);
-}
+} */
 
-.backdrop {
+/* .backdrop {
   position: fixed;
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.75);
@@ -78,28 +78,28 @@ h1, h2 {
   height: 100vh;
   top: 0;
   left: 0;
-}
+} */
 
-.main {
+
+/* .main { */
     /* margin: 1.6rem; */
     /* width: 80%; */
     /* max-width: 80%; */
-  }
+  /* } */
 
-.header {
+/* .header {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: #404080;
-    /* max-width: 80rem; */
-    /* margin: auto */
     position: sticky;
     top: 0px;
     z-index: 10;
     grid-area: header;
-}
+} */
   
+/*
 .logo {
     font-size: 1rem;
     color: white;
@@ -117,8 +117,7 @@ h1, h2 {
     padding: 0;
     display: flex;
     align-items: baseline;
-}
-  
+} 
 
 .header li {
     margin-left: 3rem;
@@ -137,6 +136,7 @@ h1, h2 {
 {
     color: white;
 }
+*/
 
 .badge {
     background-color: #404080;
@@ -146,22 +146,22 @@ h1, h2 {
     margin-left: 0.5rem;
 }
 
-.item {
+/* .item {
     margin: 1rem 0;
-  }
+  } */
   
-.image {
+/* .image {
     width: 100%;
     height: 20rem;
     overflow: hidden;
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
-}
+} */
 
-.image img {
+/* .image img {
     width: 100%;
     object-fit: cover;
-}
+} */
 
 .content {
     text-align: left;
@@ -173,62 +173,67 @@ h1, h2 {
     color: #2c292b;
 }
 
-.Cell {
+/* .Cell {
     border-style: solid;
     border-color: #404080;
     border-width: 2px;
     margin-bottom: 4px;
     border-radius: 6px;
     position: relative;
-}
+} */
 
-.CellList {
+/* .CellList {
     border-style: solid;
-}
+} */
 
 
-.CellsList .list {
+/* .CellsList .list {
     padding: 0;
-}
+} */
 
 .CellContent {
-    font-size: 0.8rem;
+    /* font-size: 0.8rem; */    
 }
 
 .CellInner {
-    display: flex;
-    margin: 4px;
+    /* display: flex; */
+    /* margin: 4px; */
+    border-style: solid;
+    border-color: #404080;
+    border-width: 2px;
+    border-radius: 6px;
+    margin-bottom: 4px;    
 }
 
 .CellContent {
-    width: 100%;
+    /* width: 100%; */
 }
 
 .CellContent input {
-    width: 100%;
-    height: 2em;
+    /* width: 100%; */
+    /* height: 2em; */
 }
 
 .CellContent textarea {
     width: 100%;
 }
 
-.CellControlsRight {
+/* .CellControlsRight {
     position: absolute;
     right: -38px;
     top: -2px;
-}
+} */
 
-.CellControlsLeft{
+/* .CellControlsLeft{
     position: absolute;
     left: -40px;
     top: -2px;
-}
+} */
 
-.CellControlsLeft button{
+/* .CellControlsLeft button{
     display: block;
     margin-bottom: 2px;
-}
+} */
 .btnCellControlsLeft-group button:not(:last-child) {
     border-bottom: none; /* Prevent double borders */
   }
@@ -336,33 +341,27 @@ h1, h2 {
     /* padding: 10px; */
 }
 
-.ProjectCells {
-    /* display: inline-block; */
+/* .ProjectCells {
     grid-area: cells;
-    /* width: 75%; */
-    /* margin-top: 15px; */
     margin-bottom: 15px;
     padding-right: 35px;
     padding-left: 35px;
     overflow: scroll;
-    /* overflow: auto; */
-    /* border: 1px solid rgb(136, 59, 59); */
-}
+} */
 
+/*
 .ProjectHeader
 {
     position: sticky;
     grid-area: project;
     padding: 5px;
     top: 1em;
-    /* width: 75%; */
-    /* position: fixed; */
     z-index: 9;
-    /* overflow: initial; */
     padding-left: 35px;
     background-color: #dfdfdf;
     border-bottom: 1px solid #404080;
 }
+*/
 
 .ProjectHeader h3 {
     margin-bottom: 0px;

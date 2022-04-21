@@ -40,27 +40,22 @@ function ProjectPage( props ){
     // },[]);
 
     return (
-        <div className="ProjectPage">
-            <div className="column1">
-                <Container 
-                // maxWidth="xm"
-                >
+        <Container maxWidth="xl">
+            {/* <div className="column1"> */}
                 {/* <div className="row1"> */}
-                    <ProjectHeader>
+                    {/* <ProjectHeader>
                         <ProjectTitle title={projectData.title}/>
                         <ProjectControls></ProjectControls>
                         <h3>
                             Paragraphs
                         </h3>                    
-                    </ProjectHeader>
+                    </ProjectHeader> */}
                     {/* </div> */}
-                    <div  className="ProjectCells">                
-
-                        <CellsList />
-                    </div>
-                </Container>                
-            </div>
-            <div className="column2">
+                    {/* <div  className="ProjectCells">                 */}
+            <CellsList />
+                    {/* </div> */}
+            {/* </div> */}
+            {/* <div className="column2">
                 <div className="ProjectFilters">
                     <h3>
                         Tags
@@ -79,8 +74,8 @@ function ProjectPage( props ){
                     </h3>
                     <ProjectStats/>
                 </div>
-            </div>
-        </div>
+            </div> */}
+        </Container>
     );
 }
     

@@ -2,7 +2,7 @@ import Container from "@mui/material/Container"
 
 function HomePage(props){
     return (
-        <Container>
+        <Container maxWidth="xl">
             <h1>...</h1>
             <div>
             </div>
