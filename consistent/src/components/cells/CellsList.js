@@ -8,6 +8,7 @@ import { useContext } from 'react'
 // import ProjectContext from '../context/ProjectContext';
 import FilterContext from '../context/FilterContext';
 import Stack from "@mui/material/Stack";
+import Fade from "@mui/material/Fade";
 
 function CellsList( props ){
 
@@ -21,22 +22,24 @@ function CellsList( props ){
         <>
         {/* <div className={'CellsList'}> */}
             <Stack spacing={2}>
-            <AnimatePresence>               
+            {/* <AnimatePresence>                */}
+             {/*  */}
                 {filteredProjectCells.map(item => 
-                <motion.div
-                    key={item.id}
-                    initial="hidden"
-                    animate="visible"
-                    variants={variants}
-                    exit="hidden"
-                >
+                // <motion.div
+                //     key={item.id}
+                //     initial="hidden"
+                //     animate="visible"
+                //     variants={variants}
+                //     exit="hidden"
+                // >
                     <Cell 
                         key={item.id}
                         cell={item}
                         />
-                </motion.div>
+                // </motion.div>
                 )}
-            </AnimatePresence>                                                                  
+            {/* </AnimatePresence>                                                                   */}
+            {/* </Fade> */}
             </Stack>
         {/* </div> */}
         </>

@@ -10,6 +10,7 @@ import CellTags from './CellTags';
 import CellControlsRight from './CellControlsRight';
 import CellControlsLeft from './CellControlsLeft';
 
+import Fade from "@mui/material/Fade";
 // TODO: implement cool modal yes/no at some point
 // import ConfirmModal from '../ui/ConfirmModal';
 // import Backdrop from '../ui/Backdrop';
@@ -80,6 +81,10 @@ function Cell( {cell} ){
 
     return (
         <div className={"Cell"} onClick={handleCellClick}>
+            <Fade 
+                in={true}
+                timeout={500}
+            >  
             <Stack 
                 direction="row" 
                 spacing={0}
@@ -120,6 +125,7 @@ function Cell( {cell} ){
                     {isActive && <CellControlsRight cell={cell} />}
                 </Box>
             </Stack>
+            </Fade>
         </div>
     );
 }
