@@ -17,9 +17,9 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <ApplicationBar />
         <ProjectContextProvider>
           <FilterContextProvider>
+            <ApplicationBar />          
             <Routes>
               <Route path="/" exact element={ <HomePage />} />
               <Route path="/projects/_new" exact element={<NewProjectPage />} />

@@ -3,6 +3,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Toolbar from "@mui/material/Toolbar";
 import AppBar from "@mui/material/AppBar";
+import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import  ButtonGroup from "@mui/material/ButtonGroup";
 import IconButton from "@mui/material/IconButton";
@@ -126,7 +127,8 @@ function ProjectToolbar( props ){
 
 
     return <>
-            <Box sx={{ flexGrow: 1 }} >
+            {/* <Box sx={{ flexGrow: 1 }} > */}
+            <Paper elevation={0}>
                 <Toolbar 
                     disableGutters
                     variant="dense"
@@ -249,7 +251,8 @@ function ProjectToolbar( props ){
                     </IconButton>
                     </Box>
                 </Toolbar>
-            </Box>
+            </Paper>                
+        {/* </Box> */}
     </>;
 }        
 
