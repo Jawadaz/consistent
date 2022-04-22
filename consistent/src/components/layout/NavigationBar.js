@@ -6,17 +6,34 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/icons-material/Menu"
+import Menu from "@mui/material/Menu"
+import MenuItem from "@mui/material/MenuItem"
 
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react'
+
 import LoadFile from '../ui/LoadFile';
 import ProjectToolbar from "./ProjectToolbar";
 
-function NavigationBar() {
 
+function NavigationBar() {
+    const navigate = useNavigate();
+    const [anchorElNav, setAnchorElNav] = useState(null);
+
+    const handleOpenNavMenu = (event) => {
+        console.log('what');
+        setAnchorElNav(event.currentTarget);
+    };
+    
+    const handleCloseNavMenu = () => {
+        console.log('what');
+        setAnchorElNav(null);
+    };
+    
     const pages = [
         {
-            'name': 'Example',
-            'path': '/projects/_example'
+            'name': 'Demo',
+            'path': '/projects/_demo'
         },
         {
             'name': 'New',
@@ -32,7 +49,6 @@ function NavigationBar() {
         }
     ];
     // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-    const navigate = useNavigate();
 
     return (
         <>
@@ -42,10 +58,40 @@ function NavigationBar() {
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
-                        sx={{ mr: 2, display: { xs: 'flex', sm: 'flex', md: 'flex', lg: 'flex'  }} }
+                        onClick={(e)=>handleOpenNavMenu(e)}
+                        sx={{ mr: 2, display: { xs: 'flex', sm: 'none', md: 'none', lg: 'none'  }} }
                     >
                         <MenuIcon />
                     </IconButton>
+                    <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorElNav}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                        open={Boolean(anchorElNav)}
+                        // open={true}
+                        onClose={handleCloseNavMenu}
+                        sx={{
+                            display: { xs: 'block', sm:'none', md: 'none' },
+                        }}
+                    >
+                        {pages.map((page) => (
+                            <MenuItem 
+                                key={page.name} 
+                                onClick={(e)=>{handleCloseNavMenu(e); navigate(page.path); }}
+                            >
+                                <Typography textAlign="center">{page.name}</Typography>     
+                            </MenuItem>
+                        ))}
+                    </Menu>
+
 
                     <Typography
                         variant="h6"
@@ -56,7 +102,10 @@ function NavigationBar() {
                     >
                         CONSISTENT
                     </Typography>
-
+                    <Box
+                        sx= {{ flexGrow: 3, display: {xs: 'none', sm:'flex', md:'flex', lg:'flex'} }}
+                    >
+                    </Box>
                     <Box 
                         sx= {{ flexGrow: 1, display: { xs: 'none', sm: 'flex', md: 'flex', lg:'flex' } }}
                     >
