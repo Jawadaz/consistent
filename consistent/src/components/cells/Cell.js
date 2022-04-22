@@ -11,10 +11,19 @@ import CellControlsRight from './CellControlsRight';
 import CellControlsLeft from './CellControlsLeft';
 
 import Fade from "@mui/material/Fade";
-// TODO: implement cool modal yes/no at some point
-// import ConfirmModal from '../ui/ConfirmModal';
-// import Backdrop from '../ui/Backdrop';
+import TextField from "@mui/material/TextField";
 
+import { styled } from '@mui/material/styles';
+
+// import InputUnstyled from '@mui/base/InputUnstyled';
+
+
+const CustomizedTextField = styled(TextField)`
+  .MuiOutlinedInput-root {
+    padding: 6px 6px 16px 6px;
+    background-color: white;
+  }
+`;
 
 function Cell( {cell} ){
     const { activeCellId, activateCell, updateCellContent, updateCellTags, isProjectLocked } = useContext(ProjectContext);
@@ -106,15 +115,17 @@ function Cell( {cell} ){
                     sx={{ 
                         width: '92%',
                     }} 
+                    autocomplete="off"
                     className={'CellInner'}
                 >
                     <div>
                         {/* <CopyToClipboard text={"asdadsads"}
                             onCopy={() => {console.log('hi');} }> */}
                         {/* </CopyToClipboard>                 */}
-                        <div className={'CellContent'}>
+
+                        {/* <div className={'CellContent'}> */}
                             {/* https://www.npmjs.com/package/react-textarea-autosize */}
-                            <TextareaAutosize        
+                            {/* <TextareaAutosize        
                                 onChange={handelUpdateCellContent}
                                 onFocus={() => setIsCellContentFocused(true)}
                                 onBlur={(e) => {setIsCellContentFocused(false);handleUpdateCell(e)}}
@@ -123,8 +134,36 @@ function Cell( {cell} ){
                                 value={cellContent}
                                 disabled={isProjectLocked}
                             />
-                        </div>
-                        <CellTags cell={cell} isActive={isActive} updateCellTags={updateCellTags}/>
+                        </div>*/}
+                        <CustomizedTextField
+                        // <TextField
+                        // <InputUnstyled
+                            onChange={handelUpdateCellContent}
+                            onFocus={() => setIsCellContentFocused(true)}
+                            onBlur={() => setIsCellContentFocused(true)}
+                            multiline
+                            placeholder="Add paragraph text here..."
+                            value={cellContent}
+                            disabled={isProjectLocked}
+                            variant="outlined"
+                            type="text"
+                            margin="dense"
+                            fullWidth
+                            sx = {{ paddingLeft: "6px", paddingRight: "6px" }}
+                            // notched={true}
+                            // label="Paragraph..."
+                            // classes={
+                            //  
+                            // }
+                        />
+                        <Box 
+                        sx={{ 
+                            paddingLeft: "4px",
+                            paddingRight: "4px"
+                        }} 
+                        >
+                            <CellTags cell={cell} isActive={isActive} updateCellTags={updateCellTags}/>
+                        </Box>
                     </div>
                 </Box>
                 <Box sx={{ 
