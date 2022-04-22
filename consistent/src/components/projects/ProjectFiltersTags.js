@@ -38,12 +38,12 @@ function ProjectFiltersTags(){
     };
 
     useEffect(()=>{
-      console.log('CellTags.useEffect()');
+    //   console.log('CellTags.useEffect()');
       setSuggestions(projectTags);
     }, [projectTags]);
 
     useEffect(()=>{
-        console.log('CellTags.useEffect()');
+        // console.log('CellTags.useEffect()');
         setTags(filterQuery.tags);
       }, [filterQuery]);
 

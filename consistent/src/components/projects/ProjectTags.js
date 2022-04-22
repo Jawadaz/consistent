@@ -9,8 +9,8 @@ function ProjectTags(){
     const { addTagsToFilterQuery } = useContext(FilterContext);
     
     const handleTagClick = index => {
-        console.log('The tag at index ' + index + ' was clicked');
-        console.log(projectTags[index]);
+        // console.log('The tag at index ' + index + ' was clicked');
+        // console.log(projectTags[index]);
         //if tag is not in tags push
         addTagsToFilterQuery([projectTags[index]]);
     };
@@ -22,7 +22,7 @@ function ProjectTags(){
         }
         return -1;
     });
-    console.log([projectTags]);
+    // console.log([projectTags]);
     return (
         // <div>
         //     <ul className={"ReactTags__tags ReactTags__selected"}>

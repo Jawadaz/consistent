@@ -67,23 +67,23 @@ function Cell( {cell} ){
             return;
         }
         //TODO: Consider tags as in issue #17        
-        console.log(cellTags);
+        // console.log(cellTags);
         updateCellContent(cell.id, content);
     }
 
     useEffect(()=>{
-        console.log('Cell.useEffect()');
+        // console.log('Cell.useEffect()');
         setIsActive(activeCellId===cell.id ? true: false);
       }, [activeCellId, cell.id]
     );
 
     useEffect(()=>{
-        console.log('Cell.useEffect() cell.content');
+        // console.log('Cell.useEffect() cell.content');
         setCellContent(cell.content);
     }, [cell.content]);
 
     useEffect(()=>{
-        console.log('Cell.useEffect() cell.content');
+        // console.log('Cell.useEffect() cell.content');
         setCellTags(cell.tags);
 
     }, [cell.tags]);

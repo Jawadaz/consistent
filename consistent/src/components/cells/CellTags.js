@@ -36,7 +36,7 @@ const CellTags = ( {cell, isActive, updateCellTags } ) => {
     };
 
     const handleTagClick = index => {
-        console.log('The tag at index ' + index + ' was clicked');
+        // console.log('The tag at index ' + index + ' was clicked');
     };
 
     const KeyCodes = {
@@ -46,12 +46,12 @@ const CellTags = ( {cell, isActive, updateCellTags } ) => {
     const delimiters = [KeyCodes.enter];
   
     useEffect(()=>{
-      console.log('CellTags.useEffect() projectTags');
+    //   console.log('CellTags.useEffect() projectTags');
       setSuggestions(projectTags);
     }, [projectTags]);
 
     useEffect(()=>{
-        console.log('CellTags.useEffect() cell.tags');
+        // console.log('CellTags.useEffect() cell.tags');
         setTags(cell.tags);
     },[cell.tags]);
   

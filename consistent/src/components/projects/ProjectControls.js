@@ -28,7 +28,7 @@ function ProjectControls( {children} )
 
     //////
     const btnSaveClickHandler=(e)=>{
-        console.log("btnSaveClickHandler")
+        // console.log("btnSaveClickHandler")
         if(projectFilename===null){
             return btnSaveAsClickHandler(e);
         }
@@ -37,7 +37,7 @@ function ProjectControls( {children} )
     }
 
     const btnSaveAsClickHandler=(e)=>{
-        console.log("btnSaveAsClickHandler");
+        // console.log("btnSaveAsClickHandler");
         console.log(projectCells);
         saveAsClick();
         
@@ -46,17 +46,17 @@ function ProjectControls( {children} )
     }    
 
     const btnLockClickHandler=(e)=>{
-        console.log("btnLockClickHandler");
+        // console.log("btnLockClickHandler");
         toggleLockProject();
     }
 
     const btnUndoClickHandler=(e)=>{
-        console.log("btnUndoClickHandler");
+        // console.log("btnUndoClickHandler");
         undo();
     }
 
     const btnRedoClickHandler=(e)=>{
-        console.log("btnRedoClickHandler");
+        // console.log("btnRedoClickHandler");
         redo();
     }
 
@@ -66,7 +66,7 @@ function ProjectControls( {children} )
     // }
 
     const btnImportClickHandler=(e)=>{
-        console.log('btnImportClickHandler():');
+        // console.log('btnImportClickHandler():');
         navigator.clipboard.readText().then(clipboardText=>{
             createCellsFromText(clipboardText);
         });
@@ -74,7 +74,7 @@ function ProjectControls( {children} )
     }
     
     useEffect(()=>{
-        console.log('ProjectControls.useEffect()');
+        // console.log('ProjectControls.useEffect()');
 
         if(isProjectLocked){
             setIsMoveCellUpButtonDisabled(true);

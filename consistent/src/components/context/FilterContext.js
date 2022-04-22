@@ -21,7 +21,7 @@ export const FilterContextProvider=( {children} )=> {
 
     const addTagsToFilterQuery=(tags)=>{
         const newQuery = {...filterQuery};
-        console.log(tags);
+        // console.log(tags);
         // newQuery.tags.push(tags.flat());
         //some js magic
 
@@ -38,7 +38,7 @@ export const FilterContextProvider=( {children} )=> {
 
     const removeTagsFromFilterQuery=(tags)=>{
         const newQuery = {...filterQuery};
-        console.log(tags);
+        // console.log(tags);
         newQuery.tags = newQuery.tags.filter(tag=>{
             return !tags.map(tag=>tag.id).includes(tag.id);
         });
@@ -48,7 +48,7 @@ export const FilterContextProvider=( {children} )=> {
 
     const addTokensToFilterQuery=(tokens)=>{
         const newQuery = {...filterQuery};
-        console.log(tokens);
+        // console.log(tokens);
 
         tokens.forEach(token=>{
             var i = newQuery.tokens.findIndex(x => x.id === token.id);
@@ -63,7 +63,7 @@ export const FilterContextProvider=( {children} )=> {
 
     const removeTokensFromFilterQuery=(tokens)=>{
         const newQuery = {...filterQuery};
-        console.log(tokens);
+        // console.log(tokens);
         newQuery.tokens = newQuery.tokens.filter(token=>{
             return !tokens.map(token=>token.id).includes(token.id);
         });
@@ -72,8 +72,6 @@ export const FilterContextProvider=( {children} )=> {
     }    
 
     useEffect(()=>{
-
-        
         const filterProjectCells = (query) => {
             const tagsIds = query.tags.map(tag=>tag.id);
             const tokens = query.tokens;
@@ -157,8 +155,8 @@ export const FilterContextProvider=( {children} )=> {
             return;
         }
         
-        console.log("filterQuery");
-        console.log(filterQuery);
+        // console.log("filterQuery");
+        // console.log(filterQuery);
         filterProjectCells(filterQuery);
     }, [filterQuery, projectCells]);
 

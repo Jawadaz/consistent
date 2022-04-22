@@ -42,7 +42,7 @@ function ProjectToolbar( props ){
     const [ isRedoButtonDisabled, setIsRedoButtonDisabled] = useState(true);
 
     const btnSaveClickHandler=(e)=>{
-        console.log("btnSaveClickHandler")
+        // console.log("btnSaveClickHandler")
         if(projectFilename===null){
             return btnSaveAsClickHandler(e);
         }
@@ -51,8 +51,8 @@ function ProjectToolbar( props ){
     }
 
     const btnSaveAsClickHandler=(e)=>{
-        console.log("btnSaveAsClickHandler");
-        console.log(projectCells);
+        // console.log("btnSaveAsClickHandler");
+        // console.log(projectCells);
         saveAsClick();
         
         // setProjectFilename("helloworld.txt");
@@ -60,17 +60,17 @@ function ProjectToolbar( props ){
     }    
 
     const btnLockClickHandler=(e)=>{
-        console.log("btnLockClickHandler");
+        // console.log("btnLockClickHandler");
         toggleLockProject();
     }
 
     const btnUndoClickHandler=(e)=>{
-        console.log("btnUndoClickHandler");
+        // console.log("btnUndoClickHandler");
         undo();
     }
 
     const btnRedoClickHandler=(e)=>{
-        console.log("btnRedoClickHandler");
+        // console.log("btnRedoClickHandler");
         redo();
     }
 
@@ -80,7 +80,7 @@ function ProjectToolbar( props ){
     // }
 
     const btnImportClickHandler=(e)=>{
-        console.log('btnImportClickHandler():');
+        // console.log('btnImportClickHandler():');
         navigator.clipboard.readText().then(clipboardText=>{
             createCellsFromText(clipboardText);
         });
@@ -88,7 +88,7 @@ function ProjectToolbar( props ){
     }
     
     useEffect(()=>{
-        console.log('ProjectControls.useEffect()');
+        // console.log('ProjectControls.useEffect()');
 
         if(isProjectLocked){
             setIsMoveCellUpButtonDisabled(true);
@@ -203,7 +203,7 @@ function ProjectToolbar( props ){
                         <ContentPasteGoOutlinedIcon />
                     </IconButton>
                     <CopyToClipboard text={ getCellsContentAsText( isFiltered? filteredProjectCells: projectCells ) }
-                        onCopy={() => {console.log('hi');} }>
+                        onCopy={() => {console.log('copied');} }>
                         <IconButton
                             size="small"
                             color="primary"

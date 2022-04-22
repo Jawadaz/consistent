@@ -15,7 +15,7 @@ function ProjectFiltersContent(){
     const delimiters = [KeyCodes.enter];
   
     const handleAddition = (token) => {
-        console.log(token)
+        // console.log(token)
         // if(projectTags.some((projectTag)=>projectTag.id===tag.id)){
             const newTokens = [...tokens, token];
             setTokens(newTokens);
