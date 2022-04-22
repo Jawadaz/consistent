@@ -99,8 +99,6 @@ function Cell( {cell} ){
                 spacing={0}
                 alignItems="stretch"
             >
-                {/* WE NEED A COULUMN HERE */}
-                {/* {isActive && <CellControlsLeft cell={cell}/>} */}
                 <Box 
                     sx={{ 
                         // width: '4%', 
@@ -108,15 +106,28 @@ function Cell( {cell} ){
                         minWidth: '36px'
                     }}
                 >
-                    {isActive && <CellControlsLeft cell={cell}/>}
+                    {isActive && !isProjectLocked && <CellControlsLeft cell={cell}/>}
                 </Box>
                 {/* WE NEED A COULUMN HERE */}
                 <Box 
-                    sx={{ 
-                        width: '92%',
-                    }} 
+                    sx={ isActive && !isProjectLocked?
+                        { 
+                            borderWidth:'3px',
+                            borderStyle: 'solid',
+                            borderRadius: '6px'
+                        }
+                        :
+                        {
+                            // width: '92%',
+                            borderWidth:'1px',
+                            borderStyle: 'solid',
+                            borderRadius: '6px'
+                        }
+                    } 
                     autocomplete="off"
-                    className={'CellInner'}
+                    borderColor="primary.main"
+                    width="92%"
+                    marginBottom="3px"
                 >
                     <div>
                         {/* <CopyToClipboard text={"asdadsads"}
@@ -171,7 +182,7 @@ function Cell( {cell} ){
                         minWidth: '36px'
                     }}
                  >
-                    {isActive && <CellControlsRight cell={cell} />}
+                    {isActive && !isProjectLocked && <CellControlsRight cell={cell} />}
                 </Box>
             </Stack>
             </Fade>
