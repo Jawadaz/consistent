@@ -88,8 +88,6 @@ function ProjectToolbar( props ){
     }
     
     useEffect(()=>{
-        // console.log('ProjectControls.useEffect()');
-
         if(isProjectLocked){
             setIsMoveCellUpButtonDisabled(true);
             setIsMoveCellDownButtonDisabled(true);

@@ -1,9 +1,10 @@
 import Container from "@mui/material/Container"
-
+import Grid from "@mui/material/Grid"
+import Box from "@mui/material/Box"
+import Drawer from "@mui/material/Drawer"
 import ProjectTitle from "../projects/ProjectTitle.js";
 import ProjectStats from "../projects/ProjectStats.js";
 import ProjectHeader from "../projects/ProjectHeader.js";
-import ProjectControls from "../projects/ProjectControls.js";
 import ProjectTags from "../projects/ProjectTags.js";
 import ProjectFiltersTags from "../projects/ProjectFiltersTags";
 import ProjectFiltersContents from "../projects/ProjectFiltersContents";
@@ -17,7 +18,6 @@ import { useContext } from "react";
 
 // import { saveAs } from 'file-saver';
 import ProjectContext from "../context/ProjectContext.js";
-import ProjectToolbar from "../layout/ProjectToolbar.js";
 
 function ProjectPage( props ){
     
@@ -39,15 +39,21 @@ function ProjectPage( props ){
     // useEffect(()=>{
     //     console.log('ProjectPage.useEffect():');
     // },[]);
-
     return (
-        <Container maxWidth="xl" sx={{paddingTop:"16px"}}>
+        <>
+        {/* <ProjectSidebar /> */}
+        {/* <Box sx={{ flexGrow: 1 }}> */}
+        {/* <Grid container spacing={2} columns={16}> */}
+        {/* <Grid item xs={16}> */}
+        <Container 
+            maxWidth="xl" 
+            sx={{paddingTop:"16px"}}
+        >
         {/* <ProjectToolbar />         */}
             {/* <div className="column1"> */}
                 {/* <div className="row1"> */}
                     {/* <ProjectHeader>
                         <ProjectTitle title={projectData.title}/>
-                        <ProjectControls></ProjectControls>
                         <h3>
                             Paragraphs
                         </h3>                    
@@ -58,6 +64,7 @@ function ProjectPage( props ){
                     {/* </div> */}
             {/* </div> */}
             {/* <div className="column2">
+
                 <div className="ProjectFilters">
                     <h3>
                         Tags
@@ -76,8 +83,19 @@ function ProjectPage( props ){
                     </h3>
                     <ProjectStats/>
                 </div>
-            </div> */}
+            </div> */}     
         </Container>
+        {/* </Grid> */}
+        {/* <Grid item xs={4}>
+        <Box 
+            maxWidth="xl" 
+            sx={{paddingTop:"16px"}}
+        >
+        </Box>
+        </Grid> */}
+        {/* </Grid> */}
+        {/* </Box> */}
+        </>
     );
 }
     

@@ -21,7 +21,6 @@ function ApplicationBar() {
 
     return (
         <>
-        <Box sx={{ flexGrow: 1 }}>
         <AppBar position="sticky">
             <Container maxWidth="xl" width="100%">
                 <NavigationBar />
@@ -29,9 +28,8 @@ function ApplicationBar() {
             {                 
             check
             &&
-
             <Container 
-                maxWidth="xl" 
+                maxWidth="xl"
                 width="100%" 
                 sx={{
                     backgroundColor:"white"
@@ -45,7 +43,6 @@ function ApplicationBar() {
             </Container>
             }
         </AppBar>
-        </Box>
         </>
     );
 }

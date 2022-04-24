@@ -4,24 +4,28 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/icons-material/Menu"
-import Menu from "@mui/material/Menu"
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import Divider from "@mui/material/Divider"
 import MenuItem from "@mui/material/MenuItem"
+import Drawer from '@mui/material/Drawer';
 
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react'
 
 function NavigationBar() {
-    const navigate = useNavigate();
-    const [anchorElNav, setAnchorElNav] = useState(null);
 
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
-    };
-    
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
-    
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+    const navigate = useNavigate();
+
+    const toggleDrawer = (open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setIsDrawerOpen(open);
+  };
+
     const pages = [
         {
             'name': 'New',
@@ -35,10 +39,6 @@ function NavigationBar() {
             'name': 'Demo',
             'path': '/projects/_demo'
         },
-        {   
-            'name': 'About',
-            'path': '/about'
-        }
     ];
 
     return (
@@ -49,38 +49,53 @@ function NavigationBar() {
                             edge="start"
                             color="inherit"
                             aria-label="open drawer"
-                            onClick={(e)=>handleOpenNavMenu(e)}
+                            onClick={toggleDrawer(!isDrawerOpen)}
                             sx={{ mr: 2, display: { xs: 'flex', sm: 'flex', md: 'flex', lg: 'flex'  }} }
                         >
                             <MenuIcon />
-                        </IconButton>
-                        {/* <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', sm:'none', md: 'none' },
-                            }}
-                        >
-                            {pages.map((page) => (
-                                <MenuItem 
-                                    key={page.name} 
-                                    onClick={(e)=>{handleCloseNavMenu(e); navigate(page.path); }}
+                            <Drawer
+                                anchor="left"
+                                open={isDrawerOpen}
+                                onClose={toggleDrawer(false)}
+                            >
+                                <Box
+                                    // sx={{ width: 250 }}
+                                    role="presentation"
+                                    onClick={toggleDrawer(false)}
+                                    onKeyDown={toggleDrawer(false)}
                                 >
-                                    <Typography textAlign="center">{page.name}</Typography>     
-                                </MenuItem>
-                            ))}
-                        </Menu> */}
+                                    <MenuItem 
+                                        key="home"
+                                        onClick={(e)=>{
+                                            navigate("/"); 
+                                        }}
+                                    >
+                                        <Typography textAlign="center">Home</Typography>
+                                    </MenuItem>
+
+                                    <MenuItem 
+                                        key="about"
+                                        onClick={(e)=>{
+                                            navigate("/about"); 
+                                        }}
+                                    >
+                                        <Typography textAlign="center">About</Typography>
+                                    </MenuItem>
+                                    
+                                <Divider />
+                                { pages.map((page) => (                                    
+                                    <MenuItem 
+                                        key={page.name} 
+                                        onClick={(e)=>{
+                                            navigate(page.path); 
+                                            }}
+                                    >
+                                        <Typography textAlign="center">{page.name}</Typography>     
+                                    </MenuItem>
+                                ))}
+                                </Box>
+                            </Drawer>
+                        </IconButton>
                         <Typography 
                             variant="h6" 
                             component="div" 
