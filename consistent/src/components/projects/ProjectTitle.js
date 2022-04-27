@@ -1,4 +1,3 @@
-import Editable from "react-editable-title";
 import { useContext, useState } from "react";
 import ProjectContext from '../context/ProjectContext';
 function ProjectTitle() {
@@ -13,13 +12,7 @@ function ProjectTitle() {
 
   return (
 <h2>
-    <Editable
-      text= {text}
-      editButton
-      editControls
-      placeholder="Type your title here"
-      cb={handleTextUpdate}
-    />
+{text}
 </h2>    
   );
 }

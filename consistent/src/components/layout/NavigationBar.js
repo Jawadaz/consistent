@@ -2,29 +2,41 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton"
-import MenuIcon from "@mui/icons-material/Menu"
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import Divider from "@mui/material/Divider"
-import MenuItem from "@mui/material/MenuItem"
+import { styled } from "@mui/material/styles";
+import Divider from "@mui/material/Divider";
+import MenuItem from "@mui/material/MenuItem";
 import Drawer from '@mui/material/Drawer';
 
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import ProjectContext from "../context/ProjectContext";
+import FilterContext from "../context/FilterContext";
+
+const Input = styled('input')({
+  display: 'none',
+});
 
 function NavigationBar() {
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+	const [selectedFile, setSelectedFile] = useState(null);
+	const [isFilePicked, setIsFilePicked] = useState(false);
+
+    const { loadProject } = useContext(ProjectContext);
+    const { clearFilterQuery } = useContext(FilterContext);
 
     const navigate = useNavigate();
 
     const toggleDrawer = (open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
 
-    setIsDrawerOpen(open);
-  };
+        setIsDrawerOpen(open);
+    };
 
     const pages = [
         {
@@ -33,13 +45,34 @@ function NavigationBar() {
         },
         {   
             'name': 'Load',
-            'path': '/projects/_load'
+            'path': ''
         },
         {
             'name': 'Demo',
             'path': '/projects/_demo'
         },
     ];
+
+    const fileReader = new FileReader();
+
+    const handleInputOnChange=(event)=>{
+        console.log(event);
+        if(event.target.files.length===0){
+            setIsFilePicked(false);
+            return;
+        }
+        setSelectedFile(event.target.files[0]);
+        setIsFilePicked(true);
+        fileReader.readAsText(event.target.files[0]);
+    }
+
+    fileReader.onload=(event) => {
+        console.log(event);
+        const project = JSON.parse(event.target.result);
+        loadProject(project);
+        clearFilterQuery();
+        navigate("/projects/"+project.id);
+    };
 
     return (
         <>
@@ -83,7 +116,22 @@ function NavigationBar() {
                                     </MenuItem>
                                     
                                 <Divider />
-                                { pages.map((page) => (                                    
+                                { pages.map((page) => page.name==="Load"? 
+                                    <label
+                                        key={page.name}
+                                        htmlFor="contained-button-file"
+                                    >
+                                        <Input
+                                            id="contained-button-file" 
+                                            accept="application/json" 
+                                            type="file"
+                                            onChange={handleInputOnChange}
+                                        />
+                                        <MenuItem>
+                                            <Typography textAlign="center">{page.name}</Typography>     
+                                        </MenuItem>
+                                    </label>  
+                                    :
                                     <MenuItem 
                                         key={page.name} 
                                         onClick={(e)=>{
@@ -92,7 +140,7 @@ function NavigationBar() {
                                     >
                                         <Typography textAlign="center">{page.name}</Typography>     
                                     </MenuItem>
-                                ))}
+                                )}
                                 </Box>
                             </Drawer>
                         </IconButton>
@@ -104,19 +152,41 @@ function NavigationBar() {
                         >
                             CONSISTENT
                         </Typography>
-                        {pages.map((page) => (
-                        <Button
-                            key={page.name}
-                            onClick={()=>navigate(page.path)}
-                            sx={{ 
-                                my: 2, color: 'white', 
-                                // display: 'block' 
-                                display: { xs: 'none', sm: 'flex', md: 'flex', lg: 'flex'  }
-                            }}
-                        >
-                            {page.name}
-                        </Button>
-                        ))}         
+                        { pages.map((page) =>
+                            page.name==="Load" ? 
+                             <label 
+                             key={page.name}
+                             htmlFor="contained-button-file">
+                                <Input
+                                    id="contained-button-file" 
+                                    accept="application/json" 
+                                    type="file"
+                                    onChange={handleInputOnChange}
+                                / >
+                                <Button
+                                    // variant="contained" 
+                                    component="span"
+                                    sx={{ 
+                                        my: 2, color: 'white', 
+                                        display: 'block',
+                                    }}
+                                >  
+                                    {page.name}
+                                </Button>
+                                </label>
+                            :
+                                <Button
+                                    key={page.name}
+                                    onClick={()=>navigate(page.path)}
+                                    sx={{ 
+                                        my: 2, color: 'white', 
+                                        // display: 'block' 
+                                        display: { xs: 'none', sm: 'flex', md: 'flex', lg: 'flex'  }
+                                    }}
+                                >
+                                    {page.name}
+                                </Button>
+                        )}
                 </Toolbar>
         </>
     );
