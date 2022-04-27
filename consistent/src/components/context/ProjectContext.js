@@ -186,7 +186,7 @@ export const ProjectContextProvider=( {children} )=>{
     const saveAsClick = (id) => {
         // console.log('saveAsClick()');
         var blob = new Blob([JSON.stringify({...projectData, cells:projectCells})], {type: "json/plain;charset=utf-8"});
-        saveAs(blob, `${projectData.title} v${new Date().toLocaleDateString()}-${new Date().toLocaleTimeString()}.json`);
+        saveAs(blob, `${projectData.title}_${new Date().toISOString()}.json`);
     }
     const moveActiveCellUp = ()=>{
         // console.log('moveActiveCellUp():');
