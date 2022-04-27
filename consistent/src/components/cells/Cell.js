@@ -26,7 +26,8 @@ const CustomizedTextField = styled(TextField)`
 `;
 
 function Cell( {cell} ){
-    const { activeCellId, activateCell, updateCellContent, updateCellTags, isProjectLocked } = useContext(ProjectContext);
+    const { activeCellId, activateCell, updateCellContent, 
+            updateCellTags, isProjectLocked, isProjectLTR } = useContext(ProjectContext);
 
     // const [ modalIsOpen, setModalIsOpen ] = useState(false);
     const [ cellContent, setCellContent ] = useState(cell.content);
@@ -57,11 +58,13 @@ function Cell( {cell} ){
     }
 
     const handelUpdateCellContent=(event) => {
+        console.log('handelUpdateCellContent');
         const content = event.target.value; 
         setCellContent(content);
     }
 
     const handleUpdateCell=(event) =>{
+        console.log('handleUpdateCell');
         const content = event.target.value; 
         if(content===cell.content){
             return;
@@ -78,7 +81,7 @@ function Cell( {cell} ){
     );
 
     useEffect(()=>{
-        // console.log('Cell.useEffect() cell.content');
+        console.log('Cell.useEffect() cell.content');
         setCellContent(cell.content);
     }, [cell.content]);
 
@@ -151,7 +154,11 @@ function Cell( {cell} ){
                         // <InputUnstyled
                             onChange={handelUpdateCellContent}
                             onFocus={() => setIsCellContentFocused(true)}
-                            onBlur={() => setIsCellContentFocused(true)}
+                            onBlur={(e) => {
+                                setIsCellContentFocused(true);
+                                handleUpdateCell(e);
+                            }}
+                            dir={isProjectLTR?"ltr":"rtl"}
                             multiline
                             placeholder="Add paragraph text here..."
                             value={cellContent}

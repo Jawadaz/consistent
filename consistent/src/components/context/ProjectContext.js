@@ -45,6 +45,8 @@ export const ProjectContextProvider=( {children} )=>{
     const [ isUndoDisabled, setIsUndoDisabled ] = useState(true);
     const [ isRedoDisabled, setIsRedoDisabled ] = useState(true);
 
+    const [ isProjectLTR, setIsProjectLTR ] = useState(true);
+
     const updateProjectCells = (cells) => {
         setProjectCells(cells);
         pushToProjectCellsHistory(cells);
@@ -65,6 +67,9 @@ export const ProjectContextProvider=( {children} )=>{
         }
     }
 
+    const setProjectLTR=(ltr)=>{
+        setIsProjectLTR(ltr);
+    }
 
     const updateHistoryIndex=(index, length)=>{
         setHistoryIndex(index);
@@ -404,6 +409,9 @@ export const ProjectContextProvider=( {children} )=>{
             redo,
             isUndoDisabled,
             isRedoDisabled,
+
+            setProjectLTR,
+            isProjectLTR,
 
             loadFixture,
             newProject,

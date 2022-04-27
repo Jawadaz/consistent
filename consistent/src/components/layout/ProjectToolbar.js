@@ -23,6 +23,8 @@ import SaveAsIcon from "@mui/icons-material/SaveAs";
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import CopyAllOutlinedIcon from '@mui/icons-material/CopyAllOutlined';
+import FormatTextdirectionRToLIcon from '@mui/icons-material/FormatTextdirectionRToL';
+import FormatTextdirectionLToRIcon from '@mui/icons-material/FormatTextdirectionLToR';
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 function ProjectToolbar( props ){
@@ -31,7 +33,7 @@ function ProjectToolbar( props ){
         addEmptyCell, moveActiveCellDown, moveActiveCellUp, 
         toggleLockProject, isProjectLocked, undo, redo,
         isUndoDisabled, isRedoDisabled, saveAsClick,
-        getCellsContentAsText, createCellsFromText } = useContext(ProjectContext)
+        getCellsContentAsText, createCellsFromText, setProjectLTR} = useContext(ProjectContext)
     const { isFiltered, filteredProjectCells } = useContext(FilterContext);
 
 
@@ -40,6 +42,8 @@ function ProjectToolbar( props ){
 
     const [ isUndoButtonDisabled, setIsUndoButtonDisabled] = useState(true);
     const [ isRedoButtonDisabled, setIsRedoButtonDisabled] = useState(true);
+
+    const [ isLTR, setIsLTR ] = useState(true);
 
     const btnSaveClickHandler=(e)=>{
         // console.log("btnSaveClickHandler")
@@ -85,6 +89,11 @@ function ProjectToolbar( props ){
             createCellsFromText(clipboardText);
         });
         return;
+    }
+
+    const btnToggleRightToLeft=(e)=>{
+        setIsLTR(!isLTR);
+        setProjectLTR(!isLTR);
     }
     
     useEffect(()=>{
@@ -167,6 +176,17 @@ function ProjectToolbar( props ){
                         disabled={isMoveCellUpButtonDisabled}
                     >
                         <ArrowUpwardOutlinedIcon fontSize="small" />
+                    </IconButton>
+                    </Box>
+                    <Box>
+                    <IconButton
+                        size="small"
+                        color="primary"
+                        aria-label="Undo"
+                        disabled={isProjectLocked}
+                        onClick={(e)=>btnToggleRightToLeft()}
+                    >
+                        {isLTR?<FormatTextdirectionRToLIcon />:<FormatTextdirectionLToRIcon />}
                     </IconButton>
                     </Box>
                     <Box>

@@ -25,6 +25,8 @@
     "react-scripts": "5.0.0",
     "react-tag-input": "^6.8.0",
     "react-textarea-autosize": "^8.3.3",
+    "stylis": "^4.1.1",
+    "stylis-plugin-rtl": "^2.1.1",
     "uuid": "^8.3.2",
     "web-vitals": "^2.1.2"
   },
