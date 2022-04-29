@@ -1,18 +1,22 @@
 import Container from "@mui/material/Container"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
+import Button from "@mui/material/Button";
+
 import Drawer from "@mui/material/Drawer"
 import ProjectTitle from "../projects/ProjectTitle.js";
 import ProjectStats from "../projects/ProjectStats.js";
-import ProjectHeader from "../projects/ProjectHeader.js";
-import ProjectTags from "../projects/ProjectTags.js";
+import ProjectHeader from "../projects/ProjectHeader.js"
+import ProjectTags from "../projects/ProjectTags.js"
 import ProjectFiltersTags from "../projects/ProjectFiltersTags";
 import ProjectFiltersContents from "../projects/ProjectFiltersContents";
 
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import CellsList from "../cells/CellsList.js";
 // import { useParams } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 // import dummyProject from "../../fixtures/dummy_project_1.json"
 
@@ -27,11 +31,15 @@ function ProjectPage( props ){
     //const project_filename = new URLSearchParams(search).get('filename');
     // const { projectData, newProject } = useContext(ProjectContext)
 
-    const { projectData } = useContext(ProjectContext)
+    const { projectData } = useContext(ProjectContext);
+    const [isSidebarVisible, setIsSidebarVisible ] = useState(true);
     // const [ data, setData ] = useState(projectData);
 
     // newProject(projectId);
 
+    const toggleSidebar=()=>{
+        setIsSidebarVisible(!isSidebarVisible);
+    }
     // useEffect(()=>{
     //     setData(projectData);
     // },[projectData]);
@@ -41,10 +49,36 @@ function ProjectPage( props ){
     // },[]);
     return (
         <>
-        {/* <ProjectSidebar /> */}
-        {/* <Box sx={{ flexGrow: 1 }}> */}
-        {/* <Grid container spacing={2} columns={16}> */}
-        {/* <Grid item xs={16}> */}
+        {/*  */}
+        {/* <Box sx={{ flexGrow: 1 }}> */} 
+        {isSidebarVisible?
+            <Box 
+                sx={{   position:"fixed", 
+                        width:"75%"}}
+            >
+                <Button
+                    onClick={toggleSidebar}
+                    sx={{float:"right"}}
+                >
+                    <ArrowForwardIosIcon />
+                </Button>
+            </Box>
+        :
+            <Box 
+                sx={{ position:"fixed", 
+                      width:"100%"}}
+            >
+                <Button
+                    onClick={toggleSidebar}
+                    sx={{float:"right"}}
+                >
+                    <ArrowBackIosIcon />
+                </Button>
+            </Box>
+        }        
+        <Box>
+        <Grid container spacing={2} columns={16}>
+        <Grid item xs={16} sm={16} md={isSidebarVisible?12:16} lg={isSidebarVisible?12:16}>
         <Container 
             maxWidth="xl" 
             sx={{paddingTop:"16px"}}
@@ -59,13 +93,13 @@ function ProjectPage( props ){
                         </h3>                    
                     </ProjectHeader> */}
                     {/* </div> */}
-                    {/* <div  className="ProjectCells">                 */}
+                    {/* <div  className="ProjectCells">*/}
             <CellsList />
                     {/* </div> */}
             {/* </div> */}
             {/* <div className="column2">
 
-                <div className="ProjectFilters">
+                <div className="ProjectFilters"f>
                     <h3>
                         Tags
                     </h3>            
@@ -85,16 +119,17 @@ function ProjectPage( props ){
                 </div>
             </div> */}     
         </Container>
-        {/* </Grid> */}
-        {/* <Grid item xs={4}>
+        </Grid>
+        <Grid item xs={4}>
         <Box 
             maxWidth="xl" 
             sx={{paddingTop:"16px"}}
         >
         </Box>
-        </Grid> */}
-        {/* </Grid> */}
-        {/* </Box> */}
+            {/* <ProjectSidebar /> */}
+        </Grid>
+        </Grid>        
+        </Box>
         </>
     );
 }
