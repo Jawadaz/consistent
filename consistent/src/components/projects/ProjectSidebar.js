@@ -15,7 +15,24 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { useState } from "react";
 import PropTypes from 'prop-types';
+import { Divider } from "@mui/material";
 
+
+// const TagsAccordion = styled((props) => (
+//     <Accordion 
+//         disableGutters 
+//         elevation={0} 
+//         square {...props} />
+//     ))(({ theme }) => ({
+//             border: `1px solid ${theme.palette.divider}`, 
+//             '&:not(:last-child)': {
+//                 borderBottom: 0,
+//             },
+//             '&:before': {
+//                 display: 'none',
+//             },
+//         })
+//     );
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -55,8 +72,8 @@ function ProjectSidebar () {
     }
 
     const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+        setValue(newValue);
+    };
 
     return (
         <>
@@ -80,35 +97,28 @@ function ProjectSidebar () {
             <Box    
                 paddingTop="16px"
             >
-                {/* 
-                <h3>
-                    Tags
-                </h3>             
-                
-                */}
-                <Typography variant="h6" component="div">
-                    Filter by Content
-                </Typography>
                 <ProjectFiltersContents />
-                                
-                <Typography variant="h6" gutterBottom component="div">
-                    Filter by Tags
-                </Typography>
+
                 <ProjectFiltersTags />
-                  {/* <Accordion>
+                <Accordion
+                    disableGutters
+                    elevation={0}
+                    square
+                >
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                     >
-                        <Typography>Show Tags</Typography>
+                    <Typography gutterBottom component="div">
+                        Show Tags
+                    </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography>
-                            <ProjectTags />
-                        </Typography>
+                        <ProjectTags />
                     </AccordionDetails>
-                </Accordion> */}
+                </Accordion>
+
             </Box>
             </TabPanel>
             <TabPanel value={value} index={1}>
