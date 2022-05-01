@@ -83,7 +83,10 @@ function NavigationBar() {
                             color="inherit"
                             aria-label="open drawer"
                             onClick={toggleDrawer(!isDrawerOpen)}
-                            sx={{ mr: 2, display: { xs: 'flex', sm: 'flex', md: 'flex', lg: 'flex'  }} }
+                            sx={{ 
+                                mr: 2, 
+                                display: { xs: 'flex', sm: 'flex', md: 'flex', lg: 'flex' }} 
+                            }
                         >
                             <MenuIcon />
                             <Drawer
@@ -168,7 +171,7 @@ function NavigationBar() {
                                     component="span"
                                     sx={{ 
                                         my: 2, color: 'white', 
-                                        display: 'block',
+                                        display: { xs: 'none', sm: 'flex', md: 'flex', lg: 'flex' }
                                     }}
                                 >  
                                     {page.name}
@@ -181,7 +184,7 @@ function NavigationBar() {
                                     sx={{ 
                                         my: 2, color: 'white', 
                                         // display: 'block' 
-                                        display: { xs: 'none', sm: 'flex', md: 'flex', lg: 'flex'  }
+                                        display: { xs: 'none', sm: 'flex', md: 'flex', lg: 'flex' }
                                     }}
                                 >
                                     {page.name}
