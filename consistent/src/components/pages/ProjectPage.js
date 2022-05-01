@@ -36,9 +36,8 @@ function ProjectPage( props ){
     // const [ data, setData ] = useState(projectData);
 
     // newProject(projectId);
-    const sidebarColumns = 6;
-    const sidebarColumnsPercent = String(100*(16-sidebarColumns)/16.0) + "%";
-    console.log(sidebarColumnsPercent);
+    const sidebarColumns = 5;
+    const sidebarColumnsPercent = String(100*(16-sidebarColumns+.5)/16.0) + "%";
 
     const toggleSidebar=()=>{
         setIsSidebarVisible(!isSidebarVisible);
@@ -52,77 +51,13 @@ function ProjectPage( props ){
     // },[]);
     return (
         <>
-        {/*  */}
-        {/* <Box sx={{ flexGrow: 1 }}> */} 
-        {isSidebarVisible?
-            <Box 
+        {/* {isSidebarVisible?
                 sx={{   
                         // position:"fixed", 
                         width: sidebarColumnsPercent
                 }}
-                display={{ xs: 'none', sm: 'none', md: 'inherit', lg: 'inherit', xl:'inherit'  }}
-            >
-                <Button
-                    onClick={toggleSidebar}
-                    sx={{float:"right"}}
-                >
-                    <ArrowForwardIosIcon />
-                </Button>
-            </Box>
-        :
-            <Box 
-                sx={{ 
-                        // position:"fixed", 
-                      width:"100%",
-                      maxWidth: "100%"
-                      
-                }}
-                display={{ xs: 'none', sm: 'none', md: 'inherit', lg: 'inherit', xl:'inherit' }}                    
-            >
-                <Button
-                    onClick={toggleSidebar}
-                    sx={{float:"right"}}
-                >
-                    <ArrowBackIosIcon />
-                </Button>
-            </Box>
-        }        
-        <Box>
-        <Grid 
-            container 
-            spacing={2} 
-            columns={16}
-            sx={{
-                // marginLeft: "0px"
-            }}>
-        <Grid 
-        item xs={16} sm={16} md={isSidebarVisible?16-sidebarColumns:16} lg={isSidebarVisible?16-sidebarColumns:16}
-            sx={{
-                // paddingLeft: "0px",
-                // paddingRight: "8px"
-            }}
-        >
-        <Container 
-            width="100%"
-            maxWidth="100%"
-            sx={{
-                // paddingTop:"16px",
-            }}
-        >
-                    {/* <ProjectHeader>
-                        <ProjectTitle title={projectData.title}/>
-                    */}
-            <CellsList />
-        </Container>
-        </Grid>
-        <Grid 
-            item 
-            xs={0} sm={0} md={sidebarColumns} lg={sidebarColumns}
-        >
-        <Box 
-            maxWidth="100%" 
-            width="100%"
-            // sx={{paddingTop:"16px"}}
+        */}
+        <Box
             display={{
                 "xs": "none", 
                 "sm": "none", 
@@ -131,10 +66,109 @@ function ProjectPage( props ){
                 "xl": "block",
             }}
         >
-                {isSidebarVisible?<ProjectSidebar />:<Box></Box>}
-        </Box>                
-        </Grid>
-        </Grid>        
+            <Grid 
+                container 
+                spacing={2} 
+                columns={16}
+                sx={{
+                    // marginLeft: "0px"
+                    display: { md: 'content', lg: 'content', xl: 'content'}
+                }}>
+                <Grid 
+                    item
+                    xs={16-sidebarColumns}
+                    sm={16-sidebarColumns} 
+                    md={16-sidebarColumns} 
+                    lg={16-sidebarColumns}
+                >
+                </Grid>
+                <Grid
+                    item
+                    xs={sidebarColumns}
+                    sm={sidebarColumns}
+                    md={sidebarColumns} 
+                    lg={sidebarColumns}
+                >
+                    <Box>
+                        {isSidebarVisible?
+                        <Button
+                            onClick={toggleSidebar}
+                            sx={{
+                                justifyContent: "left",
+                                paddingLeft:"0px"
+                            }}
+                        >
+                            <ArrowForwardIosIcon />
+                        </Button>
+                        :
+                        <Button
+                            onClick={toggleSidebar}
+                            sx={{
+                                justifyContent: "right",
+                                float:"right"
+                            }}
+                        >
+                            <ArrowBackIosIcon />
+                        </Button>            
+                        }        
+                    </Box>
+                </Grid>
+            </Grid>
+        </Box>
+        <Box>
+            <Grid 
+                container 
+                spacing={2} 
+                columns={16}
+                sx={{
+                    // marginLeft: "0px"
+                }}
+            >
+                <Grid 
+                    item xs={16} sm={16} md={isSidebarVisible?16-sidebarColumns:16} lg={isSidebarVisible?16-sidebarColumns:16}
+                    sx={{
+                        // paddingLeft: "0px",
+                        // paddingRight: "8px"
+                    }}
+                >
+                    <Container 
+                        width="100%"
+                        maxWidth="100%"
+                        sx={{
+                            paddingTop:"16px",
+                        }}
+                    >
+                            {/* <ProjectHeader>
+                                <ProjectTitle title={projectData.title}/>
+                            */}
+                        <CellsList />
+                    </Container>
+                </Grid>
+                <Grid 
+                    item 
+                    xs={0} sm={0} md={sidebarColumns} lg={sidebarColumns}
+                >
+                    <Box 
+                        maxWidth="100%" 
+                        width="100%"
+                        // sx={{paddingTop:"16px"}}
+                        display={{
+                            "xs": "none", 
+                            "sm": "none", 
+                            "md": "block", 
+                            "lg": "block",
+                            "xl": "block",
+                        }}
+                        visibility={isSidebarVisible?"visible":"hidden"}
+                        sx={{
+                            width: isSidebarVisible?"100%":0,
+                            height: isSidebarVisible?"100%":0
+                        }}
+                    >
+                        <ProjectSidebar />
+                    </Box>              
+                </Grid>
+            </Grid>        
         </Box>
         </>
     );
