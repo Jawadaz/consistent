@@ -22,14 +22,16 @@ function ApplicationBar() {
     return (
         <>
         <AppBar position="sticky">
-            <Container maxWidth="xl" width="100%">
+            <Container 
+                maxWidth="100%" 
+                width="100%">
                 <NavigationBar />
             </Container>
             {                 
             check
             &&
             <Container 
-                maxWidth="xl"
+                maxWidth="100%"
                 width="100%" 
                 sx={{
                     backgroundColor:"white"

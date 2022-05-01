@@ -3,7 +3,7 @@ import Box from "@mui/material/Box"
 
 function AboutPage(){
     return (
-        <Container maxWidth="xl">
+        <Container maxWidth="100%">
             <Box>
                 <p>Consistent helps you analyse drafts of contracts, policy papers, 
                     laws, reports to highlight points of inconsistency so that they 

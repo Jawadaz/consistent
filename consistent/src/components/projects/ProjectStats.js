@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import FilterContext from '../context/FilterContext';
 import ProjectContext from '../context/ProjectContext';
+import Box from "@mui/material/Box";
 
 function ProjectStats( ){
     //calculate average number of tags/cell
@@ -52,7 +53,7 @@ function ProjectStats( ){
     // let countOfOrphanProjectCells = countOfOrphanCells(projectCells);
     // let countOfOrphanFilteredProjectCells = countOfOrphanCells(filteredProjectCells);
 
-    return (<div>
+    return (<Box>
         {isFiltered
             ?
             <>
@@ -69,7 +70,7 @@ function ProjectStats( ){
             <p>Tags Count: {projectTags.length}</p>
             </>
         }
-    </div>); 
+    </Box>); 
 }
 
 

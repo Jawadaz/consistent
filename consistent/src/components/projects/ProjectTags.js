@@ -3,6 +3,8 @@ import { useContext} from 'react'
 import ProjectContext from '../context/ProjectContext';
 import FilterContext from '../context/FilterContext';
 
+import Box from "@mui/material/Box";
+
 function ProjectTags(){
     
     const { projectTags } = useContext(ProjectContext);
@@ -35,7 +37,8 @@ function ProjectTags(){
         //         }
         //     </ul>
         // </div>
-        <div className={"ProjectTags"}>
+        // <div className={"ProjectTags"}>
+        <Box>
             <ReactTags
                 tags={ sortedProjectTags }
                 
@@ -47,7 +50,7 @@ function ProjectTags(){
                 readOnly={true}
                 allowUnique={true}
             />            
-        </div>
+        </Box>
     );
 }
 

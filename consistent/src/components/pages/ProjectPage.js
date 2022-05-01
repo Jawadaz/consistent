@@ -2,14 +2,14 @@ import Container from "@mui/material/Container"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button";
+import Paper from "@mui/material/Paper";
 
 import Drawer from "@mui/material/Drawer"
 import ProjectTitle from "../projects/ProjectTitle.js";
 import ProjectStats from "../projects/ProjectStats.js";
 import ProjectHeader from "../projects/ProjectHeader.js"
-import ProjectTags from "../projects/ProjectTags.js"
-import ProjectFiltersTags from "../projects/ProjectFiltersTags";
-import ProjectFiltersContents from "../projects/ProjectFiltersContents";
+
+import ProjectSidebar from "../projects/ProjectSidebar.js";
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -36,6 +36,9 @@ function ProjectPage( props ){
     // const [ data, setData ] = useState(projectData);
 
     // newProject(projectId);
+    const sidebarColumns = 6;
+    const sidebarColumnsPercent = String(100*(16-sidebarColumns)/16.0) + "%";
+    console.log(sidebarColumnsPercent);
 
     const toggleSidebar=()=>{
         setIsSidebarVisible(!isSidebarVisible);
@@ -53,8 +56,11 @@ function ProjectPage( props ){
         {/* <Box sx={{ flexGrow: 1 }}> */} 
         {isSidebarVisible?
             <Box 
-                sx={{   position:"fixed", 
-                        width:"75%"}}
+                sx={{   
+                        // position:"fixed", 
+                        width: sidebarColumnsPercent
+                }}
+                display={{ xs: 'none', sm: 'none', md: 'inherit', lg: 'inherit', xl:'inherit'  }}
             >
                 <Button
                     onClick={toggleSidebar}
@@ -65,8 +71,13 @@ function ProjectPage( props ){
             </Box>
         :
             <Box 
-                sx={{ position:"fixed", 
-                      width:"100%"}}
+                sx={{ 
+                        // position:"fixed", 
+                      width:"100%",
+                      maxWidth: "100%"
+                      
+                }}
+                display={{ xs: 'none', sm: 'none', md: 'inherit', lg: 'inherit', xl:'inherit' }}                    
             >
                 <Button
                     onClick={toggleSidebar}
@@ -77,56 +88,51 @@ function ProjectPage( props ){
             </Box>
         }        
         <Box>
-        <Grid container spacing={2} columns={16}>
-        <Grid item xs={16} sm={16} md={isSidebarVisible?12:16} lg={isSidebarVisible?12:16}>
-        <Container 
-            maxWidth="xl" 
-            sx={{paddingTop:"16px"}}
+        <Grid 
+            container 
+            spacing={2} 
+            columns={16}
+            sx={{
+                // marginLeft: "0px"
+            }}>
+        <Grid 
+        item xs={16} sm={16} md={isSidebarVisible?16-sidebarColumns:16} lg={isSidebarVisible?16-sidebarColumns:16}
+            sx={{
+                // paddingLeft: "0px",
+                // paddingRight: "8px"
+            }}
         >
-        {/* <ProjectToolbar />         */}
-            {/* <div className="column1"> */}
-                {/* <div className="row1"> */}
+        <Container 
+            width="100%"
+            maxWidth="100%"
+            sx={{
+                // paddingTop:"16px",
+            }}
+        >
                     {/* <ProjectHeader>
                         <ProjectTitle title={projectData.title}/>
-                        <h3>
-                            Paragraphs
-                        </h3>                    
-                    </ProjectHeader> */}
-                    {/* </div> */}
-                    {/* <div  className="ProjectCells">*/}
+                    */}
             <CellsList />
-                    {/* </div> */}
-            {/* </div> */}
-            {/* <div className="column2">
-
-                <div className="ProjectFilters"f>
-                    <h3>
-                        Tags
-                    </h3>            
-                    <ProjectTags />
-                    <h3>
-                        Filter by Tags
-                    </h3>
-                    <ProjectFiltersTags />
-                    <h3>
-                        Filter by Content
-                    </h3>
-                    <ProjectFiltersContents />
-                    <h3>
-                        Stats
-                    </h3>
-                    <ProjectStats/>
-                </div>
-            </div> */}     
         </Container>
         </Grid>
-        <Grid item xs={4}>
-        <Box 
-            maxWidth="xl" 
-            sx={{paddingTop:"16px"}}
+        <Grid 
+            item 
+            xs={0} sm={0} md={sidebarColumns} lg={sidebarColumns}
         >
-        </Box>
-            {/* <ProjectSidebar /> */}
+        <Box 
+            maxWidth="100%" 
+            width="100%"
+            // sx={{paddingTop:"16px"}}
+            display={{
+                "xs": "none", 
+                "sm": "none", 
+                "md": "block", 
+                "lg": "block",
+                "xl": "block",
+            }}
+        >
+                {isSidebarVisible?<ProjectSidebar />:<Box></Box>}
+        </Box>                
         </Grid>
         </Grid>        
         </Box>

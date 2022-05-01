@@ -239,7 +239,7 @@ function ProjectToolbar( props ){
                         color="primary"
                         aria-label="Save Project"
                         onClick={(e)=>btnSaveClickHandler(e)}
-                        disabled={isProjectLocked}
+                        disabled={true}
                     >
                         <SaveIcon />
                     </IconButton>   
