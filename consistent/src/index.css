@@ -191,15 +191,15 @@ body {
     padding: 0;
 } */
 
-.CellInner {
+/* .CellInner { */
     /* display: flex; */
     /* margin: 4px; */
     /* border-style: solid; */
     /* border-color: #1976d2; */
     /* border-width: 1px; */
     /* border-radius: 6px; */
-    margin-bottom: 4px;    
-}
+    /* margin-bottom: 4px;     */
+/* } */
 
 /* .CellContent {
     width: 100%;

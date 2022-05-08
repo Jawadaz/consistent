@@ -7,6 +7,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 
 import ProjectContext from '../context/ProjectContext';
 import CellTags from './CellTags';
+import CellTagsMU from './CellTagsMU';
 import CellControlsRight from './CellControlsRight';
 import CellControlsLeft from './CellControlsLeft';
 
@@ -176,17 +177,20 @@ function Cell( {cell} ){
                         />
                         <Box 
                         sx={{ 
-                            paddingLeft: "4px",
-                            paddingRight: "4px"
+                            paddingRight: "8px",
+                            paddingLeft: '8px',
+                            marginTop: '4px',
+                            marginBottom: '8px',
                         }} 
                         >
-                            <CellTags cell={cell} isActive={isActive} updateCellTags={updateCellTags}/>
+                            {/* <CellTags cell={cell} isActive={isActive && !isProjectLocked} updateCellTags={updateCellTags} /> */}
+                            <CellTagsMU cell={cell} isActive={isActive && !isProjectLocked} updateCellTags={updateCellTags} />
                         </Box>
                     </div>
                 </Box>
                 <Box sx={{ 
                         maxWidth: '36px',
-                        minWidth: '36px'
+                        minWidth: '36px',
                     }}
                  >
                     {isActive && !isProjectLocked && <CellControlsRight cell={cell} />}

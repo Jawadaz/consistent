@@ -88,9 +88,14 @@ function ProjectPage( props ){
                     sm={sidebarColumns}
                     md={sidebarColumns} 
                     lg={sidebarColumns}
+
+                    sx={{
+                            paddingLeft:"0px"
+                    }}
                 >
                     <Box>
                         {isSidebarVisible?
+                        <Container>
                         <Button
                             onClick={toggleSidebar}
                             sx={{
@@ -100,7 +105,9 @@ function ProjectPage( props ){
                         >
                             <ArrowForwardIosIcon />
                         </Button>
+                        </Container>
                         :
+                        <Container>
                         <Button
                             onClick={toggleSidebar}
                             sx={{
@@ -109,7 +116,8 @@ function ProjectPage( props ){
                             }}
                         >
                             <ArrowBackIosIcon />
-                        </Button>            
+                        </Button>    
+                        </Container>        
                         }        
                     </Box>
                 </Grid>
@@ -147,11 +155,13 @@ function ProjectPage( props ){
                 <Grid 
                     item 
                     xs={0} sm={0} md={sidebarColumns} lg={sidebarColumns}
+                    sx={{
+                        paddingLeft: '0px'
+                    }}
                 >
                     <Box 
                         maxWidth="100%" 
                         width="100%"
-                        // sx={{paddingTop:"16px"}}
                         display={{
                             "xs": "none", 
                             "sm": "none", 
@@ -162,10 +172,13 @@ function ProjectPage( props ){
                         visibility={isSidebarVisible?"visible":"hidden"}
                         sx={{
                             width: isSidebarVisible?"100%":0,
-                            height: isSidebarVisible?"100%":0
+                            height: isSidebarVisible?"100%":0,
+                            paddingLeft: '0ps'
                         }}
                     >
-                        <ProjectSidebar />
+                        <Container>
+                            <ProjectSidebar />
+                        </Container>
                     </Box>              
                 </Grid>
             </Grid>        
