@@ -87,7 +87,7 @@ function ProjectSidebar () {
                 >
                     <Tab label="Filters" {...a11yProps(0)} />
                     <Tab label="Stats" {...a11yProps(1)} />
-                    <Tab label="Graph" {...a11yProps(2)} />
+                    {/* <Tab label="Graph" {...a11yProps(2)} /> */}
                 </Tabs>
             </Box>
             <TabPanel 
