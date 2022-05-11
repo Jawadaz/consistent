@@ -46,6 +46,10 @@ function ProjectFiltersTags(){
                 multiple
                 id="tags-standard"
                 options={suggestions}
+                // The following lines are important because we add custom endAdornment to TextField
+                // see 
+                disableClearable
+                forcePopupIcon={false}                
                 // getOptionLabel={
                 //     (option) => {
                 //         console.log('getOptionLabel')
