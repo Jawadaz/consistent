@@ -51,6 +51,10 @@ function NavigationBar() {
             'name': 'Demo',
             'path': '/projects/_demo'
         },
+        {
+            'name': 'About',
+            'path': '/about'
+        },        
     ];
 
     const fileReader = new FileReader();

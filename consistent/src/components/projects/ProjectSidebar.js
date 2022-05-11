@@ -1,4 +1,4 @@
-import ProjectTags from "../projects/ProjectTags.js"
+
 import ProjectFiltersTags from "../projects/ProjectFiltersTags";
 import ProjectFiltersContents from "../projects/ProjectFiltersContents";
 import ProjectStats from "../projects/ProjectStats";
@@ -8,14 +8,16 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import { useState } from "react";
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+
+import { useEffect, useState, useContext } from "react";
 import PropTypes from 'prop-types';
 import { Divider } from "@mui/material";
+import FilterContext from "../context/FilterContext.js";
 
 
 // const TagsAccordion = styled((props) => (
@@ -63,6 +65,8 @@ TabPanel.propTypes = {
 function ProjectSidebar () {
 
     const [value, setValue] = useState(0);
+    const [filterOrSwitch, setFilterOrSwitch] = useState(false);
+    const { setOperatorInFilterQuery } = useContext(FilterContext);
 
     function a11yProps(index) {
         return {
@@ -71,8 +75,13 @@ function ProjectSidebar () {
         };
     }
 
-    const handleChange = (event, newValue) => {
+    const handleTagSelectChange = (event, newValue) => {
         setValue(newValue);
+    };
+
+    const handleFilterAndOrSwitchChange = (event) => {
+       setFilterOrSwitch(event.target.checked);
+       setOperatorInFilterQuery(event.target.checked?'or':'and');
     };
 
     return (
@@ -80,7 +89,7 @@ function ProjectSidebar () {
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs 
                     value={value} 
-                    onChange={ handleChange} 
+                    onChange={ handleTagSelectChange} 
                     aria-label="Project's sidebar tabs"
                     variant="scrollable"
                     scrollButtons="auto"
@@ -97,27 +106,19 @@ function ProjectSidebar () {
             <Box    
                 paddingTop="16px"
             >
-                <ProjectFiltersContents />
 
+                <FormGroup>
+                    <FormControlLabel 
+                        control={
+                            <Switch 
+                                onChange={handleFilterAndOrSwitchChange}
+                            />
+                        } 
+                        label="Match any of the filters"
+                    />
+                </FormGroup>
+                <ProjectFiltersContents />
                 <ProjectFiltersTags />
-                <Accordion
-                    disableGutters
-                    elevation={0}
-                    square
-                >
-                    <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                    >
-                    <Typography gutterBottom component="div">
-                        Show Tags
-                    </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                        <ProjectTags />
-                    </AccordionDetails>
-                </Accordion>
 
             </Box>
             </TabPanel>

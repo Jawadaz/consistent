@@ -7,7 +7,7 @@ export const FilterContextProvider=( {children} )=> {
     const emptyFilterQuery = {
         tags: [],
         tokens: [],
-        operator: 'or'
+        operator: 'and'
     };
     const { projectCells } = useContext(ProjectContext);    
     const [ filterQuery, setFilterQuery ] = useState({...emptyFilterQuery});
@@ -36,12 +36,26 @@ export const FilterContextProvider=( {children} )=> {
         return;
     }
 
+    const setOperatorInFilterQuery=(operator)=>{
+        const newQuery = {...filterQuery};
+        newQuery.operator = operator;
+        setFilterQuery(newQuery);
+        return;
+    }
+
     const removeTagsFromFilterQuery=(tags)=>{
         const newQuery = {...filterQuery};
         // console.log(tags);
         newQuery.tags = newQuery.tags.filter(tag=>{
             return !tags.map(tag=>tag.id).includes(tag.id);
         });
+        setFilterQuery(newQuery);
+        return;
+    }
+
+    const updateTagsInFilterQuery=(tags)=>{
+        const newQuery = {...filterQuery};
+        newQuery.tags = tags
         setFilterQuery(newQuery);
         return;
     }
@@ -70,6 +84,14 @@ export const FilterContextProvider=( {children} )=> {
         setFilterQuery(newQuery);
         return;
     }    
+
+    const updateTokensInFilterQuery=(tokens)=>{
+        const newQuery = {...filterQuery};
+        // console.log(tokens);
+        newQuery.tokens = tokens;
+        setFilterQuery(newQuery);
+        return;
+    }
 
     useEffect(()=>{
         const filterProjectCells = (query) => {
@@ -134,10 +156,14 @@ export const FilterContextProvider=( {children} )=> {
                     // FilterTags:
                     if(tagsIds.length>0){
                         cells = cells.filter(
-                            cell=>cell.tags
-                                .map(tag => tag.id)
-                                .some(tag => tagsIds.includes(tag))
+                        //     cell=>cell.tags
+                        //         .map(tag => tag.id)
+                        //         .some(tag => tagsIds.includes(tag))
+                            cell=>tagsIds.every(filterTag=>
+                                cell.tags.map(tag=>tag.id).includes(filterTag)
+                            )
                         );
+
                     }
                     // FilterContent:
                     if(tokens.length>0){
@@ -164,8 +190,11 @@ export const FilterContextProvider=( {children} )=> {
         <FilterContext.Provider value={{
             addTagsToFilterQuery,
             removeTagsFromFilterQuery,
+            updateTagsInFilterQuery,
             addTokensToFilterQuery,
             removeTokensFromFilterQuery,
+            updateTokensInFilterQuery,
+            setOperatorInFilterQuery,     
             clearFilterQuery,
 
             filterQuery,
