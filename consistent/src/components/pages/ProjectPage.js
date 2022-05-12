@@ -2,14 +2,9 @@ import Container from "@mui/material/Container"
 import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
 
-import Drawer from "@mui/material/Drawer"
-import ProjectTitle from "../projects/ProjectTitle.js";
-import ProjectStats from "../projects/ProjectStats.js";
-import ProjectHeader from "../projects/ProjectHeader.js"
-
-import ProjectSidebar from "../projects/ProjectSidebar.js";
+import ProjectSidebar from "../projects/ProjectSidebar";
+import ProjectSwipeableDrawer from "../projects/ProjectSwipeableDrawer.js";
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -23,47 +18,37 @@ import { useContext, useState } from "react";
 // import { saveAs } from 'file-saver';
 import ProjectContext from "../context/ProjectContext.js";
 
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 function ProjectPage( props ){
     
-    // const { projectId } = useParams();    
-    // const location = useLocation();
-    // const search = useLocation().search;
-    //const project_filename = new URLSearchParams(search).get('filename');
-    // const { projectData, newProject } = useContext(ProjectContext)
+    const theme = useTheme();
+    const matchesDownMd = useMediaQuery(theme.breakpoints.down('md'));
+    const smallViewport = matchesDownMd;
+    console.log(smallViewport);
 
-    const { projectData } = useContext(ProjectContext);
+    // const { projectData } = useContext(ProjectContext);
     const [isSidebarVisible, setIsSidebarVisible ] = useState(true);
-    // const [ data, setData ] = useState(projectData);
 
-    // newProject(projectId);
     const sidebarColumns = 5;
-    const sidebarColumnsPercent = String(100*(16-sidebarColumns+.5)/16.0) + "%";
+    // const sidebarColumnsPercent = String(100*(16-sidebarColumns+.5)/16.0) + "%";
 
     const toggleSidebar=()=>{
         setIsSidebarVisible(!isSidebarVisible);
     }
-    // useEffect(()=>{
-    //     setData(projectData);
-    // },[projectData]);
-
-    // useEffect(()=>{
-    //     console.log('ProjectPage.useEffect():');
-    // },[]);
+;
     return (
         <>
-        {/* {isSidebarVisible?
-                sx={{   
-                        // position:"fixed", 
-                        width: sidebarColumnsPercent
-                }}
-        */}
-        <Box
-            display={{
-                "xs": "none", 
-                "sm": "none", 
-                "md": "block", 
-                "lg": "block",
-                "xl": "block",
+        <Box            
+            sx= {{
+                display:{
+                    "xs": "none", 
+                    "sm": "none", 
+                    "md": "block", 
+                    "lg": "block",
+                    "xl": "block"
+                }
             }}
         >
             <Grid 
@@ -146,9 +131,6 @@ function ProjectPage( props ){
                             paddingTop:"16px",
                         }}
                     >
-                            {/* <ProjectHeader>
-                                <ProjectTitle title={projectData.title}/>
-                            */}
                         <CellsList />
                     </Container>
                 </Grid>
@@ -162,18 +144,18 @@ function ProjectPage( props ){
                     <Box 
                         maxWidth="100%" 
                         width="100%"
-                        display={{
-                            "xs": "none", 
-                            "sm": "none", 
-                            "md": "block", 
-                            "lg": "block",
-                            "xl": "block",
-                        }}
                         visibility={isSidebarVisible?"visible":"hidden"}
                         sx={{
                             width: isSidebarVisible?"100%":0,
                             height: isSidebarVisible?"100%":0,
-                            paddingLeft: '0ps'
+                            paddingLeft: '0ps',
+                            display:{
+                                "xs": "none", 
+                                "sm": "none", 
+                                "md": "block", 
+                                "lg": "block",
+                                "xl": "block",
+                            }
                         }}
                     >
                         <Container>
@@ -183,6 +165,33 @@ function ProjectPage( props ){
                 </Grid>
             </Grid>        
         </Box>
+        { smallViewport &&
+        <Box
+            sx={{
+                display:{
+                    "xs": "block", 
+                    "sm": "block", 
+                    "md": "none", 
+                    "lg": "none",
+                    "xl": "none",
+                },
+            }}
+        >
+            <Grid 
+                container 
+                spacing={2} 
+                columns={16}
+            >
+                <Grid 
+                    item
+                    xs={16}
+                    sm={16}
+                >
+                    <ProjectSwipeableDrawer showDrawer={smallViewport}/>
+                </Grid>
+            </Grid>
+        </Box>
+        }
         </>
     );
 }

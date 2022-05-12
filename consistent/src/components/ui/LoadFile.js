@@ -13,9 +13,9 @@ function LoadFile( {children} ){
 
     const fileReader = new FileReader();
 
-    fileReader.onload = event => {
+    fileReader.onload = (e) => {
         setLoadedProject(null);
-        const project = JSON.parse(event.target.result);
+        const project = JSON.parse(e.target.result);
         loadProject(project);
         setLoadedProject(project.id);
         clearFilterQuery();

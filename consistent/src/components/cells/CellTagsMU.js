@@ -190,16 +190,16 @@ const CellTagsMU = ( {cell, isActive, updateCellTags } ) => {
                         fontSize: '13px',
                     },
                 }}
-                onChange={(event, value, reason, details)=> {
+                onChange={(e, value, reason, details)=> {
                     console.log('onChange');
                     handleAddition({id: value, text: value});
                 }}
-                // onClose={(event)=>{
+                // onClose={(e)=>{
                 //     console.log('close');
                 // }}
-                // onInputChange={(event)=> {console.log('onInputChange')}}
-                // onOpen={(event)=> {console.log('onOpen')}}
-                // onHighlightChange={(event)=> {console.log('onHighlightChange')}}
+                // onInputChange={(e)=> {console.log('onInputChange')}}
+                // onOpen={(e)=> {console.log('onOpen')}}
+                // onHighlightChange={(e)=> {console.log('onHighlightChange')}}
                 //renderTags={(tagValue, getTagProps) =>
                 //     tagValue.map((option, index) => (
                 //      <Chip

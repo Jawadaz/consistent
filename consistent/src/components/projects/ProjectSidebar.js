@@ -1,40 +1,16 @@
-
 import ProjectFiltersTags from "../projects/ProjectFiltersTags";
 import ProjectFiltersContents from "../projects/ProjectFiltersContents";
+import ProjectFilterAndOrSwitch from "./ProjectFilterAndOrSwitch";
 import ProjectStats from "../projects/ProjectStats";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import PropTypes from 'prop-types';
-import { Divider } from "@mui/material";
-import FilterContext from "../context/FilterContext.js";
 
-
-// const TagsAccordion = styled((props) => (
-//     <Accordion 
-//         disableGutters 
-//         elevation={0} 
-//         square {...props} />
-//     ))(({ theme }) => ({
-//             border: `1px solid ${theme.palette.divider}`, 
-//             '&:not(:last-child)': {
-//                 borderBottom: 0,
-//             },
-//             '&:before': {
-//                 display: 'none',
-//             },
-//         })
-//     );
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -65,8 +41,6 @@ TabPanel.propTypes = {
 function ProjectSidebar () {
 
     const [value, setValue] = useState(0);
-    const [filterOrSwitch, setFilterOrSwitch] = useState(false);
-    const { setOperatorInFilterQuery } = useContext(FilterContext);
 
     function a11yProps(index) {
         return {
@@ -75,13 +49,8 @@ function ProjectSidebar () {
         };
     }
 
-    const handleTagSelectChange = (event, newValue) => {
+    const handleTagSelectChange = (e, newValue) => {
         setValue(newValue);
-    };
-
-    const handleFilterAndOrSwitchChange = (event) => {
-       setFilterOrSwitch(event.target.checked);
-       setOperatorInFilterQuery(event.target.checked?'or':'and');
     };
 
     return (
@@ -105,20 +74,10 @@ function ProjectSidebar () {
             >
             <Box    
                 paddingTop="16px"
-            >
-
-                <FormGroup>
-                    <FormControlLabel 
-                        control={
-                            <Switch 
-                                onChange={handleFilterAndOrSwitchChange}
-                            />
-                        } 
-                        label="Match any of the filters"
-                    />
-                </FormGroup>
+            >   
+                <ProjectFilterAndOrSwitch />
                 <ProjectFiltersContents />
-                <ProjectFiltersTags />
+                <ProjectFiltersTags showTagsButton={true} />
 
             </Box>
             </TabPanel>

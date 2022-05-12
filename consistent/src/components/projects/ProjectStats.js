@@ -5,10 +5,8 @@ import Box from "@mui/material/Box";
 
 function ProjectStats( ){
     //calculate average number of tags/cell
-    //
     const { projectTags, projectCells } = useContext(ProjectContext);
     const { isFiltered, filteredProjectCells } = useContext(FilterContext);
-    //
 
     
     const averageTagsPerCell = (cells) => {

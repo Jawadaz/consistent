@@ -11,9 +11,10 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import ProjectTags from "../projects/ProjectTags.js"
+import { FaLess } from 'react-icons/fa';
 
 
-function ProjectFiltersTags(){
+function ProjectFiltersTags( {showTagsButton} ){
     const { projectTags } = useContext(ProjectContext);
     const { filterQuery, 
             // addTagsToFilterQuery, 
@@ -87,24 +88,36 @@ function ProjectFiltersTags(){
                         // placeholder="Filter by tag..."
                         // hiddenLabel
                         label="Filter by tag..."
-                        InputProps={{
+                        onClick={(e)=>{e.stopPropagation();}}
+                        InputProps={
+                            showTagsButton ?
+                            {
                             ...params.InputProps,
                             endAdornment:
                                 <InputAdornment position="end">
                                     <IconButton
                                         aria-label="toggle password visibility"
-                                        onClick={(event)=>{
-                                            event.stopPropagation();                                            
+                                        onClick={(e)=>{
+                                            e.stopPropagation();
                                             setShowProjectTags(!showProjectTags);
                                         }}
+                                        sx={{
+                                            position: 'absolute',
+                                            p: 0,
+                                            left: 'calc(100% - 24px)',
+                                            // top: 'calc(50% - 12px)', // Center vertically
+                                        }}
                                     >
-                                    {showProjectTags ? <Visibility /> : <VisibilityOff />}
+                                    {showProjectTags ? <VisibilityOff /> : <Visibility />}
                                     </IconButton>
                                 </InputAdornment>
-                        }}
+                            }:{
+                                ...params.InputProps
+                            }
+                        }
                     />                
                 )}
-                onChange={(event, value, reason, details)=> {
+                onChange={(e, value, reason, details)=> {
                     handleOnChange(value, details, reason);
                 }}
             />
@@ -123,3 +136,8 @@ function ProjectFiltersTags(){
 }
 
 export default ProjectFiltersTags;
+
+// Specifies the default values for props:
+ProjectFiltersTags.defaultProps = {
+  showTags: false
+};

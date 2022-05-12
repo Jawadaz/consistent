@@ -51,22 +51,22 @@ function Cell( {cell} ){
     //     handelCloseModal();
     //     deleteCell(cell.id); 
     // };
-    const handleCellClick=(event)=>{
+    const handleCellClick=(e)=>{
         if(isProjectLocked){
             return;
         }
         activateCell(cell.id);
     }
 
-    const handelUpdateCellContent=(event) => {
+    const handelUpdateCellContent=(e) => {
         console.log('handelUpdateCellContent');
-        const content = event.target.value; 
+        const content = e.target.value; 
         setCellContent(content);
     }
 
-    const handleUpdateCell=(event) =>{
+    const handleUpdateCell=(e) =>{
         console.log('handleUpdateCell');
-        const content = event.target.value; 
+        const content = e.target.value; 
         if(content===cell.content){
             return;
         }

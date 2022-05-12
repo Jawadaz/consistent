@@ -30,8 +30,8 @@ function NavigationBar() {
 
     const navigate = useNavigate();
 
-    const toggleDrawer = (open) => (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    const toggleDrawer = (open) => (e) => {
+        if (e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) {
             return;
         }
 
@@ -50,29 +50,25 @@ function NavigationBar() {
         {
             'name': 'Demo',
             'path': '/projects/_demo'
-        },
-        {
-            'name': 'About',
-            'path': '/about'
-        },        
+        }
     ];
 
     const fileReader = new FileReader();
 
-    const handleInputOnChange=(event)=>{
-        console.log(event);
-        if(event.target.files.length===0){
+    const handleInputOnChange=(e)=>{
+        console.log(e);
+        if(e.target.files.length===0){
             setIsFilePicked(false);
             return;
         }
-        setSelectedFile(event.target.files[0]);
+        setSelectedFile(e.target.files[0]);
         setIsFilePicked(true);
-        fileReader.readAsText(event.target.files[0]);
+        fileReader.readAsText(e.target.files[0]);
     }
 
-    fileReader.onload=(event) => {
-        console.log(event);
-        const project = JSON.parse(event.target.result);
+    fileReader.onload=(e) => {
+        console.log(e);
+        const project = JSON.parse(e.target.result);
         loadProject(project);
         clearFilterQuery();
         navigate("/projects/"+project.id);
