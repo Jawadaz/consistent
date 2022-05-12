@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
 import ProjectContext from "../context/ProjectContext";
 import FilterContext from "../context/FilterContext";
+import { Navigate } from "react-router-dom";
 
 function LoadFixturesPage(){
     const { loadFixture, projectData } = useContext(ProjectContext);
@@ -13,11 +13,11 @@ function LoadFixturesPage(){
         clearFilterQuery();        
         loadFixture();
         setReady(true);
-    },[loadFixture, clearFilterQuery]);
+    }, [loadFixture, clearFilterQuery]);
 
     return (
         <>
-        {ready && <Redirect to={{pathname:`/projects/${projectData.id}`}}/> }
+        {ready && <Navigate to={{pathname:`/projects/${projectData.id}`}}/> }
         </>
     );
 }

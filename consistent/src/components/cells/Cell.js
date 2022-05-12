@@ -1,18 +1,34 @@
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+
 import { useContext, useState, useEffect } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 
 import ProjectContext from '../context/ProjectContext';
 import CellTags from './CellTags';
+import CellTagsMU from './CellTagsMU';
 import CellControlsRight from './CellControlsRight';
 import CellControlsLeft from './CellControlsLeft';
 
-// TODO: implement cool modal yes/no at some point
-// import ConfirmModal from '../ui/ConfirmModal';
-// import Backdrop from '../ui/Backdrop';
+import Fade from "@mui/material/Fade";
+import TextField from "@mui/material/TextField";
 
+import { styled } from '@mui/material/styles';
+
+// import InputUnstyled from '@mui/base/InputUnstyled';
+
+
+const CustomizedTextField = styled(TextField)`
+  .MuiOutlinedInput-root {
+    padding: 6px 6px 16px 6px;
+    background-color: white;
+  }
+`;
 
 function Cell( {cell} ){
-    const { activeCellId, activateCell, updateCellContent, updateCellTags, isProjectLocked } = useContext(ProjectContext);
+    const { activeCellId, activateCell, updateCellContent, 
+            updateCellTags, isProjectLocked, isProjectLTR } = useContext(ProjectContext);
 
     // const [ modalIsOpen, setModalIsOpen ] = useState(false);
     const [ cellContent, setCellContent ] = useState(cell.content);
@@ -35,30 +51,32 @@ function Cell( {cell} ){
     //     handelCloseModal();
     //     deleteCell(cell.id); 
     // };
-    const handleCellClick=(event)=>{
+    const handleCellClick=(e)=>{
         if(isProjectLocked){
             return;
         }
         activateCell(cell.id);
     }
 
-    const handelUpdateCellContent=(event) => {
-        const content = event.target.value; 
+    const handelUpdateCellContent=(e) => {
+        console.log('handelUpdateCellContent');
+        const content = e.target.value; 
         setCellContent(content);
     }
 
-    const handleUpdateCell=(event) =>{
-        const content = event.target.value; 
+    const handleUpdateCell=(e) =>{
+        console.log('handleUpdateCell');
+        const content = e.target.value; 
         if(content===cell.content){
             return;
         }
         //TODO: Consider tags as in issue #17        
-        console.log(cellTags);
+        // console.log(cellTags);
         updateCellContent(cell.id, content);
     }
 
     useEffect(()=>{
-        console.log('Cell.useEffect()');
+        // console.log('Cell.useEffect()');
         setIsActive(activeCellId===cell.id ? true: false);
       }, [activeCellId, cell.id]
     );
@@ -69,36 +87,116 @@ function Cell( {cell} ){
     }, [cell.content]);
 
     useEffect(()=>{
-        console.log('Cell.useEffect() cell.content');
+        // console.log('Cell.useEffect() cell.content');
         setCellTags(cell.tags);
 
     }, [cell.tags]);
 
     return (
         <div className={"Cell"} onClick={handleCellClick}>
-            <div className={'CellInner'}>
-                {/* <CopyToClipboard text={"asdadsads"}
-                    onCopy={() => {console.log('hi');} }> */}
-                {/* </CopyToClipboard>                 */}
-                    <div className={'CellContent'}>
-                        {/* https://www.npmjs.com/package/react-textarea-autosize */}
-                        <TextareaAutosize        
+            <Fade 
+                in={true}
+                timeout={500}
+            >  
+            <Stack 
+                direction="row" 
+                spacing={0}
+                alignItems="stretch"
+            >
+                <Box 
+                    sx={{ 
+                        // width: '4%', 
+                        maxWidth: '36px',
+                        minWidth: '36px'
+                    }}
+                >
+                    {isActive && !isProjectLocked && <CellControlsLeft cell={cell}/>}
+                </Box>
+                {/* WE NEED A COULUMN HERE */}
+                <Box 
+                    sx={ isActive && !isProjectLocked?
+                        { 
+                            borderWidth:'3px',
+                            borderStyle: 'solid',
+                            borderRadius: '6px'
+                        }
+                        :
+                        {
+                            // width: '92%',
+                            borderWidth:'1px',
+                            borderStyle: 'solid',
+                            borderRadius: '6px'
+                        }
+                    } 
+                    autocomplete="off"
+                    borderColor="primary.main"
+                    width="92%"
+                    marginBottom="3px"
+                >
+                    <div>
+                        {/* <CopyToClipboard text={"asdadsads"}
+                            onCopy={() => {console.log('hi');} }> */}
+                        {/* </CopyToClipboard>                 */}
+
+                        {/* <div className={'CellContent'}> */}
+                            {/* https://www.npmjs.com/package/react-textarea-autosize */}
+                            {/* <TextareaAutosize        
+                                onChange={handelUpdateCellContent}
+                                onFocus={() => setIsCellContentFocused(true)}
+                                onBlur={(e) => {setIsCellContentFocused(false);handleUpdateCell(e)}}
+                                type="text" 
+                                placeholdre=""
+                                value={cellContent}
+                                disabled={isProjectLocked}
+                            />
+                        </div>*/}
+                        <CustomizedTextField
+                        // <TextField
+                        // <InputUnstyled
                             onChange={handelUpdateCellContent}
                             onFocus={() => setIsCellContentFocused(true)}
-                            onBlur={(e) => {setIsCellContentFocused(false);handleUpdateCell(e)}}
-                            type="text" 
-                            placeholdre=""
+                            onBlur={(e) => {
+                                setIsCellContentFocused(true);
+                                handleUpdateCell(e);
+                            }}
+                            dir={isProjectLTR?"ltr":"rtl"}
+                            multiline
+                            placeholder="Add paragraph text here..."
                             value={cellContent}
                             disabled={isProjectLocked}
+                            variant="outlined"
+                            type="text"
+                            margin="dense"
+                            fullWidth
+                            sx = {{ paddingLeft: "6px", paddingRight: "6px" }}
+                            // notched={true}
+                            // label="Paragraph..."
+                            // classes={
+                            //  
+                            // }
                         />
+                        <Box 
+                        sx={{ 
+                            paddingRight: "8px",
+                            paddingLeft: '8px',
+                            marginTop: '4px',
+                            marginBottom: '8px',
+                        }} 
+                        >
+                            {/* <CellTags cell={cell} isActive={isActive && !isProjectLocked} updateCellTags={updateCellTags} /> */}
+                            <CellTagsMU cell={cell} isActive={isActive && !isProjectLocked} updateCellTags={updateCellTags} />
+                        </Box>
                     </div>
-                    {isActive && <CellControlsRight cell={cell} />}                    
-                    {isActive && <CellControlsLeft cell={cell}/>}
-            </div>
-            <CellTags cell={cell} isActive={isActive} updateCellTags={updateCellTags}/>
-            {/* {modalIsOpen && <ConfirmModal onCancel={handelCloseModal} onConfirm={handelConfirm}/>}
-            {modalIsOpen && <Backdrop onClick={handelCloseModal}/>} */}
-
+                </Box>
+                <Box sx={{ 
+                        maxWidth: '36px',
+                        minWidth: '36px',
+                    }}
+                 >
+                    {isActive && !isProjectLocked && <CellControlsRight cell={cell} />}
+                </Box>
+            </Stack>
+            </Fade>
         </div>
     );
 }

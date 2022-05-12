@@ -45,13 +45,15 @@ export const ProjectContextProvider=( {children} )=>{
     const [ isUndoDisabled, setIsUndoDisabled ] = useState(true);
     const [ isRedoDisabled, setIsRedoDisabled ] = useState(true);
 
+    const [ isProjectLTR, setIsProjectLTR ] = useState(true);
+
     const updateProjectCells = (cells) => {
         setProjectCells(cells);
         pushToProjectCellsHistory(cells);
     }
 
     const pushToProjectCellsHistory = (cells) => {
-        console.log('pushing');
+        // console.log('pushing');
         if(historyIndex===0){
             const updatedHistory = [cells,...projectCellsHistory];
             setProjectCellsHistory(updatedHistory);
@@ -65,6 +67,9 @@ export const ProjectContextProvider=( {children} )=>{
         }
     }
 
+    const setProjectLTR=(ltr)=>{
+        setIsProjectLTR(ltr);
+    }
 
     const updateHistoryIndex=(index, length)=>{
         setHistoryIndex(index);
@@ -73,7 +78,7 @@ export const ProjectContextProvider=( {children} )=>{
     }
 
     const undo = () => {
-        console.log('undo');
+        // console.log('undo');
         if(isProjectLocked){
             return;
         }
@@ -84,7 +89,7 @@ export const ProjectContextProvider=( {children} )=>{
     }
 
     const redo = () => {
-        console.log('redo');
+        // console.log('redo');
         if(isProjectLocked){
             return;
         }        
@@ -140,7 +145,7 @@ export const ProjectContextProvider=( {children} )=>{
     }
 
     const loadFixture = () => {
-        console.log('loadFixture');
+        // console.log('loadFixture');
         setProjectData({
             id: dummyProject.id,
             title: dummyProject.title,
@@ -179,17 +184,18 @@ export const ProjectContextProvider=( {children} )=>{
     //     console.log('haha');
     // }
     const activateCell = (id) => {
-        console.log('activateCell()');
+        // console.log('activateCell()');
         setActiveCellId(id);
     }
 
     const saveAsClick = (id) => {
-        console.log('saveAsClick()');
+        // console.log('saveAsClick()');
         var blob = new Blob([JSON.stringify({...projectData, cells:projectCells})], {type: "json/plain;charset=utf-8"});
-        saveAs(blob, `${projectData.title} v${new Date().toLocaleDateString()}-${new Date().toLocaleTimeString()}.json`);
+        const filename = `${projectData.title}-${new Date().toISOString().split('.')[0]}Z.json`;
+        saveAs(blob, filename);
     }
     const moveActiveCellUp = ()=>{
-        console.log('moveActiveCellUp():');
+        // console.log('moveActiveCellUp():');
         if(activeCellId===projectCells[0].id){
             console.log('already at top-most position');
             return;
@@ -205,7 +211,7 @@ export const ProjectContextProvider=( {children} )=>{
     }
 
     const moveActiveCellDown=()=>{
-        console.log('moveActiveCellDown():');
+        // console.log('moveActiveCellDown():');
         if(activeCellId===projectCells[projectCells.length-1].id){
             console.log('already at buttom-most position');
             return;            
@@ -240,12 +246,12 @@ export const ProjectContextProvider=( {children} )=>{
         // anothre option would be: https://stackoverflow.com/a/1349426/3362720        
         // let r = (Math.random() + 1).toString(36).substring(7);
         // cell.tags.push(r);
-        console.log('addEmptyCell()');
+        // console.log('addEmptyCell()');
         return addCell("");
     }
 
     const addCell = (content) => {
-        console.log('addCell()');
+        // console.log('addCell()');
         const activeCellIndex = projectCells.findIndex(cell => {
             return cell.id === activeCellId;
         });        
@@ -260,7 +266,7 @@ export const ProjectContextProvider=( {children} )=>{
     }
 
     const addCells = ( cellContents ) => {
-        console.log("addCells():");
+        // console.log("addCells():");
         const activeCellIndex = projectCells.findIndex(cell => {
             return cell.id === activeCellId;
         });
@@ -276,7 +282,7 @@ export const ProjectContextProvider=( {children} )=>{
     }
     
     const deleteEmptyCells=()=>{
-        console.log('deleteEmptyCells()');
+        // console.log('deleteEmptyCells()');
         if(projectCells.length===1){
             return;
         }
@@ -289,7 +295,7 @@ export const ProjectContextProvider=( {children} )=>{
     }
 
     const deleteCell=(id)=>{
-        console.log('deleteCell()');
+        // console.log('deleteCell()');
         if(projectCells.length===1){
             let cell=emptyCell();
             updateProjectCells([cell]);
@@ -315,14 +321,14 @@ export const ProjectContextProvider=( {children} )=>{
     }
 
     const updateCell=(id, updatedCell)=>{
-        console.log('updateCell()');
+        // console.log('updateCell()');
         updateProjectCells(projectCells.map(
                 (cell) => (cell.id === id ? {...cell, ...updatedCell}: cell))
         );
     }        
 
     const updateCellContent=(id, content)=>{
-        console.log('updateCellContent()');
+        // console.log('updateCellContent()');
         updateProjectCells(
             projectCells.map(
                 (cell) => (cell.id === id ? {...cell, content: content}: cell))
@@ -334,8 +340,8 @@ export const ProjectContextProvider=( {children} )=>{
 
     // Cell Tags
     const updateCellTags=(id, tags)=>{
-        console.log('updateCellTags()');
-        console.log(tags);
+        // console.log('updateCellTags()');
+        // console.log(tags);
         updateProjectCells(
             projectCells.map(
                 (cell) => (cell.id === id ? {...cell, tags: tags}: cell))
@@ -349,8 +355,8 @@ export const ProjectContextProvider=( {children} )=>{
     // }
 
     const createCellsFromText=(text)=>{
-        console.log('createCellsFromText():');
-        console.log(text);
+        // console.log('createCellsFromText():');
+        // console.log(text);
         let paragraph = [];
         paragraph = text.split(/\n\n/);
         addCells(paragraph);
@@ -403,6 +409,9 @@ export const ProjectContextProvider=( {children} )=>{
             redo,
             isUndoDisabled,
             isRedoDisabled,
+
+            setProjectLTR,
+            isProjectLTR,
 
             loadFixture,
             newProject,

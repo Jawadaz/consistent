@@ -7,7 +7,7 @@ export const FilterContextProvider=( {children} )=> {
     const emptyFilterQuery = {
         tags: [],
         tokens: [],
-        operator: 'or'
+        operator: 'and'
     };
     const { projectCells } = useContext(ProjectContext);    
     const [ filterQuery, setFilterQuery ] = useState({...emptyFilterQuery});
@@ -21,7 +21,7 @@ export const FilterContextProvider=( {children} )=> {
 
     const addTagsToFilterQuery=(tags)=>{
         const newQuery = {...filterQuery};
-        console.log(tags);
+        // console.log(tags);
         // newQuery.tags.push(tags.flat());
         //some js magic
 
@@ -36,9 +36,16 @@ export const FilterContextProvider=( {children} )=> {
         return;
     }
 
+    const setOperatorInFilterQuery=(operator)=>{
+        const newQuery = {...filterQuery};
+        newQuery.operator = operator;
+        setFilterQuery(newQuery);
+        return;
+    }
+
     const removeTagsFromFilterQuery=(tags)=>{
         const newQuery = {...filterQuery};
-        console.log(tags);
+        // console.log(tags);
         newQuery.tags = newQuery.tags.filter(tag=>{
             return !tags.map(tag=>tag.id).includes(tag.id);
         });
@@ -46,9 +53,16 @@ export const FilterContextProvider=( {children} )=> {
         return;
     }
 
+    const updateTagsInFilterQuery=(tags)=>{
+        const newQuery = {...filterQuery};
+        newQuery.tags = tags
+        setFilterQuery(newQuery);
+        return;
+    }
+
     const addTokensToFilterQuery=(tokens)=>{
         const newQuery = {...filterQuery};
-        console.log(tokens);
+        // console.log(tokens);
 
         tokens.forEach(token=>{
             var i = newQuery.tokens.findIndex(x => x.id === token.id);
@@ -63,7 +77,7 @@ export const FilterContextProvider=( {children} )=> {
 
     const removeTokensFromFilterQuery=(tokens)=>{
         const newQuery = {...filterQuery};
-        console.log(tokens);
+        // console.log(tokens);
         newQuery.tokens = newQuery.tokens.filter(token=>{
             return !tokens.map(token=>token.id).includes(token.id);
         });
@@ -71,9 +85,15 @@ export const FilterContextProvider=( {children} )=> {
         return;
     }    
 
-    useEffect(()=>{
+    const updateTokensInFilterQuery=(tokens)=>{
+        const newQuery = {...filterQuery};
+        // console.log(tokens);
+        newQuery.tokens = tokens;
+        setFilterQuery(newQuery);
+        return;
+    }
 
-        
+    useEffect(()=>{
         const filterProjectCells = (query) => {
             const tagsIds = query.tags.map(tag=>tag.id);
             const tokens = query.tokens;
@@ -136,10 +156,14 @@ export const FilterContextProvider=( {children} )=> {
                     // FilterTags:
                     if(tagsIds.length>0){
                         cells = cells.filter(
-                            cell=>cell.tags
-                                .map(tag => tag.id)
-                                .some(tag => tagsIds.includes(tag))
+                        //     cell=>cell.tags
+                        //         .map(tag => tag.id)
+                        //         .some(tag => tagsIds.includes(tag))
+                            cell=>tagsIds.every(filterTag=>
+                                cell.tags.map(tag=>tag.id).includes(filterTag)
+                            )
                         );
+
                     }
                     // FilterContent:
                     if(tokens.length>0){
@@ -157,8 +181,8 @@ export const FilterContextProvider=( {children} )=> {
             return;
         }
         
-        console.log("filterQuery");
-        console.log(filterQuery);
+        // console.log("filterQuery");
+        // console.log(filterQuery);
         filterProjectCells(filterQuery);
     }, [filterQuery, projectCells]);
 
@@ -166,8 +190,11 @@ export const FilterContextProvider=( {children} )=> {
         <FilterContext.Provider value={{
             addTagsToFilterQuery,
             removeTagsFromFilterQuery,
+            updateTagsInFilterQuery,
             addTokensToFilterQuery,
             removeTokensFromFilterQuery,
+            updateTokensInFilterQuery,
+            setOperatorInFilterQuery,     
             clearFilterQuery,
 
             filterQuery,
