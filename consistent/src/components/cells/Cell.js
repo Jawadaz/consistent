@@ -82,7 +82,7 @@ function Cell( {cell} ){
     );
 
     useEffect(()=>{
-        console.log('Cell.useEffect() cell.content');
+        //  console.log('Cell.useEffect() cell.content');
         setCellContent(cell.content);
     }, [cell.content]);
 

@@ -26,7 +26,7 @@ function ProjectPage( props ){
     const theme = useTheme();
     const matchesDownMd = useMediaQuery(theme.breakpoints.down('md'));
     const smallViewport = matchesDownMd;
-    console.log(smallViewport);
+    // console.log(smallViewport);
 
     // const { projectData } = useContext(ProjectContext);
     const [isSidebarVisible, setIsSidebarVisible ] = useState(true);

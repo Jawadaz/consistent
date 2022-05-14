@@ -8,7 +8,7 @@ import { FaEnvelope } from 'react-icons/fa';
 function ProjectFilterAndOrSwitch(props){
     const { filterQuery, setOperatorInFilterQuery } = useContext(FilterContext);
     const [ filterOrSwitch, setFilterOrSwitch ] = useState(filterQuery.operator==='or'?true:false);    
-    console.log(filterQuery.operator);
+    // console.log(filterQuery.operator);
     const handleFilterAndOrSwitchChange = (e) => {
        setFilterOrSwitch(e.target.checked);
        setOperatorInFilterQuery(e.target.checked?'or':'and');

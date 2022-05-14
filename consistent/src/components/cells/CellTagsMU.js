@@ -80,6 +80,7 @@ const CellTagsMU = ( {cell, isActive, updateCellTags } ) => {
             return !cell.tags.map(tag=>tag.id).includes(tag.id);
         });
         setSuggestions(newSuggestions);
+        setTags(cell.tags);
     },[cell.tags, projectTags]);
   
 
