@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { styled } from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
 import MenuItem from "@mui/material/MenuItem";
@@ -76,121 +75,119 @@ function NavigationBar() {
 
     return (
         <>
-                <Toolbar disableGutters>
-                        <IconButton
-                            size="large"
-                            edge="start"
-                            color="inherit"
-                            aria-label="open drawer"
-                            onClick={toggleDrawer(!isDrawerOpen)}
-                            sx={{ 
-                                mr: 2, 
-                                display: { xs: 'flex', sm: 'flex', md: 'flex', lg: 'flex' }} 
-                            }
+            <Toolbar disableGutters>
+                <IconButton
+                    size="large"
+                    edge="start"
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={toggleDrawer(!isDrawerOpen)}
+                    sx={{ 
+                        mr: 2, 
+                        display: { xs: 'flex', sm: 'flex', md: 'flex', lg: 'flex' }} 
+                    }
+                >
+                    <MenuIcon />
+                    <Drawer
+                        anchor="left"
+                        open={isDrawerOpen}
+                        onClose={toggleDrawer(false)}
+                    >
+                        <Box
+                            // sx={{ width: 250 }}
+                            role="presentation"
+                            onClick={toggleDrawer(false)}
+                            onKeyDown={toggleDrawer(false)}
                         >
-                            <MenuIcon />
-                            <Drawer
-                                anchor="left"
-                                open={isDrawerOpen}
-                                onClose={toggleDrawer(false)}
+                            <MenuItem 
+                                key="home"
+                                onClick={(e)=>{
+                                    navigate("/"); 
+                                }}
                             >
-                                <Box
-                                    // sx={{ width: 250 }}
-                                    role="presentation"
-                                    onClick={toggleDrawer(false)}
-                                    onKeyDown={toggleDrawer(false)}
-                                >
-                                    <MenuItem 
-                                        key="home"
-                                        onClick={(e)=>{
-                                            navigate("/"); 
-                                        }}
-                                    >
-                                        <Typography textAlign="center">Home</Typography>
-                                    </MenuItem>
-
-                                    <MenuItem 
-                                        key="about"
-                                        onClick={(e)=>{
-                                            navigate("/about"); 
-                                        }}
-                                    >
-                                        <Typography textAlign="center">About</Typography>
-                                    </MenuItem>
-                                    
-                                <Divider />
-                                { pages.map((page) => page.name==="Load"? 
-                                    <label
-                                        key={page.name}
-                                        htmlFor="contained-button-file"
-                                    >
-                                        <Input
-                                            id="contained-button-file" 
-                                            accept="application/json" 
-                                            type="file"
-                                            onChange={handleInputOnChange}
-                                        />
-                                        <MenuItem>
-                                            <Typography textAlign="center">{page.name}</Typography>     
-                                        </MenuItem>
-                                    </label>  
-                                    :
-                                    <MenuItem 
-                                        key={page.name} 
-                                        onClick={(e)=>{
-                                            navigate(page.path); 
-                                            }}
-                                    >
-                                        <Typography textAlign="center">{page.name}</Typography>     
-                                    </MenuItem>
-                                )}
-                                </Box>
-                            </Drawer>
-                        </IconButton>
-                        <Typography 
-                            variant="h6" 
-                            component="div" 
-                            sx={{ flexGrow: 1 }}
-                            onClick={()=>navigate('/')}
-                        >
-                            CONSISTENT
-                        </Typography>
-                        { pages.map((page) =>
-                            page.name==="Load" ? 
-                             <label 
-                             key={page.name}
-                             htmlFor="contained-button-file">
+                                <Typography textAlign="center">Home</Typography>
+                            </MenuItem>
+                            <MenuItem 
+                                key="about"
+                                onClick={(e)=>{
+                                    navigate("/about"); 
+                                }}
+                            >
+                                <Typography textAlign="center">About</Typography>
+                            </MenuItem>     
+                            <Divider />
+                            { pages.map((page) => page.name==="Load"? 
+                            <label
+                                key={page.name}
+                                htmlFor="contained-button-file"
+                            >
                                 <Input
                                     id="contained-button-file" 
                                     accept="application/json" 
                                     type="file"
                                     onChange={handleInputOnChange}
-                                / >
-                                <Button
-                                    // variant="contained" 
-                                    component="span"
-                                    sx={{ 
-                                        my: 2, color: 'white', 
-                                        display: { xs: 'none', sm: 'flex', md: 'flex', lg: 'flex' }
-                                    }}
-                                >  
-                                    {page.name}
-                                </Button>
-                                </label>
+                                />
+                                <MenuItem>
+                                    <Typography textAlign="center">{page.name}</Typography>     
+                                </MenuItem>
+                            </label>  
                             :
-                                <Button
-                                    key={page.name}
-                                    onClick={()=>navigate(page.path)}
-                                    sx={{ 
-                                        my: 2, color: 'white', 
-                                        // display: 'block' 
-                                        display: { xs: 'none', sm: 'flex', md: 'flex', lg: 'flex' }
+                            <MenuItem 
+                                key={page.name} 
+                                onClick={(e)=>{
+                                    navigate(page.path); 
                                     }}
-                                >
-                                    {page.name}
-                                </Button>
-                        )}
-                </Toolbar>
+                            >
+                                <Typography textAlign="center">{page.name}</Typography>     
+                            </MenuItem>
+                            )}
+                        </Box>
+                    </Drawer>
+                </IconButton>
+                <Typography 
+                    variant="h6" 
+                    component="div" 
+                    sx={{ flexGrow: 1 }}
+                    onClick={()=>navigate('/')}
+                >
+                    CONSISTENT
+                </Typography>
+                { pages.map((page) =>
+                page.name==="Load" ?
+                <label 
+                    key={page.name}
+                    htmlFor="contained-button-file">
+                    <Input
+                        id="contained-button-file" 
+                        accept="application/json" 
+                        type="file"
+                        onChange={handleInputOnChange}
+                / >
+                    <Button
+                        // variant="contained" 
+                        component="span"
+                        sx={{ 
+                            my: 2, color: 'white', 
+                            display: { xs: 'none', sm: 'flex', md: 'flex', lg: 'flex' }
+                        }}
+                    >  
+                        {page.name}
+                    </Button>
+                </label>
+                :
+                <Button
+                    key={page.name}
+                    onClick={()=>navigate(page.path)}
+                    sx={{ 
+                        my: 2, color: 'white', 
+                        // display: 'block' 
+                        display: { xs: 'none', sm: 'flex', md: 'flex', lg: 'flex' }
+                    }}
+                >
+                    {page.name}
+                </Button>
+                )}
+            </Toolbar>
         </>
     );
 }

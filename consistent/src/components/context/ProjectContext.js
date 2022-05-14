@@ -347,12 +347,6 @@ export const ProjectContextProvider=( {children} )=>{
                 (cell) => (cell.id === id ? {...cell, tags: tags}: cell))
         );
     }
-    // const deleteCellTag=(id, tag)=>{
-    //     let cell = projectCells.filter((cell) => cell.id === id );
-    //     let tags = cell.tags.filter((cellTag) => cellTag !== tag);
-    //     cell.tags = tags;
-    //     return updateCell(id, cell);
-    // }
 
     const createCellsFromText=(text)=>{
         // console.log('createCellsFromText():');

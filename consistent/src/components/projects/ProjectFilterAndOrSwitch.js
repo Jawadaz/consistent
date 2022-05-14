@@ -3,7 +3,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { useState, useContext } from "react";
 import FilterContext from "../context/FilterContext.js";
-import { FaEnvelope } from 'react-icons/fa';
 
 function ProjectFilterAndOrSwitch(props){
     const { filterQuery, setOperatorInFilterQuery } = useContext(FilterContext);
