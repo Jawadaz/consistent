@@ -10,13 +10,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import CellsList from "../cells/CellsList.js";
-// import { useParams } from "react-router-dom";
-import { useContext, useState } from "react";
-
-// import dummyProject from "../../fixtures/dummy_project_1.json"
-
-// import { saveAs } from 'file-saver';
-import ProjectContext from "../context/ProjectContext.js";
+import { useState } from "react";
 
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -121,14 +115,17 @@ function ProjectPage( props ){
                     item xs={16} sm={16} md={isSidebarVisible?16-sidebarColumns:16} lg={isSidebarVisible?16-sidebarColumns:16}
                     sx={{
                         // paddingLeft: "0px",
-                        // paddingRight: "8px"
+                        // paddingRight: "0px"
                     }}
                 >
                     <Container 
                         width="100%"
                         maxWidth="100%"
+                        disableGutters
                         sx={{
                             paddingTop:"16px",
+                            paddingRight: "16px",
+                            paddingLeft: "16px",
                         }}
                     >
                         <CellsList />

@@ -19,7 +19,7 @@ const CellTagsMU = ( {cell, isActive, updateCellTags } ) => {
 
 
     const handleDelete = (tagToDelete) => {
-        console.log(tagToDelete);
+        // console.log(tagToDelete);
         const newTags = tags.filter((tag) => tag.id !== tagToDelete.id);
         setTags(newTags);
         // update project
@@ -28,8 +28,7 @@ const CellTagsMU = ( {cell, isActive, updateCellTags } ) => {
 
 
     const handleAddition = (tagToAdd) => {
-        console.log('handling');
-        console.log(tagToAdd);
+        // console.log('handleAddition');
         if(tagToAdd===null || tagToAdd.id===null || tagToAdd.text===null){
             console.warn('value error: tag contains id:null or text:null');
             return;
@@ -73,7 +72,7 @@ const CellTagsMU = ( {cell, isActive, updateCellTags } ) => {
         if(!isActive){
             return;
         }
-        console.log('CellTags.useEffect() cell.tags or projectTags');
+        // Fconsole.log('CellTags.useEffect() cell.tags or projectTags');
         //remove cell tags from the project Tags to keep the suggestions clean
         const newSuggestions = projectTags.filter(
         tag=>{
@@ -157,7 +156,7 @@ const CellTagsMU = ( {cell, isActive, updateCellTags } ) => {
 
                     // Add "xxx" option created dynamically
                     if (option.inputValue) {
-                        console.log('Add "xxx" option created dynamically');
+                        // console.log('Add "xxx" option created dynamically');
                         return option.inputValue;
                     }
                     // Regular option
@@ -192,7 +191,7 @@ const CellTagsMU = ( {cell, isActive, updateCellTags } ) => {
                     },
                 }}
                 onChange={(e, value, reason, details)=> {
-                    console.log('onChange');
+                    // console.log('onChange');
                     handleAddition({id: value, text: value});
                 }}
                 // onClose={(e)=>{

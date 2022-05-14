@@ -197,7 +197,7 @@ export const ProjectContextProvider=( {children} )=>{
     const moveActiveCellUp = ()=>{
         // console.log('moveActiveCellUp():');
         if(activeCellId===projectCells[0].id){
-            console.log('already at top-most position');
+            // console.log('already at top-most position');
             return;
         }
         const activeCellIndex = projectCells.findIndex(cell => {
@@ -213,7 +213,7 @@ export const ProjectContextProvider=( {children} )=>{
     const moveActiveCellDown=()=>{
         // console.log('moveActiveCellDown():');
         if(activeCellId===projectCells[projectCells.length-1].id){
-            console.log('already at buttom-most position');
+            // console.log('already at buttom-most position');
             return;            
         }
         const activeCellIndex = projectCells.findIndex(cell => {

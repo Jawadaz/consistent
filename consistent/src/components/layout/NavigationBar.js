@@ -55,7 +55,7 @@ function NavigationBar() {
     const fileReader = new FileReader();
 
     const handleInputOnChange=(e)=>{
-        console.log(e);
+        // console.log(e);
         if(e.target.files.length===0){
             setIsFilePicked(false);
             return;
@@ -66,7 +66,7 @@ function NavigationBar() {
     }
 
     fileReader.onload=(e) => {
-        console.log(e);
+        // console.log(e);
         const project = JSON.parse(e.target.result);
         loadProject(project);
         clearFilterQuery();

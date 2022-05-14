@@ -221,7 +221,10 @@ function ProjectToolbar( props ){
                         <ContentPasteGoOutlinedIcon />
                     </IconButton>
                     <CopyToClipboard text={ getCellsContentAsText( isFiltered? filteredProjectCells: projectCells ) }
-                        onCopy={() => {console.log('copied');} }>
+                        onCopy={(e) => {
+                            //console.log('copied');                            
+                            return;
+                        }}>
                         <IconButton
                             size="small"
                             color="primary"
