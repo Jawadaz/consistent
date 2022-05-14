@@ -1,6 +1,4 @@
-import { FaPlus, FaArrowUp, FaArrowDown } from "react-icons/fa"
 import { useContext } from "react"
-import ControlButton from "../ui/ControlButton";
 import ProjectContext from "../context/ProjectContext";
 import FilterContext from "../context/FilterContext";
 import ButtonGroup from "@mui/material/ButtonGroup";

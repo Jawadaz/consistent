@@ -10,13 +10,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import CellsList from "../cells/CellsList.js";
-// import { useParams } from "react-router-dom";
-import { useContext, useState } from "react";
-
-// import dummyProject from "../../fixtures/dummy_project_1.json"
-
-// import { saveAs } from 'file-saver';
-import ProjectContext from "../context/ProjectContext.js";
+import { useState } from "react";
 
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';

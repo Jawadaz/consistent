@@ -1,12 +1,9 @@
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 
 import { useContext, useState, useEffect } from 'react';
-import TextareaAutosize from 'react-textarea-autosize';
 
 import ProjectContext from '../context/ProjectContext';
-import CellTags from './CellTags';
 import CellTagsMU from './CellTagsMU';
 import CellControlsRight from './CellControlsRight';
 import CellControlsLeft from './CellControlsLeft';
@@ -15,9 +12,7 @@ import Fade from "@mui/material/Fade";
 import TextField from "@mui/material/TextField";
 
 import { styled } from '@mui/material/styles';
-
-// import InputUnstyled from '@mui/base/InputUnstyled';
-
+import { Typography } from "@mui/material";
 
 const CustomizedTextField = styled(TextField)`
   .MuiOutlinedInput-root {
@@ -26,31 +21,15 @@ const CustomizedTextField = styled(TextField)`
   }
 `;
 
-function Cell( {cell} ){
+function Cell( {cell, index} ){
     const { activeCellId, activateCell, updateCellContent, 
             updateCellTags, isProjectLocked, isProjectLTR } = useContext(ProjectContext);
 
-    // const [ modalIsOpen, setModalIsOpen ] = useState(false);
     const [ cellContent, setCellContent ] = useState(cell.content);
     const [ isActive, setIsActive ] = useState(false);
     const [ isCellContentFocused, setIsCellContentFocused] = useState(false)
     const [ cellTags, setCellTags ] = useState(cell.tags);
 
-    // const handelDeleteCellButtonClick = () => {
-    //     console.log('handelDelete()');
-    //     setModalIsOpen(true);
-    // };
-
-    // const handelCloseModal = () => {
-    //     console.log('handelCloseModal()');
-    //     setModalIsOpen(false);
-    // }
-
-    // const handelConfirm = () => {
-    //     console.log('handelDeleteCell()');
-    //     handelCloseModal();
-    //     deleteCell(cell.id); 
-    // };
     const handleCellClick=(e)=>{
         if(isProjectLocked){
             return;
@@ -89,7 +68,6 @@ function Cell( {cell} ){
     useEffect(()=>{
         // console.log('Cell.useEffect() cell.content');
         setCellTags(cell.tags);
-
     }, [cell.tags]);
 
     return (
@@ -103,6 +81,14 @@ function Cell( {cell} ){
                 spacing={0}
                 alignItems="stretch"
             >
+                <Box>
+                    <Typography
+                        variant="h6"
+                        component="div"
+                    >
+                        {index+1}
+                    </Typography>
+                </Box>
                 <Box 
                     sx={{ 
                         // width: '4%', 
@@ -133,26 +119,8 @@ function Cell( {cell} ){
                     width="92%"
                     marginBottom="3px"
                 >
-                    <div>
-                        {/* <CopyToClipboard text={"asdadsads"}
-                            onCopy={() => {console.log('hi');} }> */}
-                        {/* </CopyToClipboard>                 */}
-
-                        {/* <div className={'CellContent'}> */}
-                            {/* https://www.npmjs.com/package/react-textarea-autosize */}
-                            {/* <TextareaAutosize        
-                                onChange={handelUpdateCellContent}
-                                onFocus={() => setIsCellContentFocused(true)}
-                                onBlur={(e) => {setIsCellContentFocused(false);handleUpdateCell(e)}}
-                                type="text" 
-                                placeholdre=""
-                                value={cellContent}
-                                disabled={isProjectLocked}
-                            />
-                        </div>*/}
+                    <Box>
                         <CustomizedTextField
-                        // <TextField
-                        // <InputUnstyled
                             onChange={handelUpdateCellContent}
                             onFocus={() => setIsCellContentFocused(true)}
                             onBlur={(e) => {
@@ -169,11 +137,6 @@ function Cell( {cell} ){
                             margin="dense"
                             fullWidth
                             sx = {{ paddingLeft: "6px", paddingRight: "6px" }}
-                            // notched={true}
-                            // label="Paragraph..."
-                            // classes={
-                            //  
-                            // }
                         />
                         <Box 
                         sx={{ 
@@ -183,10 +146,9 @@ function Cell( {cell} ){
                             marginBottom: '8px',
                         }} 
                         >
-                            {/* <CellTags cell={cell} isActive={isActive && !isProjectLocked} updateCellTags={updateCellTags} /> */}
                             <CellTagsMU cell={cell} isActive={isActive && !isProjectLocked} updateCellTags={updateCellTags} />
                         </Box>
-                    </div>
+                    </Box>
                 </Box>
                 <Box sx={{ 
                         maxWidth: '36px',
