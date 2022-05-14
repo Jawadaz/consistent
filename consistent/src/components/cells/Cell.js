@@ -14,6 +14,8 @@ import TextField from "@mui/material/TextField";
 import { styled } from '@mui/material/styles';
 import { Typography } from "@mui/material";
 
+import { grey } from '@mui/material/colors';
+
 const CustomizedTextField = styled(TextField)`
   .MuiOutlinedInput-root {
     padding: 6px 6px 16px 6px;
@@ -38,13 +40,13 @@ function Cell( {cell, index} ){
     }
 
     const handelUpdateCellContent=(e) => {
-        console.log('handelUpdateCellContent');
+        // console.log('handelUpdateCellContent');
         const content = e.target.value; 
         setCellContent(content);
     }
 
     const handleUpdateCell=(e) =>{
-        console.log('handleUpdateCell');
+        // console.log('handleUpdateCell');
         const content = e.target.value; 
         if(content===cell.content){
             return;
@@ -85,6 +87,8 @@ function Cell( {cell, index} ){
                     <Typography
                         variant="h6"
                         component="div"
+                        paddingTop='3px'
+                        color={grey[500]}
                     >
                         {index+1}
                     </Typography>

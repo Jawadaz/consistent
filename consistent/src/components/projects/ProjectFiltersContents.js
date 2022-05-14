@@ -59,9 +59,9 @@ function ProjectFiltersContent(){
                 )}
                 onChange={(e, value, reason, details)=> {
                     // console.log('onChange');
-                    console.log(details);
-                    console.log(value);
-                    console.log(e, value, reason, details);
+                    // console.log(details);
+                    // console.log(value);
+                    // console.log(e, value, reason, details);
                     handleOnChange(value, details, reason);
                 }}
                 // onClose={(e)=>{

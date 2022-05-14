@@ -36,7 +36,7 @@ function ProjectSwipeableDrawer( props ){
         setOpen(newOpen);
     };
 
-    console.log(props.showDrawer);
+    // console.log(props.showDrawer);
 
     return (
     <>
