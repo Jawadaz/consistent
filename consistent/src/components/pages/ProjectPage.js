@@ -115,14 +115,17 @@ function ProjectPage( props ){
                     item xs={16} sm={16} md={isSidebarVisible?16-sidebarColumns:16} lg={isSidebarVisible?16-sidebarColumns:16}
                     sx={{
                         // paddingLeft: "0px",
-                        // paddingRight: "8px"
+                        // paddingRight: "0px"
                     }}
                 >
                     <Container 
                         width="100%"
                         maxWidth="100%"
+                        disableGutters
                         sx={{
                             paddingTop:"16px",
+                            paddingRight: "16px",
+                            paddingLeft: "16px",
                         }}
                     >
                         <CellsList />
