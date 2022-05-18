@@ -1,22 +1,26 @@
+import { useContext, useEffect, useState} from 'react';
+
+import GotoCellBarItem from "../ui/GotoCellBarItem";
+import ProjectContext from "../context/ProjectContext";
+import FilterContext from "../context/FilterContext";
+import ViewportContext from "../context/ViewportContext";
+
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+
+//MaterialUI Components
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
 import Toolbar from "@mui/material/Toolbar";
-import AppBar from "@mui/material/AppBar";
 import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
-import  ButtonGroup from "@mui/material/ButtonGroup";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import TextField from "@mui/material/TextField";
+
+//MaterialUI Icons
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 import ArrowDownwardOutlinedIcon from '@mui/icons-material/ArrowDownwardOutlined';
-import { useContext, useEffect, useState} from 'react';
-import ProjectContext from "../context/ProjectContext";
-import FilterContext from "../context/FilterContext";
 import UndoOutlinedIcon from "@mui/icons-material/UndoOutlined";
 import RedoOutlinedIcon from "@mui/icons-material/RedoOutlined";
-// import InputIcon from "@mui/icons-material/Input";
+
 import ContentPasteGoOutlinedIcon from '@mui/icons-material/ContentPasteGoOutlined';
 import SaveIcon from "@mui/icons-material/Save";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
@@ -25,7 +29,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import CopyAllOutlinedIcon from '@mui/icons-material/CopyAllOutlined';
 import FormatTextdirectionRToLIcon from '@mui/icons-material/FormatTextdirectionRToL';
 import FormatTextdirectionLToRIcon from '@mui/icons-material/FormatTextdirectionLToR';
-import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 function ProjectToolbar( props ){
 
@@ -35,6 +38,8 @@ function ProjectToolbar( props ){
         isUndoDisabled, isRedoDisabled, saveAsClick,
         getCellsContentAsText, createCellsFromText, setProjectLTR} = useContext(ProjectContext)
     const { isFiltered, filteredProjectCells } = useContext(FilterContext);
+    
+    const { gotoCell } = useContext(ViewportContext);
 
 
     const [ isMoveCellUpButtonDisabled, setIsMoveCellUpButtonDisabled ] = useState(false);
@@ -94,6 +99,13 @@ function ProjectToolbar( props ){
     const btnToggleRightToLeft=(e)=>{
         setIsLTR(!isLTR);
         setProjectLTR(!isLTR);
+    }
+
+    const handleGotoCell=(n)=>{
+        if(!isNaN(n) && Number.isInteger(n) && n>0 && n<projectCells.length ) {
+            gotoCell(n);
+        }
+        return;
     }
     
     useEffect(()=>{
@@ -209,7 +221,9 @@ function ProjectToolbar( props ){
                         <RedoOutlinedIcon />
                     </IconButton>
                     </Box>
-
+                    <Box>
+                        <GotoCellBarItem gotoCell={handleGotoCell} />
+                    </Box>
                     <Box>
                     <IconButton
                         size="small"

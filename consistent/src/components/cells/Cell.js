@@ -1,20 +1,21 @@
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useRef } from 'react';
 
 import ProjectContext from '../context/ProjectContext';
+import ViewportContext from "../context/ViewportContext";
+
 import CellTagsMU from './CellTagsMU';
 import CellControlsRight from './CellControlsRight';
 import CellControlsLeft from './CellControlsLeft';
 
+//MaterialUI Components
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import Fade from "@mui/material/Fade";
 import TextField from "@mui/material/TextField";
-
+import Typography from "@mui/material/Typography";
 import { styled } from '@mui/material/styles';
-import { Typography } from "@mui/material";
-
 import { grey } from '@mui/material/colors';
+
 
 const CustomizedTextField = styled(TextField)`
   .MuiOutlinedInput-root {
@@ -26,11 +27,14 @@ const CustomizedTextField = styled(TextField)`
 function Cell( {cell, index} ){
     const { activeCellId, activateCell, updateCellContent, 
             updateCellTags, isProjectLocked, isProjectLTR } = useContext(ProjectContext);
+    const { resetCellToGoTo, cellToGoTo } = useContext(ViewportContext);
 
     const [ cellContent, setCellContent ] = useState(cell.content);
     const [ isActive, setIsActive ] = useState(false);
     const [ isCellContentFocused, setIsCellContentFocused] = useState(false)
     const [ cellTags, setCellTags ] = useState(cell.tags);
+
+    const cellRef = useRef(null);
 
     const handleCellClick=(e)=>{
         if(isProjectLocked){
@@ -72,8 +76,28 @@ function Cell( {cell, index} ){
         setCellTags(cell.tags);
     }, [cell.tags]);
 
+    useEffect(()=>{
+        if(cellToGoTo===null){
+            console.log('goto null');
+            return;
+        }
+        if(cellToGoTo===index){
+            console.log('goto: '+ index);
+            cellRef.current.scrollIntoView({
+                behavior: "smooth",
+            });
+            resetCellToGoTo();
+        }
+    }, [cellToGoTo]);
+
+
     return (
-        <div className={"Cell"} onClick={handleCellClick}>
+        <>
+        <Box
+            className={"Cell"} 
+            onClick={handleCellClick}
+            ref={cellRef}
+        >
             <Fade 
                 in={true}
                 timeout={500}
@@ -163,7 +187,8 @@ function Cell( {cell, index} ){
                 </Box>
             </Stack>
             </Fade>
-        </div>
+        </Box>
+        </>
     );
 }
 
