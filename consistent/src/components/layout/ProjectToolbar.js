@@ -102,7 +102,7 @@ function ProjectToolbar( props ){
     }
 
     const handleGotoCell=(n)=>{
-        if(!isNaN(n) && Number.isInteger(n) && n>0 && n<projectCells.length ) {
+        if(!isNaN(n) && Number.isInteger(n) && n>=0 && n<projectCells.length ) {
             gotoCell(n);
         }
         return;
