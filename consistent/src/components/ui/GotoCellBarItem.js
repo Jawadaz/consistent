@@ -17,6 +17,11 @@ import { styled, alpha } from '@mui/material/styles';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 
 
+const StyledInput = styled(Input)(({theme})=>({
+    '& .MuiInputBase-input': {
+        padding: '0px'
+    }
+}));
 
 // const Goto = styled('div')(({theme})=>({
 //     width: '100%',
@@ -69,30 +74,43 @@ function GotoCellBarItem( { gotoCell } ){
             variant="standard" 
             sx={{ 
                 width: '8ch',
-                ml: 1,
+                // ml: 1,
             }}
         >
-          <Input
-            endAdornment={<InputAdornment position="end">
+            <StyledInput
+                endAdornment={
+                    <InputAdornment 
+                        position="end"
+                        sx={{
+                            marginLeft: '0px'
+                        }}
+                    >
                         <IconButton
                             // size="small"
                             aria-label="Go"
                             edge="end"
                             color='primary'
                             onClick={btnGotoCellClickHandler}
+                            sx={{
+                                paddingLeft: '0px'
+                            }}
                         >
                             <SkipNextIcon />
                         </IconButton>
-            </InputAdornment>}
-            label="Goto paragraph #"
-            value={cellToGoTo}
-            // aria-describedby="goto-paragraph-helper-text"
-            inputProps={{
-              'aria-label': 'goto paragraph #',
-            }}
-            onChange={inputChangeHandler}
-            onKeyDown={inputKeyDownHandler}
-          />
+                    </InputAdornment>
+                }
+                label="Goto paragraph #"
+                value={cellToGoTo}
+                // aria-describedby="goto-paragraph-helper-text"
+                inputProps={{
+                'aria-label': 'goto paragraph #',
+                }}
+                onChange={inputChangeHandler}
+                onKeyDown={inputKeyDownHandler}
+                sx={{
+                    paddingBottom: '0px'
+                }}
+            />
         {/* <FormHelperText id="goto-paragraph-helper-text">Goto paragraph #</FormHelperText>           */}
         </FormControl>        
     </>);
