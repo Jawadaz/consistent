@@ -15,7 +15,7 @@ export const ViewportContextProvider=( {children} )=>{
             setCellToGoTo(n);
             return;
         }
-        if(!isNaN(n) && Number.isInteger(n) && n>0 && n<projectCells.length ) {
+        if(!isNaN(n) && Number.isInteger(n) && n>=0 && n<projectCells.length ) {
             setCellToGoTo(n);
         }
         else{

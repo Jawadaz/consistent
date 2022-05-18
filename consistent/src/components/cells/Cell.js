@@ -42,7 +42,7 @@ function Cell( {cell, index} ){
         }
         activateCell(cell.id);
     }
-
+    
     const handelUpdateCellContent=(e) => {
         // console.log('handelUpdateCellContent');
         const content = e.target.value; 
