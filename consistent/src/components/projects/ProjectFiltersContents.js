@@ -52,6 +52,7 @@ function ProjectFiltersContent(){
                     <TextField
                         {...params}
                         variant="standard"
+                        onClick={(e)=>{e.stopPropagation();}}
                         // placeholder="Filter by content..."
                         // hiddenLabel
                         label="Filter by content..."

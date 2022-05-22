@@ -7,30 +7,3 @@ body {
   margin: 0px;
   background-color: #dddddd;
 }
-
-.badge {
-    background-color: #1976d2;
-    color: white;
-    border-radius: 12px;
-    padding: 0 1rem;
-    margin-left: 0.5rem;
-}
-
-.content {
-    text-align: left;
-    padding: 1rem;
-}
-
-.ProjectTags {
-    min-height: 2em;
-}
-
-.ProjectFilters
-{
-    grid-area: filters;
-    padding: 5px;
-    position: sticky;
-    top: 1em;
-    z-index: 9;
-    background-color: #dfdfdf;    
-}
