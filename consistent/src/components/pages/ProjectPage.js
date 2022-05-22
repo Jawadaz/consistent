@@ -31,18 +31,19 @@ function ProjectPage( props ){
     const toggleSidebar=()=>{
         setIsSidebarVisible(!isSidebarVisible);
     }
-;
+
+    const headerHeight=()=>{
+        var height = document.getElementsByTagName('header')[0].offsetHeight;
+        console.log(height);
+        return height;
+    }
+    const spacing=32;
+    
     return (
         <>
-        <Box            
-            sx= {{
-                display:{
-                    "xs": "none", 
-                    "sm": "none", 
-                    "md": "block", 
-                    "lg": "block",
-                    "xl": "block"
-                }
+        <Box
+            sx={{
+                height: `calc(100vh - ${headerHeight()}px - ${spacing}px )`,
             }}
         >
             <Grid 
@@ -50,15 +51,23 @@ function ProjectPage( props ){
                 spacing={2} 
                 columns={16}
                 sx={{
-                    // marginLeft: "0px"
-                    display: { md: 'content', lg: 'content', xl: 'content'}
-                }}>
+                    // marginLeft: '0px',
+                    // marginTop: '0px',
+                    height: 'inherit',
+                }}
+            >
                 <Grid 
                     item
                     xs={16-sidebarColumns}
                     sm={16-sidebarColumns} 
                     md={16-sidebarColumns} 
                     lg={16-sidebarColumns}
+                    sx={{
+                        '&.MuiGrid-item': {
+                            paddingLeft:"0px",
+                            paddingTop: "0px"
+                        }
+                    }}
                 >
                 </Grid>
                 <Grid
@@ -69,17 +78,36 @@ function ProjectPage( props ){
                     lg={sidebarColumns}
 
                     sx={{
-                            paddingLeft:"0px"
+                        '&.MuiGrid-item': {
+                            paddingLeft:"0px",
+                            paddingTop: "0px"
+                        }
                     }}
                 >
-                    <Box>
+                    <Box
+                        sx={{
+                            display: {
+                                "xs": "none", 
+                                "sm": "none", 
+                                "md": "block", 
+                                "lg": "block",
+                                "xl": "block",
+                            }
+                        }}                    
+                    >
                         {isSidebarVisible?
-                        <Container>
+                        <Container
+                            sx={{
+                                '&.MuiContainer-root': {
+                                    paddingLeft: '16px',
+                                    paddingRight: '24px'
+                                }
+                            }}
+                        >
                         <Button
                             onClick={toggleSidebar}
                             sx={{
                                 justifyContent: "left",
-                                paddingLeft:"0px"
                             }}
                         >
                             <ArrowForwardIosIcon />
@@ -100,22 +128,19 @@ function ProjectPage( props ){
                         }        
                     </Box>
                 </Grid>
-            </Grid>
-        </Box>
-        <Box>
-            <Grid 
-                container 
-                spacing={2} 
-                columns={16}
-                sx={{
-                    // marginLeft: "0px"
-                }}
-            >
+                            
                 <Grid 
-                    item xs={16} sm={16} md={isSidebarVisible?16-sidebarColumns:16} lg={isSidebarVisible?16-sidebarColumns:16}
+                    item 
+                    xs={16} 
+                    sm={16} 
+                    md={isSidebarVisible?16-sidebarColumns:16} 
+                    lg={isSidebarVisible?16-sidebarColumns:16}
                     sx={{
-                        // paddingLeft: "0px",
-                        // paddingRight: "0px"
+                        '&.MuiGrid-item': {
+                            paddingTop: "0px",
+                        },
+                        height: "inherit",
+                        // scrollPaddingTop: '80px',
                     }}
                 >
                     <Container 
@@ -123,9 +148,9 @@ function ProjectPage( props ){
                         maxWidth="100%"
                         disableGutters
                         sx={{
-                            paddingTop:"16px",
-                            paddingRight: "16px",
-                            paddingLeft: "16px",
+                            maxHeight: '100%',
+                            overflow: 'auto',
+                            paddingLeft: '16px'                           
                         }}
                     >
                         <CellsList />
@@ -133,11 +158,19 @@ function ProjectPage( props ){
                 </Grid>
                 <Grid 
                     item 
-                    xs={0} sm={0} md={sidebarColumns} lg={sidebarColumns}
+                    xs={0} 
+                    sm={0} 
+                    md={sidebarColumns} 
+                    lg={sidebarColumns}
                     sx={{
-                        paddingLeft: '0px'
+                        '&.MuiGrid-item': {
+                            paddingLeft:"0px",
+                            paddingTop: "0px",
+                        },
+                        height: "inherit",
                     }}
                 >
+
                     <Box 
                         maxWidth="100%" 
                         width="100%"
@@ -146,7 +179,7 @@ function ProjectPage( props ){
                             width: isSidebarVisible?"100%":0,
                             height: isSidebarVisible?"100%":0,
                             paddingLeft: '0ps',
-                            display:{
+                            display: {
                                 "xs": "none", 
                                 "sm": "none", 
                                 "md": "block", 
@@ -155,7 +188,16 @@ function ProjectPage( props ){
                             }
                         }}
                     >
-                        <Container>
+                        <Container
+                            sx={{
+                                maxHeight: '100%',
+                                overflow: 'auto',
+                                '&.MuiContainer-root': {
+                                    paddingLeft: '16px',
+                                    paddingRight: '24px'
+                                }
+                            }}
+                        >
                             <ProjectSidebar />
                         </Container>
                     </Box>              
