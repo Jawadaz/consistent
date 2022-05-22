@@ -147,8 +147,11 @@ function ProjectToolbar( props ){
 
     return <>
             {/* <Box sx={{ flexGrow: 1 }} > */}
-            <Paper elevation={0}>
-                <Toolbar 
+            <Paper 
+                elevation={0}
+                position="relative"
+            >
+                <Toolbar
                     disableGutters
                     variant="dense"
                 >

@@ -21,7 +21,10 @@ function ApplicationBar() {
 
     return (
         <>
-        <AppBar position="sticky">
+        <AppBar 
+            position="sticky"
+            // position="fixed"
+        >
             <Container 
                 maxWidth="100%" 
                 width="100%">

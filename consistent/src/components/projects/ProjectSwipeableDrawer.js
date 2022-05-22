@@ -97,15 +97,9 @@ function ProjectSwipeableDrawer( props ){
                         overflow: 'auto',
                     }}
                 >
-                    {/* <Skeleton 
-                        variant="rectangular" 
-                        height="100%"
-                        width="100%"
-                    > */}
-                        <ProjectFilterAndOrSwitch />
-                        <ProjectFiltersContent />
-                        <ProjectFiltersTags />
-                    {/* </Skeleton> */}
+                    <ProjectFilterAndOrSwitch />
+                    <ProjectFiltersContent />
+                    <ProjectFiltersTags />
                 </StyledBox>
             </SwipeableDrawer>
         </Box>
