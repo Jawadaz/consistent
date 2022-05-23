@@ -1,6 +1,7 @@
 import ProjectFiltersTags from "../projects/ProjectFiltersTags";
 import ProjectFiltersContents from "../projects/ProjectFiltersContents";
 import ProjectFilterAndOrSwitch from "./ProjectFilterAndOrSwitch";
+import ShowHideCellNumbersSwitch from "../ui/ShowHideCellNumbersSwitch";
 import ProjectStats from "../projects/ProjectStats";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -64,7 +65,8 @@ function ProjectSidebar () {
                     scrollButtons="auto"
                 >
                     <Tab label="Filters" {...a11yProps(0)} />
-                    <Tab label="Stats" {...a11yProps(1)} />
+                    <Tab label="Display" {...a11yProps(1)} />
+                    <Tab label="Stats" {...a11yProps(2)} />
                     {/* <Tab label="Graph" {...a11yProps(2)} /> */}
                 </Tabs>
             </Box>
@@ -81,7 +83,18 @@ function ProjectSidebar () {
 
             </Box>
             </TabPanel>
-            <TabPanel value={value} index={1}>
+            <TabPanel 
+                value={value} 
+                index={1}
+            >
+            <Box    
+                paddingTop="16px"
+            >   
+                <ShowHideCellNumbersSwitch />
+
+            </Box>
+            </TabPanel>
+            <TabPanel value={value} index={2}>
             <Box>
                 <ProjectStats/>
             </Box>                
