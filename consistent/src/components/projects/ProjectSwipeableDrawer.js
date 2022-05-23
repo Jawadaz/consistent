@@ -1,7 +1,5 @@
 
 import Box from "@mui/material/Box"
-import CssBaseline from '@mui/material/CssBaseline';
-import Skeleton from '@mui/material/Skeleton';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Typography from '@mui/material/Typography';
 import { grey } from '@mui/material/colors';
