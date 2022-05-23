@@ -28,7 +28,7 @@ const CustomizedTextField = styled(TextField)`
 function Cell( {cell, index} ){
     const { activeCellId, activateCell, updateCellContent, 
             updateCellTags, isProjectLocked, isProjectLTR } = useContext(ProjectContext);
-    const { resetCellToGoTo, cellToGoTo } = useContext(ViewportContext);
+    const { resetCellToGoTo, cellToGoTo, showCellNumbers } = useContext(ViewportContext);
     const { filteredProjectCells } = useContext(FilterContext);
     // cellContent contains the text content of a cell
     const [ cellContent, setCellContent ] = useState(cell.content);
@@ -116,16 +116,20 @@ function Cell( {cell, index} ){
                 spacing={0}
                 alignItems="stretch"
             >
-                <Box>
-                    <Typography
-                        variant="h6"
-                        component="div"
-                        paddingTop='3px'
-                        color={grey[500]}
-                    >
-                        {zeroPad(index+1, filteredProjectCellsDigitsCount)}
-                    </Typography>
-                </Box>
+                {showCellNumbers?
+                    <Box>
+                        <Typography
+                            variant="h6"
+                            component="div"
+                            paddingTop='3px'
+                            color={grey[500]}
+                        >
+                            {zeroPad(index+1, filteredProjectCellsDigitsCount)}
+                        </Typography>
+                    </Box>
+                : 
+                    <></>
+                }
                 <Box 
                     sx={{ 
                         // width: '4%', 

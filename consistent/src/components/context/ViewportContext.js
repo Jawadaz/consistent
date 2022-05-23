@@ -6,6 +6,7 @@ const ViewportContext = createContext();
 export const ViewportContextProvider=( {children} )=>{
 
     const [ cellToGoTo, setCellToGoTo ] = useState(null);
+    const [ showCellNumbers, setShowCellNumbers ] = useState(true);
 
     const { projectCells } = useContext(ProjectContext);    
 
@@ -27,13 +28,17 @@ export const ViewportContextProvider=( {children} )=>{
     const resetCellToGoTo=()=>{
         setCellToGoTo(null);
     }
+
     
     return (
         <ViewportContext.Provider 
             value={{
                 cellToGoTo,
+                showCellNumbers,
+
                 gotoCell,
                 resetCellToGoTo,
+                setShowCellNumbers,
             }}
         >
         {children}
