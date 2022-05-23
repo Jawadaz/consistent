@@ -37,10 +37,31 @@ function ProjectPage( props ){
         console.log(height);
         return height;
     }
-    const spacing=32;
+    const spacing=36;
     
     return (
         <>
+        {isSidebarVisible?
+            <></>
+            :
+            <Box
+                position='sticky'
+                sx={{   
+                    float:'right'
+                }}
+            >
+                <Button
+                    onClick={toggleSidebar}
+                    position='sticky'
+                    sx={{
+                        justifyContent: "right",
+                        // float:"right"
+                    }}
+                >
+                    <ArrowBackIosIcon />
+                </Button>        
+            </Box>
+        }
         <Box
             sx={{
                 height: `calc(100vh - ${headerHeight()}px - ${spacing}px )`,
@@ -52,82 +73,11 @@ function ProjectPage( props ){
                 columns={16}
                 sx={{
                     // marginLeft: '0px',
-                    // marginTop: '0px',
+                    marginTop: '0px',
                     height: 'inherit',
                 }}
             >
-                <Grid 
-                    item
-                    xs={16-sidebarColumns}
-                    sm={16-sidebarColumns} 
-                    md={16-sidebarColumns} 
-                    lg={16-sidebarColumns}
-                    sx={{
-                        '&.MuiGrid-item': {
-                            paddingLeft:"0px",
-                            paddingTop: "16px"
-                        }
-                    }}
-                >
-                </Grid>
-                <Grid
-                    item
-                    xs={sidebarColumns}
-                    sm={sidebarColumns}
-                    md={sidebarColumns} 
-                    lg={sidebarColumns}
 
-                    sx={{
-                        '&.MuiGrid-item': {
-                            paddingLeft:"0px",
-                            paddingTop: "16px"
-                        }
-                    }}
-                >
-                    <Box
-                        sx={{
-                            display: {
-                                "xs": "none", 
-                                "sm": "none", 
-                                "md": "block", 
-                                "lg": "block",
-                                "xl": "block",
-                            }
-                        }}                    
-                    >
-                        {isSidebarVisible?
-                        <Container
-                            sx={{
-                                '&.MuiContainer-root': {
-                                    paddingLeft: '16px',
-                                    paddingRight: '24px'
-                                }
-                            }}
-                        >
-                        <Button
-                            onClick={toggleSidebar}
-                            sx={{
-                                justifyContent: "left",
-                            }}
-                        >
-                            <ArrowForwardIosIcon />
-                        </Button>
-                        </Container>
-                        :
-                        <Container>
-                        <Button
-                            onClick={toggleSidebar}
-                            sx={{
-                                justifyContent: "right",
-                                float:"right"
-                            }}
-                        >
-                            <ArrowBackIosIcon />
-                        </Button>    
-                        </Container>        
-                        }        
-                    </Box>
-                </Grid>
                             
                 <Grid 
                     item 
@@ -181,7 +131,26 @@ function ProjectPage( props ){
                         height: "inherit",
                     }}
                 >
-
+                    <Box
+                    >
+                        <Container
+                            sx={{
+                                '&.MuiContainer-root': {
+                                    paddingLeft: '16px',
+                                    paddingRight: '24px'
+                                }
+                            }}
+                        >
+                        <Button
+                            onClick={toggleSidebar}
+                            sx={{
+                                justifyContent: "left",
+                            }}
+                        >
+                            <ArrowForwardIosIcon />
+                        </Button>
+                        </Container>
+                    </Box>
                     <Box 
                         maxWidth="100%" 
                         width="100%"
