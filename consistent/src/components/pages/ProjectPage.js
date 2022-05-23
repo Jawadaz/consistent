@@ -14,6 +14,7 @@ import { useState } from "react";
 
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { spacing } from "@mui/system";
 
 function ProjectPage( props ){
     
@@ -37,7 +38,8 @@ function ProjectPage( props ){
         console.log(height);
         return height;
     }
-    const spacing=36;
+
+    const spacing=16
     
     return (
         <>
@@ -45,18 +47,11 @@ function ProjectPage( props ){
             <></>
             :
             <Box
-                position='sticky'
-                sx={{   
-                    float:'right'
-                }}
+                position='absolute'
+                right= '0px'
             >
                 <Button
                     onClick={toggleSidebar}
-                    position='sticky'
-                    sx={{
-                        justifyContent: "right",
-                        // float:"right"
-                    }}
                 >
                     <ArrowBackIosIcon />
                 </Button>        
@@ -64,7 +59,7 @@ function ProjectPage( props ){
         }
         <Box
             sx={{
-                height: `calc(100vh - ${headerHeight()}px - ${spacing}px )`,
+                height: `calc(100vh - ${headerHeight()}px - ${spacing}px)`,
             }}
         >
             <Grid 
@@ -73,21 +68,21 @@ function ProjectPage( props ){
                 columns={16}
                 sx={{
                     // marginLeft: '0px',
-                    marginTop: '0px',
+                    marginTop: '8px',
                     height: 'inherit',
                 }}
-            >
-
-                            
+            >               
                 <Grid 
                     item 
                     xs={16} 
                     sm={16} 
                     md={isSidebarVisible?16-sidebarColumns:16} 
                     lg={isSidebarVisible?16-sidebarColumns:16}
+                    height="inherit"
                     sx={{
                         '&.MuiGrid-item': {
-                            paddingTop: "0px",
+                            // marginTop: `${spacing}px`,
+                            paddingTop: '0px'
                         },
                         height: "inherit",
                         // scrollPaddingTop: '80px',
@@ -96,6 +91,7 @@ function ProjectPage( props ){
                     <Container 
                         width="100%"
                         maxWidth="100%"
+                        height="inherit"
                         disableGutters
                         sx={
                             isSidebarVisible?
@@ -109,7 +105,7 @@ function ProjectPage( props ){
                                 maxHeight: '100%',
                                 overflow: 'auto',
                                 paddingLeft: '16px',
-                                paddingRight: '16px',
+                                paddingRight: '32px',
                             }                                
                         }
                     >
@@ -126,7 +122,7 @@ function ProjectPage( props ){
                     sx={{
                         '&.MuiGrid-item': {
                             paddingLeft: '0px',
-                            paddingTop: '   0px',
+                            paddingTop: '0px',
                         },
                         height: "inherit",
                     }}
@@ -136,7 +132,7 @@ function ProjectPage( props ){
                         <Container
                             sx={{
                                 '&.MuiContainer-root': {
-                                    paddingLeft: '16px',
+                                    paddingLeft: '8px',
                                     paddingRight: '24px'
                                 }
                             }}
@@ -157,7 +153,7 @@ function ProjectPage( props ){
                         sx={{
                             width:'100%',
                             height: '100%',
-                            paddingLeft: '0ps',
+                            paddingLeft: '0px',
                             display: {
                                 "xs": "none", 
                                 "sm": "none", 
@@ -172,7 +168,7 @@ function ProjectPage( props ){
                                 maxHeight: '100%',
                                 overflow: 'auto',
                                 '&.MuiContainer-root': {
-                                    paddingLeft: '16px',
+                                    paddingLeft: '8px',
                                     paddingRight: '24px'
                                 }
                             }}
