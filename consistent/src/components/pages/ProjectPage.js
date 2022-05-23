@@ -22,7 +22,6 @@ function ProjectPage( props ){
     const smallViewport = matchesDownMd;
     // console.log(smallViewport);
 
-    // const { projectData } = useContext(ProjectContext);
     const [isSidebarVisible, setIsSidebarVisible ] = useState(true);
 
     const sidebarColumns = 5;
