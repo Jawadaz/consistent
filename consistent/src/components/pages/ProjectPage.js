@@ -65,7 +65,7 @@ function ProjectPage( props ){
                     sx={{
                         '&.MuiGrid-item': {
                             paddingLeft:"0px",
-                            paddingTop: "0px"
+                            paddingTop: "16px"
                         }
                     }}
                 >
@@ -80,7 +80,7 @@ function ProjectPage( props ){
                     sx={{
                         '&.MuiGrid-item': {
                             paddingLeft:"0px",
-                            paddingTop: "0px"
+                            paddingTop: "16px"
                         }
                     }}
                 >
