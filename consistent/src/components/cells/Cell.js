@@ -85,6 +85,7 @@ function Cell( {cell, index} ){
             console.log('goto: '+ index);
             cellRef.current.scrollIntoView({
                 behavior: "smooth",
+                block: "start",
             });
             resetCellToGoTo();
         }

@@ -52,7 +52,7 @@ function ProjectSwipeableDrawer( props ){
                 }}
                 styles={{
                 '.MuiDrawer-root > .MuiPaper-root': {
-                    height: `calc(50% - ${drawerBleeding}px)`,
+                    // height: `calc(50% - ${drawerBleeding}px)`,
                     overflow: 'visible',
                 },  
                 }}
@@ -97,15 +97,9 @@ function ProjectSwipeableDrawer( props ){
                         overflow: 'auto',
                     }}
                 >
-                    {/* <Skeleton 
-                        variant="rectangular" 
-                        height="100%"
-                        width="100%"
-                    > */}
-                        <ProjectFilterAndOrSwitch />
-                        <ProjectFiltersContent />
-                        <ProjectFiltersTags />
-                    {/* </Skeleton> */}
+                    <ProjectFilterAndOrSwitch />
+                    <ProjectFiltersContent />
+                    <ProjectFiltersTags />
                 </StyledBox>
             </SwipeableDrawer>
         </Box>
