@@ -147,15 +147,26 @@ function ProjectPage( props ){
                         width="100%"
                         maxWidth="100%"
                         disableGutters
-                        sx={{
-                            maxHeight: '100%',
-                            overflow: 'auto',
-                            paddingLeft: '16px'                           
-                        }}
+                        sx={
+                            isSidebarVisible?
+                            {
+                                maxHeight: '100%',
+                                overflow: 'auto',
+                                paddingLeft: '16px',
+                            }
+                            :
+                            {
+                                maxHeight: '100%',
+                                overflow: 'auto',
+                                paddingLeft: '16px',
+                                paddingRight: '16px',
+                            }                                
+                        }
                     >
                         <CellsList />
                     </Container>
                 </Grid>
+            {isSidebarVisible?
                 <Grid 
                     item 
                     xs={0} 
@@ -164,8 +175,8 @@ function ProjectPage( props ){
                     lg={sidebarColumns}
                     sx={{
                         '&.MuiGrid-item': {
-                            paddingLeft:"0px",
-                            paddingTop: "0px",
+                            paddingLeft: '0px',
+                            paddingTop: '   0px',
                         },
                         height: "inherit",
                     }}
@@ -174,17 +185,16 @@ function ProjectPage( props ){
                     <Box 
                         maxWidth="100%" 
                         width="100%"
-                        visibility={isSidebarVisible?"visible":"hidden"}
                         sx={{
-                            width: isSidebarVisible?"100%":0,
-                            height: isSidebarVisible?"100%":0,
+                            width:'100%',
+                            height: '100%',
                             paddingLeft: '0ps',
                             display: {
                                 "xs": "none", 
                                 "sm": "none", 
                                 "md": "block", 
                                 "lg": "block",
-                                "xl": "block",
+                                "xl": "blSock",
                             }
                         }}
                     >
@@ -202,6 +212,9 @@ function ProjectPage( props ){
                         </Container>
                     </Box>              
                 </Grid>
+            :
+                <></>
+            }
             </Grid>        
         </Box>
         { smallViewport &&
