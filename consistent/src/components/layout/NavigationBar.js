@@ -94,7 +94,6 @@ function NavigationBar() {
                         onClose={toggleDrawer(false)}
                     >
                         <Box
-                            // sx={{ width: 250 }}
                             role="presentation"
                             onClick={toggleDrawer(false)}
                             onKeyDown={toggleDrawer(false)}
