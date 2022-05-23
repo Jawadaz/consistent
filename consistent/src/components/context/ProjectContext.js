@@ -23,7 +23,8 @@ export const ProjectContextProvider=( {children} )=>{
         return {
             id: uuidv4(),
             title: "New Project",
-            description: ""
+            description: "",
+            meta: {}
         };
     };
 
@@ -31,10 +32,6 @@ export const ProjectContextProvider=( {children} )=>{
     const [ projectData, setProjectData ] = useState(defaultProjectData());
     const [ projectCorpus, setProjectCorpus ] = useState([]);
     const [ isProjectLocked, setIsProjectLocked ] = useState(false);
-    // const [ projectUndoRedoStack, setProjectUndoRedoStack] = useState([{
-    //     'cells': [...projectCells],
-    //     'data': {...projectData},
-    // }]); //for undo/redo
 
     const [ projectTags, setProjectTags ] = useState([]);
     const [ activeCellId, setActiveCellId ] = useState();

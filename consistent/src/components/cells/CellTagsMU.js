@@ -10,7 +10,7 @@ import TextField from "@mui/material/TextField";
 
 const CellTagsMU = ( {cell, isActive, updateCellTags } ) => {
 
-    const { projectTags, isProjectLocked } = useContext(ProjectContext);
+    const { projectTags } = useContext(ProjectContext);
     const [tags, setTags] = useState(cell.tags);
     const [suggestions, setSuggestions] = useState(
         projectTags.filter(
@@ -91,27 +91,6 @@ const CellTagsMU = ( {cell, isActive, updateCellTags } ) => {
                 flexWrap: 'wrap',
             }}        
         >
-            {/* <ReactTags
-                tags={tags} #done
-                placeholder={"Add tag..."}
-                suggestions={suggestions} #done
-                minQueryLength={2} 
-                autofocus={false} 
-                allowDeleteFromEmptyInput={false}
-                delimiters={delimiters}
-                handleDelete={handleDelete} #Done
-                handleAddition={handleAddition}
-                handleDrag={handleDrag}
-                handleTagClick={handleTagClick}
-                inputFieldPosition="inline"
-                autocomplete={true}
-                readOnly={isProjectLocked}
-                allowUnique={true}
-                allowDragDrop={false}
-                inline={true}
-                allowAdditionFromPaste={true}
-                editable={false}
-            /> */}
             {
                 tags.sort((a,b)=>{
                     if(a.id.toUpperCase()>b.id.toUpperCase()){
@@ -194,21 +173,6 @@ const CellTagsMU = ( {cell, isActive, updateCellTags } ) => {
                     // console.log('onChange');
                     handleAddition({id: value, text: value});
                 }}
-                // onClose={(e)=>{
-                //     console.log('close');
-                // }}
-                // onInputChange={(e)=> {console.log('onInputChange')}}
-                // onOpen={(e)=> {console.log('onOpen')}}
-                // onHighlightChange={(e)=> {console.log('onHighlightChange')}}
-                //renderTags={(tagValue, getTagProps) =>
-                //     tagValue.map((option, index) => (
-                //      <Chip
-                //         label={option.title}
-                //         {...getTagProps({ index })}
-                //         disabled={fixedOptions.indexOf(option) !== -1}
-                //      />
-                //   ))
-                //}
             />
         </Box>
         :

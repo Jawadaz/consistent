@@ -30,11 +30,14 @@ function Cell( {cell, index} ){
             updateCellTags, isProjectLocked, isProjectLTR } = useContext(ProjectContext);
     const { resetCellToGoTo, cellToGoTo } = useContext(ViewportContext);
     const { filteredProjectCells } = useContext(FilterContext);
-
+    // cellContent contains the text content of a cell
     const [ cellContent, setCellContent ] = useState(cell.content);
+    // isActive is true when this cell is active
     const [ isActive, setIsActive ] = useState(false);
+    // is True when the cell content is in focus
     const [ isCellContentFocused, setIsCellContentFocused] = useState(false)
-    const [ cellTags, setCellTags ] = useState(cell.tags);
+    // contains the tags of this cell
+    // const [ cellTags, setCellTags ] = useState(cell.tags);
 
     const cellRef = useRef(null);
 
@@ -73,10 +76,10 @@ function Cell( {cell, index} ){
         setCellContent(cell.content);
     }, [cell.content]);
 
-    useEffect(()=>{
-        // console.log('Cell.useEffect() cell.content');
-        setCellTags(cell.tags);
-    }, [cell.tags]);
+    // useEffect(()=>{
+    //     // console.log('Cell.useEffect() cell.content');
+    //     setCellTags(cell.tags);
+    // }, [cell.tags]);
 
     useEffect(()=>{
         if(cellToGoTo===null){
@@ -158,7 +161,7 @@ function Cell( {cell, index} ){
                             onChange={handelUpdateCellContent}
                             onFocus={() => setIsCellContentFocused(true)}
                             onBlur={(e) => {
-                                setIsCellContentFocused(true);
+                                setIsCellContentFocused(false);
                                 handleUpdateCell(e);
                             }}
                             dir={isProjectLTR?"ltr":"rtl"}

@@ -2,7 +2,6 @@ import AppBar from "@mui/material/AppBar";
 import Container from "@mui/material/Container";
 import ProjectToolbar from "./ProjectToolbar";
 import NavigationBar from "./NavigationBar";
-import Box from "@mui/material/Box";
 
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react'
