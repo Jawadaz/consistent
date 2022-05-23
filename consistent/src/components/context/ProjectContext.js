@@ -1,7 +1,8 @@
 import { createContext, useState, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid'
 
-import dummyProject from "../../fixtures/dummy_project_1.json"
+import dummyProject1 from "../../fixtures/dummy_project_1.json"
+// import dummyProject2 from "../../fixtures/dummy_project_2.json"
 
 import { saveAs } from 'file-saver'
 
@@ -22,8 +23,7 @@ export const ProjectContextProvider=( {children} )=>{
         return {
             id: uuidv4(),
             title: "New Project",
-            description: "",
-            tags: []
+            description: ""
         };
     };
 
@@ -146,6 +146,7 @@ export const ProjectContextProvider=( {children} )=>{
 
     const loadFixture = () => {
         // console.log('loadFixture');
+        const dummyProject = dummyProject1;
         setProjectData({
             id: dummyProject.id,
             title: dummyProject.title,

@@ -1,7 +1,8 @@
 import { useContext, useState, useEffect, useRef } from 'react';
 
 import ProjectContext from '../context/ProjectContext';
-import ViewportContext from "../context/ViewportContext";
+import ViewportContext from '../context/ViewportContext';
+import FilterContext from '../context/FilterContext'
 
 import CellTagsMU from './CellTagsMU';
 import CellControlsRight from './CellControlsRight';
@@ -28,6 +29,7 @@ function Cell( {cell, index} ){
     const { activeCellId, activateCell, updateCellContent, 
             updateCellTags, isProjectLocked, isProjectLTR } = useContext(ProjectContext);
     const { resetCellToGoTo, cellToGoTo } = useContext(ViewportContext);
+    const { filteredProjectCells } = useContext(FilterContext);
 
     const [ cellContent, setCellContent ] = useState(cell.content);
     const [ isActive, setIsActive ] = useState(false);
@@ -91,6 +93,9 @@ function Cell( {cell, index} ){
         }
     }, [cellToGoTo]);
 
+    const zeroPad = (num, places) => String(num).padStart(places, '0')
+
+    const filteredProjectCellsDigitsCount = filteredProjectCells.length.toString().length;
 
     return (
         <>
@@ -115,7 +120,7 @@ function Cell( {cell, index} ){
                         paddingTop='3px'
                         color={grey[500]}
                     >
-                        {index+1}
+                        {zeroPad(index+1, filteredProjectCellsDigitsCount)}
                     </Typography>
                 </Box>
                 <Box 

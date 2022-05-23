@@ -14,7 +14,6 @@ import { useState } from "react";
 
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { spacing } from "@mui/system";
 
 function ProjectPage( props ){
     
@@ -23,7 +22,6 @@ function ProjectPage( props ){
     const smallViewport = matchesDownMd;
     // console.log(smallViewport);
 
-    // const { projectData } = useContext(ProjectContext);
     const [isSidebarVisible, setIsSidebarVisible ] = useState(true);
 
     const sidebarColumns = 5;
@@ -39,7 +37,7 @@ function ProjectPage( props ){
         return height;
     }
 
-    const spacing=16
+    const scrollSpacing=36
     
     return (
         <>
@@ -59,7 +57,7 @@ function ProjectPage( props ){
         }
         <Box
             sx={{
-                height: `calc(100vh - ${headerHeight()}px - ${spacing}px)`,
+                height: `calc(100vh - ${headerHeight()}px - ${scrollSpacing}px)`,
             }}
         >
             <Grid 
@@ -81,7 +79,6 @@ function ProjectPage( props ){
                     height="inherit"
                     sx={{
                         '&.MuiGrid-item': {
-                            // marginTop: `${spacing}px`,
                             paddingTop: '0px'
                         },
                         height: "inherit",
