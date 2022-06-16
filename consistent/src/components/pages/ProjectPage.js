@@ -32,9 +32,9 @@ function ProjectPage( props ){
     }
 
     const headerHeight=()=>{
-        var height = document.getElementsByTagName('header')[0].offsetHeight;
+        var height = document.getElementsByTagName('header')[0]?.offsetHeight;
         console.log(height);
-        return height;
+        return height?height:0;
     }
 
     const scrollSpacing=36

@@ -9,14 +9,15 @@ function NewProjectPage(){
 
     const { newProject } = useContext(ProjectContext);
     const { clearFilterQuery } = useContext(FilterContext);
-    
     const [ ready, setReady] = useState(false);
+    const [ projectData, setProjectData ] = useState(null)
 
-    const [projectData, setprojectData] = useState(null)
+    // I DON"T LIKE THIS
     useEffect(() => {
-        setprojectData(newProject());
+        //why calling newProject Twice?
+        const project = newProject(uuidv4())
+        setProjectData(project.projectData);
         clearFilterQuery();
-        newProject(uuidv4());
         setReady(true);
       return () => {
         
@@ -25,8 +26,7 @@ function NewProjectPage(){
     
     return ( 
         <>
-         {projectData &&  <Navigate to={{pathname:`/projects/${projectData.id}`}}/>}
-         {ready && <Navigate to={{pathname:`/projects/${uuidv4()}`}}/> }
+         {projectData && ready && <Navigate to={{pathname:`/projects/${projectData.id}`}}/>}
         </>
         
 

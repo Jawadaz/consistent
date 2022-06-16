@@ -114,7 +114,7 @@ export const ProjectContextProvider=( {children} )=>{
         
         cleanupProject([cell]);
 
-        return newProjectData;
+        return { 'projectData': newProjectData, 'projectCells': projectCells };
         // return loadFixture();
     }
 
