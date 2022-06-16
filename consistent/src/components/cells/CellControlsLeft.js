@@ -33,6 +33,7 @@ function CellControlsLeft( {cell} ){
                     color="primary"
                     disabled={isMoveCellUpButtonDisabled}
                     onClick={(e)=>moveActiveCellUp()}
+                    // disableRipple={projectSettings.buttonDisableRipples}
                 >
                     <ArrowUpwardOutlinedIcon fontSize="small" />
                 </IconButton>
