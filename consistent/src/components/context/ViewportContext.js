@@ -10,7 +10,7 @@ export const ViewportContextProvider=( {children} )=>{
 
     const { projectCells } = useContext(ProjectContext);    
 
-    const gotoCell = (n) =>{
+    const gotoCellByIndex = (n) =>{
         // make sure n is a positive integer smaller or equal than total length of project.cells
         if(n===null){
             setCellToGoTo(n);
@@ -36,7 +36,7 @@ export const ViewportContextProvider=( {children} )=>{
                 cellToGoTo,
                 showCellNumbers,
 
-                gotoCell,
+                gotoCellByIndex,
                 resetCellToGoTo,
                 setShowCellNumbers,
             }}

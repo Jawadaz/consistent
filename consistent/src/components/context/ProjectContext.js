@@ -198,9 +198,7 @@ export const ProjectContextProvider=( {children} )=>{
             // console.log('already at top-most position');
             return;
         }
-        const activeCellIndex = projectCells.findIndex(cell => {
-            return cell.id === activeCellId;
-        });
+        const activeCellIndex = getCellIndex(activeCellId);
         const activeCell = projectCells[activeCellIndex];
         const cells = [...projectCells];
         cells.splice(activeCellIndex, 1);
@@ -214,9 +212,7 @@ export const ProjectContextProvider=( {children} )=>{
             // console.log('already at buttom-most position');
             return;            
         }
-        const activeCellIndex = projectCells.findIndex(cell => {
-            return cell.id === activeCellId;
-        });
+        const activeCellIndex = getCellIndex(activeCellId);
         const activeCell = projectCells[activeCellIndex];
         const cells = [...projectCells];
         cells.splice(activeCellIndex, 1);
@@ -250,9 +246,7 @@ export const ProjectContextProvider=( {children} )=>{
 
     const addCell = (content) => {
         // console.log('addCell()');
-        const activeCellIndex = projectCells.findIndex(cell => {
-            return cell.id === activeCellId;
-        });        
+        const activeCellIndex = getCellIndex(activeCellId);    
         let cell = emptyCell();
         if (content!==null || content!==""){
             cell.content = content;   
@@ -261,13 +255,21 @@ export const ProjectContextProvider=( {children} )=>{
         cells.splice(activeCellIndex+1, 0, cell);
         updateProjectCells(cells);
         setActiveCellId(cell.id);
+        // setActiveCellId(cell.id); celltogoto
+        return cell.id
+    }
+
+    const getCellIndex = ( cellId ) => {
+        const activeCellIndex = projectCells.findIndex(cell => {
+            return cell.id === cellId;
+        });
+        return activeCellIndex;
     }
 
     const addCells = ( cellContents ) => {
         // console.log("addCells():");
-        const activeCellIndex = projectCells.findIndex(cell => {
-            return cell.id === activeCellId;
-        });
+        const activeCellIndex = getCellIndex(activeCellId);
+        
         const cells = [...projectCells];
         const newCells = [];
         cellContents.forEach(content=>{
@@ -298,9 +300,7 @@ export const ProjectContextProvider=( {children} )=>{
             let cell=emptyCell();
             updateProjectCells([cell]);
         } else {
-            const activeCellIndex = projectCells.findIndex(cell => {
-                return cell.id === activeCellId;
-            });
+            const activeCellIndex = getCellIndex(activeCellId);
             updateProjectCells(projectCells.filter((cell) => cell.id !== id ));
             // select the previous cell in the filteredCells
             if(activeCellIndex===0){
@@ -415,6 +415,7 @@ export const ProjectContextProvider=( {children} )=>{
             updateCellContent,
             updateCellTags,
             updateCell,
+            getCellIndex,
 
             activeCellId,
             activateCell,
