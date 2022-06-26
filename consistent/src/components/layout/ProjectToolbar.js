@@ -35,10 +35,11 @@ function ProjectToolbar( props ){
         addEmptyCell, moveActiveCellDown, moveActiveCellUp, 
         toggleLockProject, isProjectLocked, undo, redo,
         isUndoDisabled, isRedoDisabled, saveAsClick,
-        getCellsContentAsText, createCellsFromText, setProjectLTR} = useContext(ProjectContext)
+        getCellsContentAsText, createCellsFromText, 
+        setProjectLTR, getCellIndex} = useContext(ProjectContext)
     const { isFiltered, filteredProjectCells } = useContext(FilterContext);
     
-    const { gotoCell } = useContext(ViewportContext);
+    const { gotoCellByIndex } = useContext(ViewportContext);
 
 
     const [ isMoveCellUpButtonDisabled, setIsMoveCellUpButtonDisabled ] = useState(false);
@@ -102,7 +103,7 @@ function ProjectToolbar( props ){
 
     const handleGotoCell=(n)=>{
         if(!isNaN(n) && Number.isInteger(n) && n>=0 && n<projectCells.length ) {
-            gotoCell(n);
+            gotoCellByIndex(n);
         }
         return;
     }
@@ -162,7 +163,10 @@ function ProjectToolbar( props ){
                         size="small"
                         aria-label="Add Paragraph"
                         // sx={{ mr: 2, display: { xs: 'flex', sm: 'flex', md: 'flex', lg: 'flex'  }} }
-                        onClick={(e)=>addEmptyCell()} 
+                        onClick={(e)=> { 
+                            const newCellId = addEmptyCell(); 
+                            gotoCellByIndex(getCellIndex(activeCellId)+1);
+                        }} 
                         disabled={isFiltered||isProjectLocked}
                     >
                         <AddOutlinedIcon />
@@ -224,7 +228,7 @@ function ProjectToolbar( props ){
                     </IconButton>
                     </Box>
                     <Box>
-                        <GotoCellBarItem gotoCell={handleGotoCell} />
+                        <GotoCellBarItem gotoCellByIndex={handleGotoCell} />
                     </Box>
                     <Box>
                     <IconButton

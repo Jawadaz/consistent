@@ -45,14 +45,14 @@ const StyledInput = styled(Input)(({theme})=>({
 //   },
 // }));
 
-function GotoCellBarItem( { gotoCell } ){
+function GotoCellBarItem( { gotoCellByIndex } ){
     
     // 
 
     const [ cellToGoTo, setCellToGoTo ] = useState("");
 
     const handleSubmit=()=>{
-        gotoCell(parseInt(cellToGoTo)-1);
+        gotoCellByIndex(parseInt(cellToGoTo)-1);
         setCellToGoTo("");
     }
 
