@@ -28,32 +28,34 @@ export const ProjectContextProvider=( {children} )=>{
         };
     };
 
-  const objectPropFromStorage = (propName, defaultValue) => {
+  const STORAGE_KEY = "ProjectContext";
+  const stateFromStorage = (stateName, defaultValue) => {
     //console.log("Loading prop from Storage:" + propName);
-    let anObject = JSON.parse(localStorage.getItem("obj"));
-    if (!anObject || !anObject[propName]) {
+    let anObject = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (!anObject || !anObject[stateName]) {
       return typeof defaultValue === "function" ? defaultValue() : defaultValue;
     }
-    return anObject[propName];
+    return anObject[stateName];
   };
 
-  const [projectCells, setProjectCells] = useState(objectPropFromStorage("projectCells", () => [emptyCell()]));
-  const [projectData, setProjectData] = useState(objectPropFromStorage("projectData", () => defaultProjectData()));
-  const [projectCorpus, setProjectCorpus] = useState(objectPropFromStorage("projectCorpus", []));
-  const [isProjectLocked, setIsProjectLocked] = useState(objectPropFromStorage("isProjectLocked", false));
+  const [projectCells, setProjectCells] = useState(stateFromStorage("projectCells", () => [emptyCell()]));
+  const [projectData, setProjectData] = useState(stateFromStorage("projectData", () => defaultProjectData()));
+  const [projectCorpus, setProjectCorpus] = useState(stateFromStorage("projectCorpus", []));
+  const [isProjectLocked, setIsProjectLocked] = useState(stateFromStorage("isProjectLocked", false));
 
-  const [projectTags, setProjectTags] = useState(objectPropFromStorage("projectTags", []));
-  const [activeCellId, setActiveCellId] = useState(objectPropFromStorage("activeCellId"));
+  const [projectTags, setProjectTags] = useState(stateFromStorage("projectTags", []));
+  const [activeCellId, setActiveCellId] = useState(stateFromStorage("activeCellId"));
     // const [ projectFilename, setProjectFilename ] = useState(null);
 
-  const [projectCellsHistory, setProjectCellsHistory] = useState(objectPropFromStorage("projectCellsHistory", () => [projectCells]));
-  const [historyIndex, setHistoryIndex] = useState(objectPropFromStorage("historyIndex", 0));
-  const [isUndoDisabled, setIsUndoDisabled] = useState(objectPropFromStorage("isUndoDisabled", true));
-  const [isRedoDisabled, setIsRedoDisabled] = useState(objectPropFromStorage("isRedoDisabled", true));
+  const [projectCellsHistory, setProjectCellsHistory] = useState(stateFromStorage("projectCellsHistory", () => [projectCells]));
+  const [historyIndex, setHistoryIndex] = useState(stateFromStorage("historyIndex", 0));
+  const [isUndoDisabled, setIsUndoDisabled] = useState(stateFromStorage("isUndoDisabled", true));
+  const [isRedoDisabled, setIsRedoDisabled] = useState(stateFromStorage("isRedoDisabled", true));
 
-  const [isProjectLTR, setIsProjectLTR] = useState(objectPropFromStorage("isProjectLTR", true));
+  const [isProjectLTR, setIsProjectLTR] = useState(stateFromStorage("isProjectLTR", true));
 
   useEffect(() => {
+    //a hook to store all states as soon as any changes
     let anObject = {
       projectCells: projectCells,
       projectData: projectData,
@@ -68,7 +70,7 @@ export const ProjectContextProvider=( {children} )=>{
       isProjectLTR: isProjectLTR,
     };
     console.log("Storing data");
-    localStorage.setItem("obj", JSON.stringify(anObject));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(anObject));
   }, [
     projectCells,
     projectData,
