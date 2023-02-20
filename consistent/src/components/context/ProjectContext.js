@@ -28,21 +28,60 @@ export const ProjectContextProvider=( {children} )=>{
         };
     };
 
-    const [ projectCells, setProjectCells ] = useState([emptyCell()]);
-    const [ projectData, setProjectData ] = useState(defaultProjectData());
-    const [ projectCorpus, setProjectCorpus ] = useState([]);
-    const [ isProjectLocked, setIsProjectLocked ] = useState(false);
+  const objectPropFromStorage = (propName, defaultValue) => {
+    //console.log("Loading prop from Storage:" + propName);
+    let anObject = JSON.parse(localStorage.getItem("obj"));
+    if (!anObject || !anObject[propName]) {
+      return typeof defaultValue === "function" ? defaultValue() : defaultValue;
+    }
+    return anObject[propName];
+  };
 
-    const [ projectTags, setProjectTags ] = useState([]);
-    const [ activeCellId, setActiveCellId ] = useState();
+  const [projectCells, setProjectCells] = useState(objectPropFromStorage("projectCells", () => [emptyCell()]));
+  const [projectData, setProjectData] = useState(objectPropFromStorage("projectData", () => defaultProjectData()));
+  const [projectCorpus, setProjectCorpus] = useState(objectPropFromStorage("projectCorpus", []));
+  const [isProjectLocked, setIsProjectLocked] = useState(objectPropFromStorage("isProjectLocked", false));
+
+  const [projectTags, setProjectTags] = useState(objectPropFromStorage("projectTags", []));
+  const [activeCellId, setActiveCellId] = useState(objectPropFromStorage("activeCellId"));
     // const [ projectFilename, setProjectFilename ] = useState(null);
 
-    const [ projectCellsHistory, setProjectCellsHistory ] = useState([projectCells]);
-    const [ historyIndex, setHistoryIndex ] = useState(0);
-    const [ isUndoDisabled, setIsUndoDisabled ] = useState(true);
-    const [ isRedoDisabled, setIsRedoDisabled ] = useState(true);
+  const [projectCellsHistory, setProjectCellsHistory] = useState(objectPropFromStorage("projectCellsHistory", () => [projectCells]));
+  const [historyIndex, setHistoryIndex] = useState(objectPropFromStorage("historyIndex", 0));
+  const [isUndoDisabled, setIsUndoDisabled] = useState(objectPropFromStorage("isUndoDisabled", true));
+  const [isRedoDisabled, setIsRedoDisabled] = useState(objectPropFromStorage("isRedoDisabled", true));
 
-    const [ isProjectLTR, setIsProjectLTR ] = useState(true);
+  const [isProjectLTR, setIsProjectLTR] = useState(objectPropFromStorage("isProjectLTR", true));
+
+  useEffect(() => {
+    let anObject = {
+      projectCells: projectCells,
+      projectData: projectData,
+      projectCorpus: projectCorpus,
+      isProjectLocked: isProjectLocked,
+      projectTags: projectTags,
+      activeCellId: activeCellId,
+      projectCellsHistory: projectCellsHistory,
+      historyIndex: historyIndex,
+      isUndoDisabled: isUndoDisabled,
+      isRedoDisabled: isRedoDisabled,
+      isProjectLTR: isProjectLTR,
+    };
+    console.log("Storing data");
+    localStorage.setItem("obj", JSON.stringify(anObject));
+  }, [
+    projectCells,
+    projectData,
+    projectCorpus,
+    isProjectLocked,
+    projectTags,
+    activeCellId,
+    projectCellsHistory,
+    historyIndex,
+    isUndoDisabled,
+    isRedoDisabled,
+    isProjectLTR,
+  ]);
 
     const updateProjectCells = (cells) => {
         setProjectCells(cells);
