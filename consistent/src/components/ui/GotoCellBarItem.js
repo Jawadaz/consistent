@@ -1,17 +1,17 @@
-import { useState, useContext } from "react";
-import ViewportContext from "../context/ViewportContext";
+import { useState } from "react";
+// import ViewportContext from "../context/ViewportContext";
 
 //MaterialUI Components
-import Box from "@mui/material/Box";
+//import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 // import InputBase from "@mui/material/InputBase";
 // import OutlinedInput from "@mui/material/OutlinedInput";
 import FormControl from "@mui/material/FormControl";
 import Input from '@mui/material/Input';
-import FormHelperText from '@mui/material/FormHelperText';
+//import FormHelperText from '@mui/material/FormHelperText';
 import InputAdornment from "@mui/material/InputAdornment";
-import TextField from "@mui/material/TextField";
-import { styled, alpha } from '@mui/material/styles';
+//import TextField from "@mui/material/TextField";
+import { styled } from '@mui/material/styles';
 
 //MaterialUI Icons
 import SkipNextIcon from '@mui/icons-material/SkipNext';
