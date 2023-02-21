@@ -28,21 +28,62 @@ export const ProjectContextProvider=( {children} )=>{
         };
     };
 
-    const [ projectCells, setProjectCells ] = useState([emptyCell()]);
-    const [ projectData, setProjectData ] = useState(defaultProjectData());
-    const [ projectCorpus, setProjectCorpus ] = useState([]);
-    const [ isProjectLocked, setIsProjectLocked ] = useState(false);
+  const STORAGE_KEY = "ProjectContext";
+  const stateFromStorage = (stateName, defaultValue) => {
+    //console.log("Loading prop from Storage:" + propName);
+    let anObject = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (!anObject || !anObject[stateName]) {
+      return typeof defaultValue === "function" ? defaultValue() : defaultValue;
+    }
+    return anObject[stateName];
+  };
 
-    const [ projectTags, setProjectTags ] = useState([]);
-    const [ activeCellId, setActiveCellId ] = useState();
+  const [projectCells, setProjectCells] = useState(stateFromStorage("projectCells", () => [emptyCell()]));
+  const [projectData, setProjectData] = useState(stateFromStorage("projectData", () => defaultProjectData()));
+  const [projectCorpus, setProjectCorpus] = useState(stateFromStorage("projectCorpus", []));
+  const [isProjectLocked, setIsProjectLocked] = useState(stateFromStorage("isProjectLocked", false));
+
+  const [projectTags, setProjectTags] = useState(stateFromStorage("projectTags", []));
+  const [activeCellId, setActiveCellId] = useState(stateFromStorage("activeCellId"));
     // const [ projectFilename, setProjectFilename ] = useState(null);
 
-    const [ projectCellsHistory, setProjectCellsHistory ] = useState([projectCells]);
-    const [ historyIndex, setHistoryIndex ] = useState(0);
-    const [ isUndoDisabled, setIsUndoDisabled ] = useState(true);
-    const [ isRedoDisabled, setIsRedoDisabled ] = useState(true);
+  const [projectCellsHistory, setProjectCellsHistory] = useState(stateFromStorage("projectCellsHistory", () => [projectCells]));
+  const [historyIndex, setHistoryIndex] = useState(stateFromStorage("historyIndex", 0));
+  const [isUndoDisabled, setIsUndoDisabled] = useState(stateFromStorage("isUndoDisabled", true));
+  const [isRedoDisabled, setIsRedoDisabled] = useState(stateFromStorage("isRedoDisabled", true));
 
-    const [ isProjectLTR, setIsProjectLTR ] = useState(true);
+  const [isProjectLTR, setIsProjectLTR] = useState(stateFromStorage("isProjectLTR", true));
+
+  useEffect(() => {
+    //a hook to store all states as soon as any changes
+    let anObject = {
+      projectCells: projectCells,
+      projectData: projectData,
+      projectCorpus: projectCorpus,
+      isProjectLocked: isProjectLocked,
+      projectTags: projectTags,
+      activeCellId: activeCellId,
+      projectCellsHistory: projectCellsHistory,
+      historyIndex: historyIndex,
+      isUndoDisabled: isUndoDisabled,
+      isRedoDisabled: isRedoDisabled,
+      isProjectLTR: isProjectLTR,
+    };
+    console.log("Storing data");
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(anObject));
+  }, [
+    projectCells,
+    projectData,
+    projectCorpus,
+    isProjectLocked,
+    projectTags,
+    activeCellId,
+    projectCellsHistory,
+    historyIndex,
+    isUndoDisabled,
+    isRedoDisabled,
+    isProjectLTR,
+  ]);
 
     const updateProjectCells = (cells) => {
         setProjectCells(cells);
