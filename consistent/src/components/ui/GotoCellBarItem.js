@@ -65,7 +65,7 @@ function GotoCellBarItem( { gotoCellByIndex } ){
     };
 
     const inputKeyDownHandler=(e)=>{
-        if(e.keyCode == 13){
+        if(e.keyCode === 13){
             handleSubmit();
         }
     }
