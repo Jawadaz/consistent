@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useContext } from 'react'
 import ProjectContext from "../context/ProjectContext";
 import FilterContext from "../context/FilterContext";
+import { TextField } from "@mui/material";
 
 const Input = styled('input')({
   display: 'none',
@@ -24,7 +25,7 @@ function NavigationBar() {
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [isFilePicked, setIsFilePicked] = useState(false);
 
-    const { loadProject } = useContext(ProjectContext);
+    const { loadProject , projectData, setProjectTitle} = useContext(ProjectContext);
     const { clearFilterQuery } = useContext(FilterContext);
 
     const navigate = useNavigate();
@@ -151,6 +152,15 @@ function NavigationBar() {
                 >
                     CONSISTENT
                 </Typography>
+                <TextField id="project-title" 
+                    color='primary'
+                    value={projectData.title}
+                    onChange={(e) => setProjectTitle(e.target.value)}
+                    sx={{ 
+                        flexGrow:1,
+                        my: 2, color: 'white', 
+                        display: { sm: 'flex', md: 'flex', lg: 'flex' }
+                    }}/>
                 { pages.map((page) =>
                 page.name==="Load" ?
                 <label 
