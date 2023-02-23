@@ -158,7 +158,8 @@ function NavigationBar() {
                     onChange={(e) => setProjectTitle(e.target.value)}
                     sx={{ 
                         flexGrow:1,
-                        my: 2, color: 'white', 
+                        my: 2, 
+                        input: {color: 'white', }, 
                         display: { sm: 'flex', md: 'flex', lg: 'flex' }
                     }}/>
                 { pages.map((page) =>
