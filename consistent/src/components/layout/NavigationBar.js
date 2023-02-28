@@ -64,6 +64,9 @@ function NavigationBar() {
         setSelectedFile(e.target.files[0]);
         setIsFilePicked(true);
         fileReader.readAsText(e.target.files[0]);
+        //Resetting the hidden input value, so consequent
+        //loading of the same file would trigger the onChange event
+        e.target.value = null;
     }
 
     fileReader.onload=(e) => {
