@@ -150,7 +150,7 @@ function NavigationBar() {
                 <Typography 
                     variant="h6" 
                     component="div" 
-                    sx={{ flexGrow: 1 }}
+                    sx={{ flexGrow: 0.25 }}
                     onClick={()=>navigate('/')}
                 >
                     CONSISTENT
@@ -160,9 +160,11 @@ function NavigationBar() {
                     value={projectData.title}
                     onChange={(e) => setProjectTitle(e.target.value)}
                     sx={{ 
-                        flexGrow:1,
-                        input: {color: 'white', }, 
-                        fontWeight: 'bolder',
+                        flexGrow:0.75,
+                        input: {color: 'white'}, 
+                        ml: 1,
+                        fontWeight: 'bold',
+                        fieldset: { borderColor: 'white'},
                         display: { sm: 'flex', md: 'flex', lg: 'flex' }
                     }}/>
                 { pages.map((page) =>
