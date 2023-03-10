@@ -25,7 +25,7 @@ function NavigationBar() {
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [isFilePicked, setIsFilePicked] = useState(false);
 
-    const { loadProject , projectData, setProjectTitle} = useContext(ProjectContext);
+    const { loadProject , projectData, setProjectTitle, isProjectLTR} = useContext(ProjectContext);
     const { clearFilterQuery } = useContext(FilterContext);
 
     const navigate = useNavigate();
@@ -159,7 +159,16 @@ function NavigationBar() {
                     color='primary'
                     value={projectData.title}
                     onChange={(e) => setProjectTitle(e.target.value)}
-                    sx={{ 
+                    dir={isProjectLTR?"ltr":"rtl"}
+                    sx={{
+                        "& .MuiOutlinedInput-root.Mui-focused": {
+                            "& > fieldset": {
+                            borderColor: 'white'
+                            }},
+                            "& .MuiOutlinedInput-root:hover": {
+                                "& > fieldset": {
+                                borderColor: 'white'
+                        }},
                         flexGrow:0.75,
                         input: {color: 'white'}, 
                         ml: 1,
