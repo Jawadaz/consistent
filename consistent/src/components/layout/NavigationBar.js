@@ -14,6 +14,8 @@ import { useState, useContext } from 'react'
 import ProjectContext from "../context/ProjectContext";
 import FilterContext from "../context/FilterContext";
 import { TextField } from "@mui/material";
+import { matchPath } from 'react-router';
+import { useLocation } from 'react-router-dom'
 
 const Input = styled('input')({
   display: 'none',
@@ -37,6 +39,14 @@ function NavigationBar() {
 
         setIsDrawerOpen(open);
     };
+
+    
+    const location = useLocation();
+    const isOneProjectPage = matchPath({
+        path: '/projects/:id'
+    }, 
+    location.pathname);
+    console.log("isOneProjectPage: "+ isOneProjectPage);
 
     const pages = [
         {
@@ -147,15 +157,15 @@ function NavigationBar() {
                         </Box>
                     </Drawer>
                 </IconButton>
-                <Typography 
+                {!isOneProjectPage &&  <Typography 
                     variant="h6" 
                     component="div" 
-                    sx={{ flexGrow: 0.25 }}
+                    sx={{ flexGrow: 1}}
                     onClick={()=>navigate('/')}
                 >
                     CONSISTENT
-                </Typography>
-                <TextField id="project-title" 
+                </Typography>}
+                {isOneProjectPage && <TextField id="project-title" 
                     color='primary'
                     value={projectData.title}
                     onChange={(e) => setProjectTitle(e.target.value)}
@@ -169,13 +179,14 @@ function NavigationBar() {
                                 "& > fieldset": {
                                 borderColor: 'white'
                         }},
-                        flexGrow:0.75,
                         input: {color: 'white'}, 
                         ml: 1,
+                        flexGrow: 1,
                         fontWeight: 'bold',
-                        fieldset: { borderColor: 'white'},
-                        display: { sm: 'flex', md: 'flex', lg: 'flex' }
-                    }}/>
+                        fieldset: { borderColor: 'transparent'},
+                        display: { sm: 'flex', md: 'flex', lg: 'flex' },
+                        size: "small"
+                    }}/>}
                 { pages.map((page) =>
                 page.name==="Load" ?
                 <label 
