@@ -57,6 +57,7 @@ export const ProjectContextProvider=( {children} )=>{
   useEffect(() => {
     //a hook to store all states as soon as any changes
     let anObject = {
+      projectData: projectData,
       projectCells: projectCells,
       projectCorpus: projectCorpus,
       isProjectLocked: isProjectLocked,
@@ -81,16 +82,17 @@ export const ProjectContextProvider=( {children} )=>{
     isUndoDisabled,
     isRedoDisabled,
     isProjectLTR,
+    projectData,
   ]);
 
-  useEffect(() => {
-    let anObject = {
-      projectData: projectData};
-      console.log("Storing data: Project Data");
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(anObject));
-    },[
-        projectData
-    ])
+//   useEffect(() => {
+//     let anObject = {
+//       projectData: projectData};
+//       console.log("Storing data: Project Data");
+//       localStorage.setItem(STORAGE_KEY, JSON.stringify(anObject));
+//     },[
+//         projectData
+//     ])
 
     const updateProjectCells = (cells) => {
         setProjectCells(cells);

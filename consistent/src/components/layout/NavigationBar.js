@@ -180,7 +180,6 @@ function NavigationBar() {
                                 borderColor: 'white'
                         }},
                         input: {color: 'white'}, 
-                        ml: 1,
                         flexGrow: 1,
                         fontWeight: 'bold',
                         fieldset: { borderColor: 'transparent'},
