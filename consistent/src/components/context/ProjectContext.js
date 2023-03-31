@@ -278,6 +278,17 @@ export const ProjectContextProvider=( {children} )=>{
         });
      };
 
+     const setProjectTagColor = (tag,color) => {
+        console.log("Setting project tag color> " + tag + " to " + color)
+        setProjectTags(projectTags.map((t) => {
+            if (t === tag)
+                return {...t, color: color};
+            else 
+                return t;
+        }));
+     };
+
+
 
     //Cells stuff
     const addEmptyCell = () => {
@@ -474,7 +485,8 @@ export const ProjectContextProvider=( {children} )=>{
             moveActiveCellDown,
             saveAsClick,
             loadProject,
-            setProjectTitle
+            setProjectTitle,
+            setProjectTagColor
 
         }}
         >
