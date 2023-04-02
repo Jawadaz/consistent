@@ -2,7 +2,11 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Chip } from '@mui/material';
 import Box from "@mui/material/Box";
 
-export function ProjectSingleTag({tag, handleTagClick, handleTagDelete}){
+import ProjectContext from '../context/ProjectContext';
+import { useContext } from 'react';
+
+export function ProjectSingleTag({tag, handleTagClick, handleTagDelete}){    
+    const { tagColorMapping } = useContext(ProjectContext);
 
     return  (<Box
         sx={{
@@ -12,8 +16,18 @@ export function ProjectSingleTag({tag, handleTagClick, handleTagDelete}){
         key={tag.id}                            
     >
     <Chip 
-        size="small" 
-        style={{backgroundColor:tag.color?tag.color:"primary"}} 
+        sx= {{
+                "& .MuiChip-deleteIcon": {
+                    display: "none"
+                  },
+                  "&:hover": {
+                    "& .MuiChip-deleteIcon": {
+                      display: "block"
+                    }
+                  }
+        }}
+        size="small"
+        style={{backgroundColor:tagColorMapping[tag.id]?tagColorMapping[tag.id]:"primary"}} 
         key={tag.id} 
         label={tag.text}
         clickable={true}

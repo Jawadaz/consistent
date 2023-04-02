@@ -10,7 +10,7 @@ import TextField from "@mui/material/TextField";
 
 const CellTagsMU = ( {cell, isActive, updateCellTags } ) => {
 
-    const { projectTags } = useContext(ProjectContext);
+    const { projectTags, tagColorMapping } = useContext(ProjectContext);
     const [tags, setTags] = useState(cell.tags);
     const [suggestions, setSuggestions] = useState(
         projectTags.filter(
@@ -110,7 +110,7 @@ const CellTagsMU = ( {cell, isActive, updateCellTags } ) => {
                                 size="small" 
                                 key={tag.id} 
                                 label={tag.text} 
-                                color={tag.color?tag.color:"primary"}
+                                style={{backgroundColor:tagColorMapping[tag.id]?tagColorMapping[tag.id]:"primary"}} 
                                 onDelete={ ()=>handleDelete(tag) }
                             />
                         </Box>
@@ -198,7 +198,8 @@ const CellTagsMU = ( {cell, isActive, updateCellTags } ) => {
                             }}
                             key={tag.id}                            
                         >
-                            <Chip size="small" key={tag.id} label={tag.text} color={tag.color?tag.color:"primary"}/>
+                            <Chip size="small" key={tag.id} label={tag.text} 
+                                style={{backgroundColor:tagColorMapping[tag.id]?tagColorMapping[tag.id]:"primary"}} />
                         </Box>
                         );
                     }

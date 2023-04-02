@@ -44,6 +44,7 @@ export const ProjectContextProvider=( {children} )=>{
   const [isProjectLocked, setIsProjectLocked] = useState(stateFromStorage("isProjectLocked", false));
 
   const [projectTags, setProjectTags] = useState(stateFromStorage("projectTags", []));
+  const [tagColorMapping, setTagColorMapping] = useState(stateFromStorage("tagColorMapping", {}));
   const [activeCellId, setActiveCellId] = useState(stateFromStorage("activeCellId"));
     // const [ projectFilename, setProjectFilename ] = useState(null);
 
@@ -62,6 +63,7 @@ export const ProjectContextProvider=( {children} )=>{
       projectCorpus: projectCorpus,
       isProjectLocked: isProjectLocked,
       projectTags: projectTags,
+      tagColorMapping: tagColorMapping,
       activeCellId: activeCellId,
       projectCellsHistory: projectCellsHistory,
       historyIndex: historyIndex,
@@ -83,6 +85,7 @@ export const ProjectContextProvider=( {children} )=>{
     isRedoDisabled,
     isProjectLTR,
     projectData,
+    tagColorMapping,
   ]);
 
 //   useEffect(() => {
@@ -280,12 +283,9 @@ export const ProjectContextProvider=( {children} )=>{
 
      const setProjectTagColor = (tag,color) => {
         console.log("Setting project tag color> " + tag + " to " + color)
-        setProjectTags(projectTags.map((t) => {
-            if (t === tag)
-                return {...t, color: color};
-            else 
-                return t;
-        }));
+        setTagColorMapping(
+            {...tagColorMapping,
+                [tag.id]: color});
      };
 
 
@@ -424,7 +424,6 @@ export const ProjectContextProvider=( {children} )=>{
                 cell => cell.tags
             ).flat();
             const newTags = [...new Map(allTags.map(o => [o.id, o])).values()];
-            
             newTags.sort(function(a,b){
                 if(a.id.toUpperCase()>b.id.toUpperCase()){
                     return 1;
@@ -452,6 +451,7 @@ export const ProjectContextProvider=( {children} )=>{
             // projectFilename,
           
             projectTags,
+            tagColorMapping,
             projectCorpus,
             getCellsContentAsText,
             createCellsFromText,

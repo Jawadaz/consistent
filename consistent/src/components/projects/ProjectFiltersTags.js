@@ -15,7 +15,7 @@ import { FaLess } from 'react-icons/fa';
 
 
 function ProjectFiltersTags( {showTagsButton} ){
-    const { projectTags } = useContext(ProjectContext);
+    const { projectTags,tagColorMapping } = useContext(ProjectContext);
     const { filterQuery, 
             // addTagsToFilterQuery, 
             // removeTagsFromFilterQuery, 
@@ -74,7 +74,7 @@ function ProjectFiltersTags( {showTagsButton} ){
                                 // variant="outlined" 
                                 label={option} 
                                 size="small"  
-                                color="primary"
+                                style={{backgroundColor:tagColorMapping[option]?tagColorMapping[option]:"primary"}} 
                                 {...getTagProps({ index })} 
                             />
                         );
