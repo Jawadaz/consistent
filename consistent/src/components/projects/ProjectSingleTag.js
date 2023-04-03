@@ -37,7 +37,7 @@ export function ProjectSingleTag({tag, handleTagClick, handleTagDelete}){
             }
         }
         deleteIcon={<KeyboardArrowDownIcon/>}
-        onDelete={(e)=>handleTagDelete(tag)}
+        onDelete={(e)=>handleTagDelete(e, tag)}
     />
     </Box>);
 }

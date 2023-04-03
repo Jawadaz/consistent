@@ -2,12 +2,13 @@ import { useContext, useState} from 'react'
 import ProjectContext from '../context/ProjectContext';
 import FilterContext from '../context/FilterContext';
 import { ProjectSingleTag } from './ProjectSingleTag';
-import { SwatchesPicker} from 'react-color';
+import { CirclePicker } from 'react-color';
 
 import Box from "@mui/material/Box";
 
 function ProjectTags( props ){
     const [colorPickerTag, setColorPickerTag] = useState(null);
+    const [colorPickerPosition, setColorPickerPosition] = useState({x:0, y:0});
     const { projectTags, setProjectTagColor } = useContext(ProjectContext);
     const { addTagsToFilterQuery } = useContext(FilterContext);
 
@@ -16,25 +17,23 @@ function ProjectTags( props ){
         addTagsToFilterQuery([{id:tag, text:tag}]);
     };
 
-    const handleTagDelete = (e) => {
-        setColorPickerTag(e);
+    const handleTagDelete = (e, tag) => {
+        setColorPickerPosition({x:e.clientX,y:e.clientY});
+        setColorPickerTag(tag);
     }
-
-    const handleClosePicker = ()=> {
-        console.log("Handle Close Picker");
-        setColorPickerTag(null);
-    }
-
+    
     const handleColorChange = (color) => {
-        console.log(color);
         setProjectTagColor(colorPickerTag, color.hex);
         setColorPickerTag(null);
-        console.log("Handle Color Change");
     }
 
     const popover = {
         position: 'absolute',
         zIndex: '2',
+        top: colorPickerPosition.y, 
+        left: colorPickerPosition.x,
+        backgroundColor: 'gray',
+        padding: '5px',
       }
       const cover = {
         position: 'fixed',
@@ -69,12 +68,11 @@ function ProjectTags( props ){
                         );
                     }
                 )
-                
             }
             {colorPickerTag &&
-                    (<div style={ popover }>
-                    <div style={ cover } onClick={handleClosePicker}/>
-                    <SwatchesPicker  
+                    (<div style={ popover}>
+                    <div style={ cover } onClick={()=>setColorPickerTag(null)}/>
+                    <CirclePicker  
                         color={colorPickerTag.color}
                         onChangeComplete={handleColorChange }/>
                     </div>)}
