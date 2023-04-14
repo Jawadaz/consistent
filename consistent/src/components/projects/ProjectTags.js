@@ -1,10 +1,15 @@
-import { useContext, useState} from 'react'
+import { useContext, useState, useRef} from 'react'
 import ProjectContext from '../context/ProjectContext';
 import FilterContext from '../context/FilterContext';
 import { ProjectSingleTag } from './ProjectSingleTag';
 import { CirclePicker } from 'react-color';
 
 import Box from "@mui/material/Box";
+
+//obtaining these values dynamically would allow easier configurability of the color picker
+//default values obtained from https://casesandberg.github.io/react-color/
+const circlePickerWidth = 252;
+const circlePickerHeight = 124;
 
 function ProjectTags( props ){
     const [colorPickerTag, setColorPickerTag] = useState(null);
@@ -18,7 +23,11 @@ function ProjectTags( props ){
     };
 
     const handleTagDelete = (e, tag) => {
-        setColorPickerPosition({x:e.clientX,y:e.clientY});
+        const targetX = (window.innerWidth > e.clientX + circlePickerWidth)
+            ?e.clientX:e.clientX - circlePickerWidth;
+        const targetY = (window.innerHeight > e.clientY + circlePickerHeight)
+            ?e.clientY:e.clientY - circlePickerHeight;
+        setColorPickerPosition({x:targetX,y:targetY});
         setColorPickerTag(tag);
     }
     
